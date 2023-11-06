@@ -15,7 +15,7 @@ int main()
     rectangle.setFillColor(Color::Green);
     rectangle2.setFillColor(Color::Blue);
     rectangle.setPosition(x, y);
-    rectangle2.setPosition(x+100.0f, y+100.0f);
+    rectangle2.setPosition(x + 100.0f, y + 100.0f);
     while (window.isOpen())
     {
         Event event;
