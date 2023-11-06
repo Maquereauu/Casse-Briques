@@ -1,49 +1,29 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-using namespace sf;
-using namespace std;
+#include "GameObject.h"
 
 int main()
 {
-    float x = 50;
-    float y = 50;
-    RenderWindow window(VideoMode(1920, 1080), "SFML works!");
-    //CircleShape shape(50.f);
-    //shape.setFillColor(Color::Green);
-    RectangleShape rectangle(Vector2f(100.0f, 100.0f));
-    RectangleShape rectangle2(Vector2f(100.0f, 100.0f));
-    rectangle.setFillColor(Color::Green);
-    rectangle2.setFillColor(Color::Blue);
-    rectangle.setPosition(x, y);
-    rectangle2.setPosition(x + 100.0f, y + 100.0f);
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
+
+    GameObject o_gameObject = GameObject(100.f, 100.f, 50.f, 50.f);
+    GameObject o_gameObject2 = GameObject(50.0, 100.f, 100.f);
+
     while (window.isOpen())
     {
-        Event event;
+        sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
+            if (event.type == sf::Event::Closed)
+            {
                 window.close();
-        }
-        if (x <= 1820)
-        {
-            x++;
-        }
-        if (y <= 980)
-        {
-            y++;
-        }
-        rectangle.setPosition(x, y);
-        if (x == 1821 && y == 981)
-        {
-            x = 50;
-            y = 50;
-            rectangle.setPosition(50, 50);
-        }
-        window.clear();
-        window.draw(rectangle);
-        window.draw(rectangle2);
-        window.display();
-    }
 
+            }
+            window.clear();
+            window.draw(o_gameObject2.getShape());
+            window.draw(o_gameObject.getShape());
+            window.display();
+        }
+    }
     return 0;
 }
