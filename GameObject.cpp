@@ -1,11 +1,12 @@
 #include "GameObject.h"
 
-GameObject::GameObject(float sizeX, float sizeY, float posX, float posY)
+GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float speed)
 {
 	_sizeX = sizeX;
 	_sizeY = sizeY;
 	_posX = posX;
 	_posY = posY;
+	_speed = speed;
 	
 	int* i = new int(5);
 
@@ -16,11 +17,12 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY)
 	_graphic = rectangle;
 }
 
-GameObject::GameObject(float radius, float posX, float posY)
+GameObject::GameObject(float radius, float posX, float posY, float speed)
 {
 	_radius = radius;
 	_posX = posX;
 	_posY = posY;
+	_speed = speed;
 
 	sf::CircleShape* circle = new sf::CircleShape(_radius);
 	circle->setFillColor(sf::Color::Red);
@@ -32,4 +34,11 @@ GameObject::GameObject(float radius, float posX, float posY)
 sf::Shape& GameObject::getShape() 
 {
 	return *_graphic;
+}
+
+void GameObject::moveShape(float deltaTime, std::vector<float> direction)
+{
+	_posX = _posX + ( direction[0] * deltaTime) * _speed;
+	_posY = _posY + (direction[1] * deltaTime) * _speed;
+	_graphic->setPosition(_posX, _posY);
 }
