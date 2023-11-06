@@ -42,3 +42,19 @@ void GameObject::moveShape(float deltaTime, std::vector<float> direction)
 	_posY = _posY + (direction[1] * deltaTime) * _speed;
 	_graphic->setPosition(_posX, _posY);
 }
+
+void GameObject::rotateShape(float deltaTime, float rotateDegree)
+{
+	_rotate += (rotateDegree * deltaTime);
+	_graphic->setRotation(_rotate);
+}
+
+void GameObject::setOriginPoint()
+{
+	_graphic->setOrigin(_sizeX / 2.f , _sizeY / 2.f);
+}
+
+void GameObject::setOriginPointOnBase()
+{
+	_graphic->setOrigin(_sizeX / 2.f, _sizeY);
+}

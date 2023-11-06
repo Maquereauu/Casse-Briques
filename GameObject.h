@@ -13,6 +13,7 @@ private :
 	float _posY;
 	float _radius;
 	float _speed;
+	float _rotate;
 	std::string _geometry;
 	sf::Shape* _graphic;
 
@@ -24,5 +25,8 @@ public:
 	GameObject(float radius, float posX, float posY, float speed);
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, std::vector<float> direction);
+	void rotateShape(float deltaTime, float rotateDegree);
+	void setOriginPoint();
+	void setOriginPointOnBase();
 };
 

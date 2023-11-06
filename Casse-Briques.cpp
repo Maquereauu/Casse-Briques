@@ -9,8 +9,10 @@ int main()
     sf::Clock o_clock;
     float deltaTime = 0.f;
 
-    GameObject o_gameObject = GameObject(100.f, 100.f, 50.f, 50.f, 90.f);
+    GameObject o_gameObject = GameObject(100.f, 100.f, 100.f, 100.f, 90.f);
     GameObject o_gameObject2 = GameObject(50.0, 100.f, 100.f, 90.f);
+
+    o_gameObject.setOriginPointOnBase();
 
     while (window.isOpen())
     {
@@ -28,7 +30,8 @@ int main()
                 }
 
                 // UPDATE
-                o_gameObject.moveShape(deltaTime, Math::normalizeVector({ 1.f, 1.f }));
+                o_gameObject2.moveShape(deltaTime, Math::normalizeVector({ 1.f, 1.f }));
+                o_gameObject.rotateShape(deltaTime, 45.f);
 
                 // DRAW
                 window.clear();
