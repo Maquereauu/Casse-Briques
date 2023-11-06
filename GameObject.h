@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <iostream>
 
 class GameObject
 {
@@ -23,6 +24,7 @@ private :
 public:
 	GameObject(float sizeX, float sizeY, float posX, float posY, float speed);
 	GameObject(float radius, float posX, float posY, float speed);
+	GameObject();
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, std::vector<float> direction);
 	void rotateShape(float deltaTime, float rotateDegree);
