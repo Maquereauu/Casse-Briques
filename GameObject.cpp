@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include <vector>
 
 GameObject::GameObject(float sizeX, float sizeY, float posX, float posY)
 {
@@ -32,4 +33,44 @@ GameObject::GameObject(float radius, float posX, float posY)
 sf::Shape& GameObject::getShape() 
 {
 	return *_graphic;
+}
+
+
+bool GameObject::isColliding(GameObject object) 
+{
+	if (_sizeX > object._sizeX) {
+		if (object._posX >= _posX && object._posX <= _posX + _sizeX)
+		{
+			if (_sizeY > object._sizeY) {
+				if (object._posY >= _posY && object._posY <= _posY + _sizeY) {
+					return true;
+				}
+			}
+			else {
+				if (object._posY + object._sizeY >= _posY && object._posY + object._sizeY <= _posY) {
+					return true;
+				}
+			}
+		}
+	}
+	else {
+		if (object._posX + object._sizeX >= _posX && object._posX + object._sizeX <= _posX)
+		{
+			return true;
+		}
+	}
+	if (_sizeY > object._sizeY) {
+
+	}
+	else {
+
+	}
+	return false;
+}
+
+GameObject GameObject::collide(std::vector<GameObject> list)
+{
+	for (int i = 0; i < list.size(); i++) {
+		isColliding(list[i]);
+	}
 }

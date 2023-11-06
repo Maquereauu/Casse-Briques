@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-
+#include <vector>
 class GameObject
 {
 private :
@@ -18,5 +18,7 @@ public:
 	GameObject(float sizeX, float sizeY, float posX, float posY);
 	GameObject(float radius, float posX, float posY);
 	sf::Shape& getShape();
+	bool isColliding(GameObject object);
+	GameObject collide(std::vector<GameObject> list);
 };
 
