@@ -22,6 +22,7 @@ namespace Math
 		bool compareVector(Math::Vector2& vectorResult);
 		float scalarProduct(Math::Vector2& vector);
 		float getAngle(Math::Vector2& vector);
+		float reBoundAngle(Math::Vector2& ballVector);
 	};
 };
 

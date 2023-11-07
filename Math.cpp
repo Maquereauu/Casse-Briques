@@ -50,5 +50,11 @@ float Math::Vector2::getAngle(Math::Vector2& vector)
 
 	float radian = acos(normalVector1.scalarProduct(normalVector2));
 
-	return  radian * (180 / M_PI);
+	return  radian * (180 / M_PI); // envoie l'angle en degrès
+}
+
+float Math::Vector2::reBoundAngle(Math::Vector2& ballVector)
+{
+	/* Rebond entre la surface collide et la balle */
+	float startAngle = this->getAngle(ballVector);
 }
