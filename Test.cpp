@@ -30,3 +30,23 @@ void Test::normalizeVector()
 
 	std::cout << "Test Normalize Vector : " << (start.compareVector(start) ? "SUCCESS" : "FAILURE") << std::endl;
 }
+
+void Test::scalarProduct()
+{
+	Math::Vector2 vector1 = Math::Vector2(2, 1);
+	Math::Vector2 vector2 = Math::Vector2(3, 2);
+
+	float result = 8;
+
+	std::cout << "Test Product scalar : " << (result == vector1.scalarProduct(vector2) ? "SUCCESS" : "FAILURE") << std::endl;
+}
+
+void Test::getAngle()
+{
+	Math::Vector2 vector1 = Math::Vector2(2, 2);
+	Math::Vector2 vector2 = Math::Vector2(0, 3);
+
+	float result = 45.f;
+
+	std::cout << "Test Get Angle : " << (result == vector1.getAngle(vector2) ? "SUCCESS" : "FAILURE") << std::endl;
+}

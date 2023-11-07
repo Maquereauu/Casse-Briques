@@ -10,5 +10,7 @@ public:
 
 	void fileReader();
 	void normalizeVector();
+	void scalarProduct();
+	void getAngle();
 };
 

@@ -11,6 +11,8 @@ void integrationTest()
 
     o_test.fileReader();
     o_test.normalizeVector();
+    o_test.scalarProduct();
+    o_test.getAngle();
 }
 
 void integrationGame()
@@ -20,6 +22,9 @@ void integrationGame()
     float deltaTime = 0.f;
 
     GameObject o_gameObject = GameObject(100.f, 100.f, 100.f, 100.f, 90.f);
+    GameObject o_gameObject5 = GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
+
+
     GameObject o_gameObject2 = GameObject(50.0, 100.f, 100.f, 90.f);
     GameObject o_gameObject3 = GameObject();
     GameObject o_gameObject4 = GameObject(100.f, 100.f, 1000.f, 50.f, 90.f);
@@ -47,13 +52,14 @@ void integrationGame()
         }
             // UPDATE
             o_gameObject2.moveShape(deltaTime, vector1);
-            //o_gameObject.rotateShape(deltaTime, 45.f);
+            o_gameObject.rotateShape(deltaTime, 45.f);
             o_gameObject3.moveShape(deltaTime, vector2);
 
             // DRAW
             window.clear();
             window.draw(o_gameObject2.getShape());
             window.draw(o_gameObject.getShape());
+            window.draw(o_gameObject5.getShape());
             window.draw(o_gameObject3.getShape());
             window.draw(o_gameObject4.getShape());
             window.display();
@@ -64,8 +70,8 @@ void integrationGame()
 
 int main()
 {
-    //integrationTest();
-    integrationGame();
+    integrationTest();
+    //integrationGame();
 
     return 0;
 }

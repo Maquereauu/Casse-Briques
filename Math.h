@@ -2,7 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 
 namespace Math
@@ -19,6 +20,8 @@ namespace Math
 		Math::Vector2 getNormalizeVector();
 		void normalizeVector();
 		bool compareVector(Math::Vector2& vectorResult);
+		float scalarProduct(Math::Vector2& vector);
+		float getAngle(Math::Vector2& vector);
 	};
 };
 

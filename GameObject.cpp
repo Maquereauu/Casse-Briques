@@ -89,5 +89,5 @@ void GameObject::setOriginPoint()
 
 void GameObject::setOriginPointOnBase()
 {
-	_graphic->setOrigin(_sizeX / 2.f, _sizeY);
+	_graphic->setOrigin(_sizeX / 2.f,  (3 *_sizeY) / 4);
 }

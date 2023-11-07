@@ -37,3 +37,18 @@ bool Math::Vector2::compareVector(Math::Vector2& vectorResult)
 	}
 	return false;
 }
+
+float Math::Vector2::scalarProduct(Math::Vector2& vector)
+{
+	return _x * vector._x + _y * vector._y;
+}
+
+float Math::Vector2::getAngle(Math::Vector2& vector)
+{
+	Math::Vector2 normalVector1 = this->getNormalizeVector();
+	Math::Vector2 normalVector2 = vector.getNormalizeVector();
+
+	float radian = acos(normalVector1.scalarProduct(normalVector2));
+
+	return  radian * (180 / M_PI);
+}
