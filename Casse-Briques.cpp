@@ -2,8 +2,17 @@
 #include <iostream>
 #include "GameObject.h"
 #include "Math.h"
+#include "FileReader.h"
+#include "Test.h"
 
-int main()
+void integrationTest()
+{
+    Test o_test = Test();
+
+    o_test.fileReader();
+}
+
+void integrationGame()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
     sf::Clock o_clock;
@@ -16,33 +25,39 @@ int main()
     std::vector<GameObject> list = { o_gameObject,o_gameObject4 };
     o_gameObject.setOriginPointOnBase();
 
+    std::vector<float> direction = Math::transformVector2ToVector(Math::normalizeVector(Math::Vector2(1.f, 1.f)));
+
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
+               // UPDATE
+              o_gameObject2.moveShape(deltaTime, Math::normalizeVector({ 1.f, 1.f }));
+              //o_gameObject.rotateShape(deltaTime, 45.f);
+              o_gameObject3.moveShape(deltaTime, Math::normalizeVector({ 2.f, 0 }));
 
+              // DRAW
+              window.clear();
+              window.draw(o_gameObject2.getShape());
+              window.draw(o_gameObject.getShape());
+              window.draw(o_gameObject3.getShape());
+              window.draw(o_gameObject4.getShape());
+              window.display();
+              o_gameObject3.collide(list);
+              deltaTime = o_clock.restart().asSeconds();
             // EVENT 
             if (event.type == sf::Event::Closed)
             {
-                window.close();
+                window.close();        
+      }
+  }
+ }
 
-            }
-        }
-        // UPDATE
-        o_gameObject2.moveShape(deltaTime, Math::normalizeVector({ 1.f, 1.f }));
-        //o_gameObject.rotateShape(deltaTime, 45.f);
-        o_gameObject3.moveShape(deltaTime, Math::normalizeVector({ 2.f, 0 }));
+int main()
+{
+    integrationTest();
+    //integrationGame();
 
-        // DRAW
-        window.clear();
-        window.draw(o_gameObject2.getShape());
-        window.draw(o_gameObject.getShape());
-        window.draw(o_gameObject3.getShape());
-        window.draw(o_gameObject4.getShape());
-        window.display();
-        o_gameObject3.collide(list);
-        deltaTime = o_clock.restart().asSeconds();
-    }
     return 0;
 }
