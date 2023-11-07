@@ -50,5 +50,7 @@ Math::Vector2 Math::calculVectorFromCoordinates(float startX, float startY, floa
 {
 	Math::Vector2 vector = Math::Vector2(finishX - startX, finishY - startY);
 
-	Math::Vector2 normalVector = Math::normalizeVector(vector);
+	Math::Vector2 unitaryVector = Math::unitaryVector(vector);
+
+	return unitaryVector;
 }
