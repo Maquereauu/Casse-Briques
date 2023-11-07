@@ -7,9 +7,13 @@
 
 class FileReader
 {
+private:
+	std::vector<std::vector<int>> _tabFile;
+
 public :
 	FileReader();
 	
-	std::vector<std::vector<int>> readFile(std::string path);
+	void readFile(std::string path);
+	bool compareFileRead(std::vector<std::vector<int>> startFile);
 };
 

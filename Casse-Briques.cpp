@@ -3,8 +3,16 @@
 #include "GameObject.h"
 #include "Math.h"
 #include "FileReader.h"
+#include "Test.h"
 
-int main()
+void integrationTest()
+{
+    Test o_test = Test();
+
+    o_test.fileReader();
+}
+
+void integrationGame()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
     sf::Clock o_clock;
@@ -15,9 +23,7 @@ int main()
 
     o_gameObject.setOriginPointOnBase();
 
-    FileReader o_file = FileReader();
 
-    o_file.readFile("Files/test.txt");
 
     while (window.isOpen())
     {
@@ -49,5 +55,12 @@ int main()
 
         }
     }
+}
+
+int main()
+{
+    integrationTest();
+    //integrationGame();
+
     return 0;
 }

@@ -3,15 +3,14 @@
 
 FileReader::FileReader(){};
 
-std::vector<std::vector<int>> FileReader::readFile(std::string path)
+void FileReader::readFile(std::string path)
 {
     // 5 colonnes dans les txt
     // 16 character par colonne dans les txt
 
     std::fstream newfile;
-    std::vector<std::vector<int>> tab;
     std::string result = "";
-    tab.resize(5);
+    _tabFile.resize(5);
 
     int i = 0;
     int j = 0;
@@ -20,43 +19,46 @@ std::vector<std::vector<int>> FileReader::readFile(std::string path)
     if (newfile.is_open()) { //checking whether the file is open
         std::string tp;
         while (getline(newfile, tp)) { //read data from file object and put it into string.
-            /*std::cout << tp << std::endl;*/ //print the data of the string
-            result += tp;
+            result += tp; // incrémentation d'une string à partir du fichier txt
         }
     }
     newfile.close(); //close the file object.
 
+
+    /* incrémentation du tableau à parti des valeurs présentes dans le fichier txt */
     while (i < 5)
     {
         if (result[j] == *" ")
         {
-            tab[i][j] = 0;
+            _tabFile[i].push_back(0);
         }
         else if (result[j] == *"&")
         {
-            tab[i][j] = -1;
+            _tabFile[i].push_back(- 1);
             i++;
-            j = 0;
         }
         else
         {
-            tab[i][j] = std::stoi(&result[j]);
+           _tabFile[i].push_back(result[j] - 48);
         }
         j++;
     }
-   
 
+}
+
+
+bool FileReader::compareFileRead(std::vector<std::vector<int>> startFile)
+{
+    /* Comparaison entre deux tableaux des valeurs enregistrer depuis un fichier txt */
     for (int i = 0; i < 5; i++)
     {
         for (int j = 0; j < 16; j++)
         {
-            std::cout << tab[i][j] << " ";
+            if (_tabFile[i][j] != startFile[i][j])
+            {
+                return false;
+            }
         }
-        std::cout << std::endl;
-        std::cout << "pass";
-        std::cout << std::endl;
     }
-
-
-    return tab;
+    return true;
 }
