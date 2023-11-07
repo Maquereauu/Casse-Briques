@@ -3,8 +3,6 @@
 
 namespace Math
 {
-	std::vector<float> normalizeVector(std::vector<float> vector);
-
 	class Vector2
 	{
 	private:
@@ -20,5 +18,7 @@ namespace Math
 		void setY(float y);
 		void setAll(float x, float y);
 	};
+
+	std::vector<float> normalizeVector(std::vector<float> vector);
 };
 
