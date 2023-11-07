@@ -1,29 +1,24 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include <iostream>
 #include <vector>
+
+
 
 namespace Math
 {
-	class Vector2
+	class Vector2 : public sf::Vector2f
 	{
-	private:
-		float _x; 
-		float _y;
-
 	public:
+		float& _x;
+		float& _y;
+
 		Vector2(float x, float y);
 
-		float getX();
-		float getY();
-		void setX(float x);
-		void setY(float y);
 		void setAll(float x, float y);
+		Math::Vector2 getNormalizeVector();
+		void normalizeVector();
+		bool compareVector(Math::Vector2& vectorResult);
 	};
-
-	std::vector<float> transformVector2ToVector(Math::Vector2 vector);
-
-	Math::Vector2 normalizeVector(Math::Vector2 vector);
-	Math::Vector2 unitaryVector(Math::Vector2 vector);
-
-	Math::Vector2 calculVectorFromCoordinates(float startX, float startY, float finishX, float finishY);
 };
 

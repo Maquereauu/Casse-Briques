@@ -8,13 +8,16 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_posY = posY;
 	_speed = speed;
 	
-	int* i = new int(5);
-
 	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(_sizeX, _sizeY));
 	rectangle->setFillColor(sf::Color::Blue);
 	rectangle->setPosition(_posX, _posY);
 	
 	_graphic = rectangle;
+
+	sf::Vector2f v;
+	v.x;
+	v.y;
+
 }
 
 GameObject::GameObject(float radius, float posX, float posY, float speed)
@@ -31,7 +34,7 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 	_graphic = circle;
 }
 
-GameObject::GameObject() : GameObject(100.f, 100.f, 100.f, 100.f, 90.f)
+GameObject::GameObject() : GameObject(100.f, 100.f, 100.f, 100.f, 90.f) 
 {
 
 }
@@ -65,10 +68,11 @@ GameObject GameObject::collide(std::vector<GameObject> list)
 	return GameObject();
 }
 
-void GameObject::moveShape(float deltaTime, std::vector<float> direction)
+void GameObject::moveShape(float deltaTime, Math::Vector2 direction)
 {
-	_posX = _posX + ( direction[0] * deltaTime) * _speed;
-	_posY = _posY + (direction[1] * deltaTime) * _speed;
+	_posX = _posX + (direction.x * deltaTime) * _speed;
+	_posY = _posY + (direction.y * deltaTime) * _speed;
+	
 	_graphic->setPosition(_posX, _posY);
 }
 

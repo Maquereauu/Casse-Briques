@@ -19,3 +19,14 @@ void Test::fileReader()
 
 	std::cout << "Test File Reader : " << (o_file.compareFileRead(start) ? "SUCCESS" : "FAILURE" ) << std::endl;
 }
+
+void Test::normalizeVector()
+{
+	Math::Vector2 start = Math::Vector2(1 / sqrt(2), 1 / sqrt(2));
+
+	Math::Vector2 result = Math::Vector2(1, 1);
+
+	result.normalizeVector();
+
+	std::cout << "Test Normalize Vector : " << (start.compareVector(start) ? "SUCCESS" : "FAILURE") << std::endl;
+}

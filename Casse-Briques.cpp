@@ -10,6 +10,7 @@ void integrationTest()
     Test o_test = Test();
 
     o_test.fileReader();
+    o_test.normalizeVector();
 }
 
 void integrationGame()
@@ -27,8 +28,11 @@ void integrationGame()
 
     o_gameObject.setOriginPointOnBase();
 
-    std::vector<float> direction = Math::transformVector2ToVector(Math::normalizeVector(Math::Vector2(1.f, 1.f)));
-    std::vector<float> direction2 = Math::transformVector2ToVector(Math::normalizeVector(Math::Vector2(2.f, 0.f)));
+    Math::Vector2 vector1 = Math::Vector2(2.f, 1.f);
+    Math::Vector2 vector2 = Math::Vector2(1.f, 0.f);
+
+    vector1.normalizeVector();
+    vector2.normalizeVector();
 
     while (window.isOpen())
     {
@@ -42,9 +46,9 @@ void integrationGame()
             }
         }
             // UPDATE
-            o_gameObject2.moveShape(deltaTime, direction);
+            o_gameObject2.moveShape(deltaTime, vector1);
             //o_gameObject.rotateShape(deltaTime, 45.f);
-            o_gameObject3.moveShape(deltaTime, direction2);
+            o_gameObject3.moveShape(deltaTime, vector2);
 
             // DRAW
             window.clear();

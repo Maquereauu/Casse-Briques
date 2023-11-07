@@ -1,39 +1,17 @@
 #include "Math.h"
 
-Math::Vector2 Math::normalizeVector(Math::Vector2 vector)
+Math::Vector2 Math::Vector2::getNormalizeVector()
 {
-	float normal = pow(vector.getX(), 2) + pow(vector.getY(), 2);
+	float normal = pow(x, 2) + pow(y, 2);
 	normal = pow(normal, 1 / 2.f);
-	Math::Vector2 normalVector = Math::Vector2(vector.getX() / normal, vector.getY() / normal);
+	Math::Vector2 normalVector = Math::Vector2(x / normal, y / normal);
 
 	return normalVector;
 }
 
 
-Math::Vector2::Vector2(float x, float  y)
+Math::Vector2::Vector2(float x, float  y) : sf::Vector2f( x, y ), _x(this->x), _y(this->y)
 {
-	_x = x;
-	_y = y;
-};
-
-float Math::Vector2::getX()
-{
-	return _x;
-}
-
-float Math::Vector2::getY()
-{
-	return _y;
-}
-
-void Math::Vector2::setX(float x)
-{
-	_x = x;
-}
-
-void Math::Vector2::setY(float y)
-{
-	_y = y;
 }
 
 void Math::Vector2::setAll(float x, float y)
@@ -42,16 +20,20 @@ void Math::Vector2::setAll(float x, float y)
 	_y = y;
 }
 
-Math::Vector2 Math::calculVectorFromCoordinates(float startX, float startY, float finishX, float finishY)
+void Math::Vector2::normalizeVector()
 {
-	Math::Vector2 vector = Math::Vector2(finishX - startX, finishY - startY);
+	float normal = pow(_x, 2) + pow(_y, 2);
+	normal = pow(normal, 1 / 2.f);
 
-	Math::Vector2 unitaryVector = Math::normalizeVector(vector);
-
-	return unitaryVector;
+	_x = _x / normal;
+	_y = _y / normal;
 }
 
-std::vector<float> Math::transformVector2ToVector(Math::Vector2 vector)
+bool Math::Vector2::compareVector(Math::Vector2& vectorResult)
 {
-	return { vector.getX(), vector.getY() };
+	if (_x == vectorResult._x && _y == vectorResult._y)
+	{
+		return true;
+	}
+	return false;
 }
