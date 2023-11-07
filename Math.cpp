@@ -57,4 +57,5 @@ float Math::Vector2::reBoundAngle(Math::Vector2& ballVector)
 {
 	/* Rebond entre la surface collide et la balle */
 	float startAngle = this->getAngle(ballVector);
+	return 1.0;
 }

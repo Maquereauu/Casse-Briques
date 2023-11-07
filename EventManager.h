@@ -14,7 +14,6 @@ private:
 	EventManager();
 public:
 	std::map<std::string, event> _dict;
-	EventManager();
 	static void Initialize()
 	{
 		if (pInstance != nullptr)
