@@ -136,6 +136,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Casse-Briques.cpp" />
+    <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -144,6 +145,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Cannon.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Math.h" />

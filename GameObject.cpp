@@ -42,8 +42,17 @@ sf::Shape& GameObject::getShape()
 }
 
 
-bool GameObject::isColliding(GameObject object)
+bool GameObject::isColliding(const GameObject& object)
 {
+	int i = 0;
+
+	int* pi = &i;
+	*pi = 5;
+
+	int& ri = i;
+	ri = 5;
+
+
 	bool collidesX = (_posX + _sizeX >= object._posX) && (object._posX + object._sizeX >= _posX);
 
 	bool collidesY = (_posY + _sizeY >= object._posY) && (object._posY + object._sizeY >= _posY);
@@ -55,14 +64,14 @@ bool GameObject::isColliding(GameObject object)
 	return false;
 }
 
-GameObject GameObject::collide(std::vector<GameObject> list)
+GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
-		if (isColliding(list[i])) {
+		if (isColliding(*list[i])) {
 			return list[i];
 		}
 	}
-	return GameObject();
+	return nullptr;
 }
 
 void GameObject::moveShape(float deltaTime, std::vector<float> direction)

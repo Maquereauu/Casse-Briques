@@ -30,7 +30,7 @@ public:
 	void rotateShape(float deltaTime, float rotateDegree);
 	void setOriginPoint();
 	void setOriginPointOnBase();
-	bool isColliding(GameObject object);
-	GameObject collide(std::vector<GameObject> list);
+	bool isColliding(const GameObject& object);
+	GameObject* collide(const std::vector<GameObject*>& list);
 };
 
