@@ -1,10 +1,17 @@
 #include "Math.h"
 
-std::vector<float> Math::normalizeVector(std::vector<float> vector)
+Math::Vector2 Math::normalizeVector(Math::Vector2 vector)
 {
-	float normal = pow(vector[0], 2) + pow(vector[1], 2);
+	float normal = pow(vector.getX(), 2) + pow(vector.getY(), 2);
 	normal = pow(normal, 1 / 2.f);
-	return { vector[0] / normal, vector[1] / normal };
+	return { vector.getX() / normal, vector.getY() / normal };
+}
+
+Math::Vector2 Math::unitaryVector(Math::Vector2 vector)
+{
+	Math::Vector2 normalVector = Math::normalizeVector(vector);
+	Math::Vector2 unitaryVector = Math::Vector2(vector.getX() / normalVector.getX(), vector.getY() / normalVector.getY());
+	return unitaryVector;
 }
 
 Math::Vector2::Vector2(float x, float  y)
@@ -37,4 +44,11 @@ void Math::Vector2::setAll(float x, float y)
 {
 	_x = x;
 	_y = y;
+}
+
+Math::Vector2 Math::calculVectorFromCoordinates(float startX, float startY, float finishX, float finishY)
+{
+	Math::Vector2 vector = Math::Vector2(finishX - startX, finishY - startY);
+
+	Math::Vector2 normalVector = Math::normalizeVector(vector);
 }

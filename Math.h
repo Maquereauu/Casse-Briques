@@ -19,6 +19,9 @@ namespace Math
 		void setAll(float x, float y);
 	};
 
-	std::vector<float> normalizeVector(std::vector<float> vector);
+	Math::Vector2 normalizeVector(Math::Vector2 vector);
+	Math::Vector2 unitaryVector(Math::Vector2 vector);
+
+	Math::Vector2 calculVectorFromCoordinates(float startX, float startY, float finishX, float finishY);
 };
 
