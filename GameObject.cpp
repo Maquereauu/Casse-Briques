@@ -50,7 +50,6 @@ bool GameObject::isColliding(GameObject object)
 
 	if (collidesX && collidesY)
 	{
-		std::cout << "manstre" << std::endl;
 		return true;
 	}
 	return false;
