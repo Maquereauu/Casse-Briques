@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include "Math.h"
 
 class GameObject
 {
@@ -26,7 +27,7 @@ public:
 	GameObject(float radius, float posX, float posY, float speed);
 	GameObject();
 	sf::Shape& getShape();
-	void moveShape(float deltaTime, std::vector<float> direction);
+	void moveShape(float deltaTime, Math::Vector2 direction);
 	void rotateShape(float deltaTime, float rotateDegree);
 	void setOriginPoint();
 	void setOriginPointOnBase();
