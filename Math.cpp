@@ -9,13 +9,6 @@ Math::Vector2 Math::normalizeVector(Math::Vector2 vector)
 	return normalVector;
 }
 
-Math::Vector2 Math::unitaryVector(Math::Vector2 vector)
-{
-	Math::Vector2 normalVector = Math::normalizeVector(vector);
-	Math::Vector2 unitaryVector = Math::Vector2(vector.getX() / normalVector.getX(), vector.getY() / normalVector.getY());
-
-	return unitaryVector;
-}
 
 Math::Vector2::Vector2(float x, float  y)
 {
@@ -53,7 +46,7 @@ Math::Vector2 Math::calculVectorFromCoordinates(float startX, float startY, floa
 {
 	Math::Vector2 vector = Math::Vector2(finishX - startX, finishY - startY);
 
-	Math::Vector2 unitaryVector = Math::unitaryVector(vector);
+	Math::Vector2 unitaryVector = Math::normalizeVector(vector);
 
 	return unitaryVector;
 }
