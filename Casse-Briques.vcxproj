@@ -136,6 +136,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Casse-Briques.cpp" />
+    <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Math.cpp" />
@@ -144,9 +145,13 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Cannon.h" />
+    <ClInclude Include="FileReader.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Math.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Files\test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

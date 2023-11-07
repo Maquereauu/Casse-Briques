@@ -2,6 +2,7 @@
 #include <iostream>
 #include "GameObject.h"
 #include "Math.h"
+#include "FileReader.h"
 
 int main()
 {
@@ -13,6 +14,10 @@ int main()
     GameObject o_gameObject2 = GameObject(50.0, 100.f, 100.f, 90.f);
 
     o_gameObject.setOriginPointOnBase();
+
+    FileReader o_file = FileReader();
+
+    o_file.readFile("Files/test.txt");
 
     while (window.isOpen())
     {

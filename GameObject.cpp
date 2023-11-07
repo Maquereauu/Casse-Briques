@@ -70,13 +70,12 @@ bool GameObject::isColliding(GameObject object)
 	return false;
 }
 
-GameObject GameObject::collide(std::vector<GameObject> list)
-{
-	for (int i = 0; i < list.size(); i++) {
-		isColliding(list[i]);
-	}
-}
-}
+//GameObject GameObject::collide(std::vector<GameObject> list)
+//{
+//	for (int i = 0; i < list.size(); i++) {
+//		isColliding(list[i]);
+//	}
+//}
 
 void GameObject::moveShape(float deltaTime, std::vector<float> direction)
 {
