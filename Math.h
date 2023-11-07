@@ -19,6 +19,8 @@ namespace Math
 		void setAll(float x, float y);
 	};
 
+	std::vector<float> transformVector2ToVector(Math::Vector2 vector);
+
 	Math::Vector2 normalizeVector(Math::Vector2 vector);
 	Math::Vector2 unitaryVector(Math::Vector2 vector);
 

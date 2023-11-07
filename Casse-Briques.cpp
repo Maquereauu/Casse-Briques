@@ -23,7 +23,7 @@ void integrationGame()
 
     o_gameObject.setOriginPointOnBase();
 
-
+    std::vector<float> direction = Math::transformVector2ToVector(Math::normalizeVector(Math::Vector2(1.f, 1.f)));
 
     while (window.isOpen())
     {
@@ -41,7 +41,7 @@ void integrationGame()
                 }
 
                 // UPDATE
-                o_gameObject2.moveShape(deltaTime, Math::normalizeVector({ 1.f, 1.f }));
+                o_gameObject2.moveShape(deltaTime, direction);
                 o_gameObject.rotateShape(deltaTime, 45.f);
 
                 // DRAW
