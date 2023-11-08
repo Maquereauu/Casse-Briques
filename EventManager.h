@@ -1,8 +1,12 @@
 #pragma once
 #include <map>
 #include <string>
+#include <SFML/Graphics.hpp>
+#include "Cannon.h"
 
 typedef void (*event)();
+
+//typedef void (Cannon::*function)();
 
 void A();
 void B();
@@ -13,7 +17,8 @@ private:
 	static EventManager* pInstance;
 	EventManager();
 public:
-	std::map<std::string, event> _dict;
+	std::map<sf::Event::EventType, event> _dict;
+	//std::map<sf::Event::EventType, function> _dictmet;
 	static void Initialize()
 	{
 		if (pInstance != nullptr)
@@ -26,6 +31,6 @@ public:
 	{
 		return pInstance;
 	}
-	void CheckEvent(std::string eventName);
+	void CheckEvent(sf::Event::EventType eventName);
 };
 

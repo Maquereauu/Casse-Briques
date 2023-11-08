@@ -41,30 +41,31 @@ void integrationGame()
 
     while (window.isOpen())
     {
+        // EVENT 
         sf::Event event;
         while (window.pollEvent(event))
         {
-            // EVENT 
             if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
         }
-            // UPDATE
-            o_gameObject2->moveShape(deltaTime, vector1);
-            o_gameObject->rotateShape(deltaTime, 45.f);
-            o_gameObject3->moveShape(deltaTime, vector2);
 
-            // DRAW
-            window.clear();
-            window.draw(o_gameObject2->getShape());
-            window.draw(o_gameObject->getShape());
-            window.draw(o_gameObject5->getShape());
-            window.draw(o_gameObject3->getShape());
-            window.draw(o_gameObject4->getShape());
-            window.display();
-            o_gameObject3->collide(list);
-            deltaTime = o_clock.restart().asSeconds();
+        // UPDATE
+        o_gameObject2->moveShape(deltaTime, vector1);
+        o_gameObject->rotateShape(deltaTime, 45.f);
+        o_gameObject3->moveShape(deltaTime, vector2);
+
+        // DRAW
+        window.clear();
+        window.draw(o_gameObject2->getShape());
+        window.draw(o_gameObject->getShape());
+        window.draw(o_gameObject5->getShape());
+        window.draw(o_gameObject3->getShape());
+        window.draw(o_gameObject4->getShape());
+        window.display();
+        o_gameObject3->collide(list);
+        deltaTime = o_clock.restart().asSeconds();
     }
  }
 

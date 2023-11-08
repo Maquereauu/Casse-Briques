@@ -7,7 +7,7 @@ GameManager::GameManager() {
 }
 
 void GameManager::Update() {
-	std::string eventName = "MouseEvent";
+	sf::Event::EventType eventName = sf::Event::MouseButtonPressed;
 	//get l'event dans variable
 	EventManager::Get()->CheckEvent(eventName);
 }

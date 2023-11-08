@@ -2,5 +2,8 @@
 #include "GameObject.h"
 class Cannon : public GameObject
 {
+public:
+	Cannon();
+	void cannonMove();
 };
 
