@@ -43,7 +43,8 @@ void integrationGame()
     sf::Vector2i mousePos;
     float oldAngle = 90.f;
     float angle = 90.f;
-    //o_gameObject->rotateShape(0, oldAngle);
+
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -59,14 +60,10 @@ void integrationGame()
 
             if (mouseVector._y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
-                //std::cout << Math::Vector2::rightVector.getAngle(mouseVector) << std::endl;
-
                 oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - angle;
                 angle = Math::Vector2::leftVector.getAngle(mouseVector);
 
                 o_gameObject->rotateShape(oldAngle);
-
-                std::cout << Math::Vector2::leftVector.getAngle(mouseVector) << "/" << oldAngle << std::endl;
             }
 
         }
@@ -90,8 +87,8 @@ void integrationGame()
 
 int main()
 {
-    //integrationTest();
-    integrationGame();
+    integrationTest();
+    //integrationGame();
 
     return 0;
 }

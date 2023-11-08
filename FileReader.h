@@ -9,6 +9,8 @@ class FileReader
 {
 private:
 	std::vector<std::vector<int>> _tabFile;
+	int _sizeHeight;
+	int _sizeWidth;
 
 public :
 	FileReader();
