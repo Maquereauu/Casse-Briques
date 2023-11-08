@@ -1,5 +1,4 @@
 #include "GameObject.h"
-
 GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float speed)
 {
 	_sizeX = sizeX;
@@ -7,16 +6,12 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_posX = posX;
 	_posY = posY;
 	_speed = speed;
-	
+	_vector = new Math::Vector2(0.f,-1.f);
 	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(_sizeX, _sizeY));
 	rectangle->setFillColor(sf::Color::Blue);
 	rectangle->setPosition(_posX, _posY);
 	
 	_graphic = rectangle;
-
-	sf::Vector2f v;
-	v.x;
-	v.y;
 
 }
 
@@ -47,13 +42,13 @@ sf::Shape& GameObject::getShape()
 
 bool GameObject::isColliding(const GameObject& object)
 {
-	int i = 0;
+	//int i = 0;
 
-	int* pi = &i;
-	*pi = 5;
+	//int* pi = &i;
+	//*pi = 5;
 
-	int& ri = i;
-	ri = 5;
+	//int& ri = i;
+	//ri = 5;
 
 
 	bool collidesX = (_posX + _sizeX >= object._posX) && (object._posX + object._sizeX >= _posX);
@@ -67,15 +62,36 @@ bool GameObject::isColliding(const GameObject& object)
 	return false;
 }
 
+
+
 GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) {
+			std::cout << checkCollidingSide(*list[i]) << std::endl;
 			return list[i];
 		}
 	}
 	return nullptr;
 }
+
+std::string GameObject::checkCollidingSide(const GameObject& object)
+{
+	Math::Vector2 relativePosition(object._posX - _posX, object._posY - _posY);
+
+	float scalarProduct = relativePosition.scalarProduct(*_vector);
+
+	if (scalarProduct > 0) {
+		if (std::abs(relativePosition._x) > std::abs(relativePosition._y)) {
+			return (relativePosition._x > 0) ? "left" : "right";
+		}
+		else {
+			return (relativePosition._y > 0) ? "top" : "bottom";
+		}
+	}
+	return "none";
+}
+
 
 void GameObject::moveShape(float deltaTime, Math::Vector2 direction)
 {

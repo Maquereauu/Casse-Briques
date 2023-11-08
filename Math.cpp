@@ -71,11 +71,6 @@ void Math::Vector2::reBound(Math::Vector2* ballVector)
 	}
 }
 
-Math::Vector2 positionsToVector(float x, float y)
-{
-	return Math::Vector2::Vector2(x, y);
-}
-
 Math::Vector2 Math::Vector2::createVector(Math::Vector2 vector, float x1, float y1)
 {
 	return Math::Vector2::Vector2(x1 - vector._x, y1 - vector._y);

@@ -28,7 +28,6 @@ namespace Math
 		float scalarProduct(Math::Vector2& vector);
 		float getAngle(Math::Vector2 vector);
 		void reBound(Math::Vector2* ballVector);
-		static Math::Vector2 positionsToVector(float x, float y);
 		static Math::Vector2 createVector(Math::Vector2 vector, float x1, float y1);
 	};
 };

@@ -18,8 +18,7 @@ private :
 	float _rotate;
 	std::string _geometry;
 	sf::Shape* _graphic;
-
-	std::vector<float> direction;
+	Math::Vector2* _vector;
 	float deltaTime;
 
 public:
@@ -33,6 +32,7 @@ public:
 	void setOriginPointOnBase();
 	bool isColliding(const GameObject& object);
 	GameObject* collide(const std::vector<GameObject*>& list);
+	std::string checkCollidingSide(const GameObject& object);
 	Math::Vector2 getPos();
 };
 
