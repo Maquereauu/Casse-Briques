@@ -48,5 +48,6 @@ void Test::getAngle()
 
 	float result = 45.f;
 
+	std::cout << vector1.getAngle(vector2) << std::endl;
 	std::cout << "Test Get Angle : " << (result == vector1.getAngle(vector2) ? "SUCCESS" : "FAILURE") << std::endl;
 }

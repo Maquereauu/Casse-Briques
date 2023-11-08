@@ -1,5 +1,11 @@
 #include "Math.h"
 
+
+Math::Vector2 Math::Vector2::upVector = Math::Vector2(0.f, -1.f);
+Math::Vector2 Math::Vector2::downVector = Math::Vector2(0.f, 1.f);
+Math::Vector2 Math::Vector2::leftVector = Math::Vector2(-1.f, 0.f);
+Math::Vector2 Math::Vector2::rightVector = Math::Vector2(1.f, 0.f);
+
 Math::Vector2 Math::Vector2::getNormalizeVector()
 {
 	float normal = pow(x, 2) + pow(y, 2);
@@ -53,9 +59,14 @@ float Math::Vector2::getAngle(Math::Vector2& vector)
 	return  radian * (180 / M_PI); // envoie l'angle en degrès
 }
 
-float Math::Vector2::reBoundAngle(Math::Vector2& ballVector)
+void Math::Vector2::reBound(Math::Vector2* ballVector)
 {
-	/* Rebond entre la surface collide et la balle */
-	float startAngle = this->getAngle(ballVector);
-	return 1.0;
+	if (this->compareVector(upVector))
+	{
+		ballVector->_x = -ballVector->_x;
+	}
+	else if (this->compareVector(rightVector))
+	{
+		ballVector->_y = -ballVector->_y;
+	}
 }
