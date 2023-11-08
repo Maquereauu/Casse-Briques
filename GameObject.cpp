@@ -85,9 +85,9 @@ void GameObject::moveShape(float deltaTime, Math::Vector2 direction)
 	_graphic->setPosition(_posX, _posY);
 }
 
-void GameObject::rotateShape(float deltaTime, float rotateDegree)
+void GameObject::rotateShape(float rotateDegree)
 {
-	_rotate += (rotateDegree * deltaTime);
+	_rotate += rotateDegree;
 	_graphic->setRotation(_rotate);
 }
 
@@ -99,4 +99,8 @@ void GameObject::setOriginPoint()
 void GameObject::setOriginPointOnBase()
 {
 	_graphic->setOrigin(_sizeX / 2.f,  (3 *_sizeY) / 4);
+}
+Math::Vector2 GameObject::getPos()
+{
+	return Math::Vector2::Vector2(_posX, _posY);
 }
