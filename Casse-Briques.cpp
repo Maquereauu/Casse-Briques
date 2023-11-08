@@ -35,7 +35,7 @@ void integrationGame()
     o_gameObject->setOriginPointOnBase();
 
     Math::Vector2 vector1 = Math::Vector2(2.f, 1.f);
-    Math::Vector2 vector2 = Math::Vector2(1.f, 0.f);
+    Math::Vector2 vector2 = Math::Vector2(-1.f, -1.f);
 
     vector1.normalizeVector();
     vector2.normalizeVector();

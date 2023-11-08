@@ -29,7 +29,7 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 	_graphic = circle;
 }
 
-GameObject::GameObject() : GameObject(100.f, 100.f, 100.f, 100.f, 90.f)
+GameObject::GameObject() : GameObject(100.f, 100.f, 1300.f, 300.f, 90.f)
 {
 
 }
@@ -77,12 +77,12 @@ GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 
 std::string GameObject::checkCollidingSide(const GameObject& object)
 {
-	Math::Vector2 relativePosition(object._posX - _posX, object._posY - _posY);
-	if (std::abs(relativePosition._x) > std::abs(relativePosition._y)) {
-		return (relativePosition._x > 0) ? "left" : "right";
+	Math::Vector2 centerToCenter(object._posX - _posX, object._posY - _posY);
+	if (std::abs(centerToCenter._x) > std::abs(centerToCenter._y)) {
+		return (centerToCenter._x > 0) ? "left" : "right";
 	}
 	else {
-		return (relativePosition._y > 0) ? "top" : "bottom";
+		return (centerToCenter._y > 0) ? "top" : "bottom";
 	}
 }
 
