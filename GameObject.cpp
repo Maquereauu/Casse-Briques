@@ -81,9 +81,7 @@ std::string GameObject::checkCollidingSide(const GameObject& object)
 	if (std::abs(centerToCenter._x) > std::abs(centerToCenter._y)) {
 		return (centerToCenter._x > 0) ? "left" : "right";
 	}
-	else {
 		return (centerToCenter._y > 0) ? "top" : "bottom";
-	}
 }
 
 
