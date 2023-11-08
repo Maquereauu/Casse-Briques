@@ -21,7 +21,8 @@ void integrationGame()
     sf::Clock o_clock;
     float deltaTime = 0.f;
 
-    GameObject* o_gameObject = new GameObject(100.f, 100.f, 100.f, 100.f, 90.f);
+    GameObject* o_gameObject = new GameObject(50.f, 100.f, 500.f, 500.f, 90.f);
+
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
@@ -39,6 +40,10 @@ void integrationGame()
     vector1.normalizeVector();
     vector2.normalizeVector();
 
+    sf::Vector2i mousePos;
+    float oldAngle = 90.f;
+    float angle = 90.f;
+    //o_gameObject->rotateShape(0, oldAngle);
     while (window.isOpen())
     {
         sf::Event event;
@@ -49,17 +54,32 @@ void integrationGame()
             {
                 window.close();
             }
+            mousePos = sf::Mouse::getPosition(window);
+            Math::Vector2 mouseVector = Math::Vector2::createVector(o_gameObject->getPos(), mousePos.x, mousePos.y);
+
+            if (mouseVector._y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
+            {
+                //std::cout << Math::Vector2::rightVector.getAngle(mouseVector) << std::endl;
+
+                oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - angle;
+                angle = Math::Vector2::leftVector.getAngle(mouseVector);
+
+                o_gameObject->rotateShape(oldAngle);
+
+                std::cout << Math::Vector2::leftVector.getAngle(mouseVector) << "/" << oldAngle << std::endl;
+            }
+
         }
             // UPDATE
             o_gameObject2->moveShape(deltaTime, vector1);
-            o_gameObject->rotateShape(deltaTime, 45.f);
             o_gameObject3->moveShape(deltaTime, vector2);
+
 
             // DRAW
             window.clear();
             window.draw(o_gameObject2->getShape());
             window.draw(o_gameObject->getShape());
-            window.draw(o_gameObject5->getShape());
+            //window.draw(o_gameObject5->getShape());
             window.draw(o_gameObject3->getShape());
             window.draw(o_gameObject4->getShape());
             window.display();
@@ -70,8 +90,8 @@ void integrationGame()
 
 int main()
 {
-    integrationTest();
-    //integrationGame();
+    //integrationTest();
+    integrationGame();
 
     return 0;
 }

@@ -28,10 +28,11 @@ public:
 	GameObject();
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, Math::Vector2 direction);
-	void rotateShape(float deltaTime, float rotateDegree);
+	void rotateShape(float rotateDegree);
 	void setOriginPoint();
 	void setOriginPointOnBase();
 	bool isColliding(const GameObject& object);
 	GameObject* collide(const std::vector<GameObject*>& list);
+	Math::Vector2 getPos();
 };
 

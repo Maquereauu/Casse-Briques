@@ -8,7 +8,7 @@ Math::Vector2 Math::Vector2::rightVector = Math::Vector2(1.f, 0.f);
 
 Math::Vector2 Math::Vector2::getNormalizeVector()
 {
-	float normal = pow(x, 2) + pow(y, 2);
+	float normal = pow(_x, 2) + pow(_y, 2);
 	normal = pow(normal, 1 / 2.f);
 	Math::Vector2 normalVector = Math::Vector2(x / normal, y / normal);
 
@@ -49,7 +49,7 @@ float Math::Vector2::scalarProduct(Math::Vector2& vector)
 	return _x * vector._x + _y * vector._y;
 }
 
-float Math::Vector2::getAngle(Math::Vector2& vector)
+float Math::Vector2::getAngle(Math::Vector2 vector)
 {
 	Math::Vector2 normalVector1 = this->getNormalizeVector();
 	Math::Vector2 normalVector2 = vector.getNormalizeVector();
@@ -69,4 +69,14 @@ void Math::Vector2::reBound(Math::Vector2* ballVector)
 	{
 		ballVector->_y = -ballVector->_y;
 	}
+}
+
+Math::Vector2 positionsToVector(float x, float y)
+{
+	return Math::Vector2::Vector2(x, y);
+}
+
+Math::Vector2 Math::Vector2::createVector(Math::Vector2 vector, float x1, float y1)
+{
+	return Math::Vector2::Vector2(x1 - vector._x, y1 - vector._y);
 }
