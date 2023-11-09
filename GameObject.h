@@ -21,9 +21,11 @@ private :
 	float _rotate;
 	std::string _geometry;
 	sf::Shape* _graphic;
-	Math::Vector2 _vector;
 	float deltaTime;
 	std::vector<GameObject*> _collidingWith;
+
+protected:
+	Math::Vector2 _vector;
 
 public:
 	GameObject(float sizeX, float sizeY, float posX, float posY, float speed); // rectangle
