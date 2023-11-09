@@ -39,5 +39,8 @@ public:
 	Math::Vector2 getPos();
 	void setVector(float x, float y);
 	const Math::Vector2& getVect();
+	void onCollisionEnter();
+	void onCollisionStay();
+	void onCollisionExit();
 };
 

@@ -142,3 +142,19 @@ const Math::Vector2& GameObject::getVect()
 {
 	return _vector;
 }
+
+void onCollisionEnter() 
+{
+
+}
+
+void onCollisionStay() 
+{
+
+}
+
+void onCollisionExit()
+{
+
+}
+
