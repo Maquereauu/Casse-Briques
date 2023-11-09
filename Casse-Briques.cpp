@@ -5,6 +5,7 @@
 #include "FileReader.h"
 #include "Test.h"
 #include "Cannon.h"
+#include "Ball.h"
 
 void integrationTest()
 {
@@ -23,11 +24,12 @@ void integrationGame()
     float deltaTime = 0.f;
 
     Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
+    Ball* o_ball = new Ball(10.f, 500.f, 500.f, 180.f);
 
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
-    GameObject* o_gameObject2 = new GameObject(50.0, 100.f, 100.f, 90.f);
+    GameObject* o_gameObject2 = new GameObject(50.f, 100.f, 100.f, 90.f);
     GameObject* o_gameObject3 = new GameObject(100.f, 100.f, 1400.f, 300.f, 90.f);
     //GameObject* o_gameObject3 = new GameObject(50.f, 1400.f, 300.f, 90.f);
     GameObject* o_gameObject4 = new GameObject(100.f, 100.f, 1000.f, 50.f, 90.f);
@@ -51,16 +53,21 @@ void integrationGame()
         sf::Event event;
         while (window.pollEvent(event))
         {
+            mousePos = sf::Mouse::getPosition(window);
+            Math::Vector2 mouseVector = Math::Vector2::createVector(o_cannon->getPos(), mousePos.x, mousePos.y).getNormalizeVector();
             if (event.type == sf::Event::Closed)
             {
                 window.close();
-            }
-            mousePos = sf::Mouse::getPosition(window);
-            Math::Vector2 mouseVector = Math::Vector2::createVector(o_cannon->getPos(), mousePos.x, mousePos.y).getNormalizeVector();
+            }            
 
             if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
+                if (event.type == sf::Event::MouseButtonPressed)
+                {
+                    o_cannon->cannonFire(mouseVector, o_ball);
+                }
                 o_cannon->cannonMove(mouseVector);
+
             }
 
         }
@@ -69,11 +76,15 @@ void integrationGame()
             o_gameObject2->moveShape(deltaTime, vector1);
             o_gameObject3->moveShape(deltaTime, o_gameObject3->getVect());
 
+            o_ball->collide(list);
+            o_ball->moveShape(deltaTime, o_ball->getVect());
 
+            
             // DRAW
             window.clear();
             window.draw(o_gameObject2->getShape());
             window.draw(o_cannon->getShape());
+            window.draw(o_ball->getShape());
             //window.draw(o_gameObject5->getShape());
             window.draw(o_gameObject3->getShape());
             window.draw(o_gameObject4->getShape());

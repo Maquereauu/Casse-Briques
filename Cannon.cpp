@@ -15,7 +15,8 @@ void Cannon::cannonMove(Math::Vector2 mouseVector)
     this->rotateShape(_oldAngle);
 }
 
-void Cannon::cannonFire(Math::Vector2 mouseVector, Ball o_ball)
+void Cannon::cannonFire(Math::Vector2 mouseVector, Ball* o_ball)
 {
-    o_ball.setVector(mouseVector.x, mouseVector.y);
+    std::cout << "salut" << std::endl;
+    o_ball->setVector(mouseVector.x, mouseVector.y);
 }
