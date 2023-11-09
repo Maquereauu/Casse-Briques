@@ -48,6 +48,7 @@ void integrationGame()
     while (window.isOpen())
     {
         // EVENT 
+        o_gameObject3->setVector(-1.f, -1.f);
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -68,6 +69,7 @@ void integrationGame()
 
         }
             // UPDATE
+            o_gameObject3->collide(list);
             o_gameObject2->moveShape(deltaTime, vector1);
             o_gameObject3->moveShape(deltaTime, o_gameObject3->getVect());
 
@@ -80,7 +82,6 @@ void integrationGame()
             window.draw(o_gameObject3->getShape());
             window.draw(o_gameObject4->getShape());
             window.display();
-            o_gameObject3->collide(list);
             deltaTime = o_clock.restart().asSeconds();
     }
  }
