@@ -136,10 +136,9 @@ Math::Vector2 GameObject::getPos()
 
 void GameObject::setVector(float x, float y)
 {
-	_vector->_x = x;
-	_vector->y = y;
+	_vector.x = x;
+	_vector.y = y;
 }
-
 
 const Math::Vector2& GameObject::getVect()
 {
