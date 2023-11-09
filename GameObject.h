@@ -26,7 +26,6 @@ private :
 public:
 	GameObject(float sizeX, float sizeY, float posX, float posY, float speed);
 	GameObject(float radius, float posX, float posY, float speed);
-	GameObject();
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, const Math::Vector2& direction);
 	void rotateShape(float rotateDegree);

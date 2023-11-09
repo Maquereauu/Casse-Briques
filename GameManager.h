@@ -7,8 +7,8 @@ private:
 	GameManager();
 
 
-
 public:
+	
 	static void Initialize() 
 	{
 		if (pInstance != nullptr)
@@ -22,5 +22,7 @@ public:
 		return pInstance;
 	}
 	void Update();
+
+	void MThrowBall();
 };
 

@@ -6,7 +6,8 @@
 
 typedef void (*event)();
 
-//typedef void (Cannon::*function)();
+template<typename T>
+void (T::*function)();
 
 void A();
 void B();
@@ -31,6 +32,12 @@ public:
 	{
 		return pInstance;
 	}
+
+	void AddEvent(sf::Event::EventType eEventType, event oFunction)
+	{
+		_dict[eEventType] = oFunction;
+	}
+
 	void CheckEvent(sf::Event::EventType eventName);
 };
 
