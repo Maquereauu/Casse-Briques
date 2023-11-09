@@ -56,7 +56,7 @@ void integrationGame()
                 window.close();
             }
             mousePos = sf::Mouse::getPosition(window);
-            Math::Vector2 mouseVector = Math::Vector2::createVector(o_cannon->getPos(), mousePos.x, mousePos.y);
+            Math::Vector2 mouseVector = Math::Vector2::createVector(o_cannon->getPos(), mousePos.x, mousePos.y).getNormalizeVector();
 
             if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
