@@ -4,6 +4,7 @@
 #include "Math.h"
 #include "FileReader.h"
 #include "Test.h"
+#include "Cannon.h"
 
 void integrationTest()
 {
@@ -21,18 +22,18 @@ void integrationGame()
     sf::Clock o_clock;
     float deltaTime = 0.f;
 
-    GameObject* o_gameObject = new GameObject(50.f, 100.f, 500.f, 500.f, 90.f);
+    Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
 
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
     GameObject* o_gameObject2 = new GameObject(50.0, 100.f, 100.f, 90.f);
-    GameObject* o_gameObject3 = new GameObject();
+    GameObject* o_gameObject3 = new GameObject(100.f, 100.f, 1400.f, 300.f, 90.f);
+    //GameObject* o_gameObject3 = new GameObject(50.f, 1400.f, 300.f, 90.f);
     GameObject* o_gameObject4 = new GameObject(100.f, 100.f, 1000.f, 50.f, 90.f);
 
-    std::vector<GameObject*> list = { o_gameObject,o_gameObject4 };
+    std::vector<GameObject*> list = { o_cannon,o_gameObject4 };
 
-    o_gameObject->setOriginPointOnBase();
 
     Math::Vector2 vector1 = Math::Vector2(2.f, 1.f);
     Math::Vector2 vector2 = Math::Vector2(-1.f, -1.f);
@@ -56,14 +57,11 @@ void integrationGame()
                 window.close();
             }
             mousePos = sf::Mouse::getPosition(window);
-            Math::Vector2 mouseVector = Math::Vector2::createVector(o_gameObject->getPos(), mousePos.x, mousePos.y);
+            Math::Vector2 mouseVector = Math::Vector2::createVector(o_cannon->getPos(), mousePos.x, mousePos.y);
 
             if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
-                oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - angle;
-                angle = Math::Vector2::leftVector.getAngle(mouseVector);
-
-                o_gameObject->rotateShape(oldAngle);
+                o_cannon->cannonMove(mouseVector, &oldAngle, &angle);
             }
 
         }
@@ -76,7 +74,7 @@ void integrationGame()
             // DRAW
             window.clear();
             window.draw(o_gameObject2->getShape());
-            window.draw(o_gameObject->getShape());
+            window.draw(o_cannon->getShape());
             //window.draw(o_gameObject5->getShape());
             window.draw(o_gameObject3->getShape());
             window.draw(o_gameObject4->getShape());

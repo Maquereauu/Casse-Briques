@@ -28,11 +28,6 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 	_graphic = circle;
 }
 
-GameObject::GameObject() : GameObject(100.f, 100.f, 1300.f, 300.f, 90.f)
-{
-
-}
-
 sf::Shape& GameObject::getShape()
 {
 	return *_graphic;
