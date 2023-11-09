@@ -3,6 +3,6 @@
 class Ball : public GameObject
 {
 public:
-	Ball(float x,float y,float speed,float radius);
+	Ball(float radius, float x,float y,float speed);
 };
 
