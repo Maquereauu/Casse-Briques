@@ -58,7 +58,7 @@ void integrationGame()
             mousePos = sf::Mouse::getPosition(window);
             Math::Vector2 mouseVector = Math::Vector2::createVector(o_gameObject->getPos(), mousePos.x, mousePos.y);
 
-            if (mouseVector._y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
+            if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
                 oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - angle;
                 angle = Math::Vector2::leftVector.getAngle(mouseVector);
@@ -69,7 +69,7 @@ void integrationGame()
         }
             // UPDATE
             o_gameObject2->moveShape(deltaTime, vector1);
-            o_gameObject3->moveShape(deltaTime, vector2);
+            o_gameObject3->moveShape(deltaTime, o_gameObject3->getVect());
 
 
             // DRAW

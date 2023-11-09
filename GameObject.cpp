@@ -6,7 +6,6 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_posX = posX;
 	_posY = posY;
 	_speed = speed;
-	_vector = new Math::Vector2(0.f, -1.f);
 	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(_sizeX, _sizeY));
 	rectangle->setFillColor(sf::Color::Blue);
 	rectangle->setPosition(_posX, _posY);
@@ -69,6 +68,7 @@ GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) {
 			std::cout << checkCollidingSide(*list[i]) << std::endl;
+			bounce(checkCollidingSide(*list[i]));
 			return list[i];
 		}
 	}
@@ -78,14 +78,34 @@ GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 std::string GameObject::checkCollidingSide(const GameObject& object)
 {
 	Math::Vector2 centerToCenter(object._posX - _posX, object._posY - _posY);
-	if (std::abs(centerToCenter._x) > std::abs(centerToCenter._y)) {
-		return (centerToCenter._x > 0) ? "left" : "right";
+	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+		return (centerToCenter.x > 0) ? "left" : "right";
 	}
-		return (centerToCenter._y > 0) ? "top" : "bottom";
+		return (centerToCenter.y > 0) ? "top" : "bottom";
 }
 
+void GameObject::bounce(std::string side) 
+{
+	int i = _sides[side];
+	switch(i)
+	{
+	case 1: // left
+		_vector.x *= -1;
+		break;
+	case 2: // top
+		_vector.y *= -1;
+		break;
+	case 3: // right
+		_vector.x *= -1;
+		break;
+	case 4: // bottom
+		_vector.y *= -1;
+		break;
+	}
 
-void GameObject::moveShape(float deltaTime, Math::Vector2 direction)
+}
+
+void GameObject::moveShape(float deltaTime,const Math::Vector2& direction)
 {
 	_posX = _posX + (direction.x * deltaTime) * _speed;
 	_posY = _posY + (direction.y * deltaTime) * _speed;
@@ -111,4 +131,9 @@ void GameObject::setOriginPointOnBase()
 Math::Vector2 GameObject::getPos()
 {
 	return Math::Vector2::Vector2(_posX, _posY);
+}
+
+const Math::Vector2& GameObject::getVect()
+{
+	return _vector;
 }

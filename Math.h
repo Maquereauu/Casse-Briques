@@ -10,16 +10,18 @@ namespace Math
 {
 	class Vector2 : public sf::Vector2f
 	{
+	private:
+		float& _x;
+		float& _y;
+
 	public:
 		static Vector2 upVector;
 		static Vector2 downVector;
 		static Vector2 leftVector;
 		static Vector2 rightVector;
 
-		float& _x;
-		float& _y;
-
 		Vector2(float x, float y);
+		Vector2();
 
 		void setAll(float x, float y);
 		Math::Vector2 getNormalizeVector();

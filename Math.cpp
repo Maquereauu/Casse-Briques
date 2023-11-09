@@ -15,10 +15,14 @@ Math::Vector2 Math::Vector2::getNormalizeVector()
 	return normalVector;
 }
 
-
 Math::Vector2::Vector2(float x, float  y) : sf::Vector2f( x, y ), _x(this->x), _y(this->y)
 {
 }
+
+Math::Vector2::Vector2() : Vector2(0.f, 0.f)
+{
+}
+
 
 void Math::Vector2::setAll(float x, float y)
 {

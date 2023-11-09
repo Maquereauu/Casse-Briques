@@ -22,7 +22,7 @@ void Test::fileReader()
 
 void Test::normalizeVector()
 {
-	Math::Vector2 start = Math::Vector2(1 / sqrt(2), 1 / sqrt(2));
+	Math::Vector2 start = Math::Vector2(1 / (float) sqrt(2), 1 / (float) sqrt(2));
 
 	Math::Vector2 result = Math::Vector2(1, 1);
 
