@@ -175,8 +175,8 @@ void GameObject::onCollisionExit(GameObject* object)
 	_collidingWith.erase(std::remove(_collidingWith.begin(), _collidingWith.end(), object), _collidingWith.end());
 }
 
-void GameObject::setPos(Math::Vector2 o_vector) {
-	_posX = o_vector.x;
-	_posY = o_vector.y;
+void GameObject::setPos(float x, float y) {
+	_posX = x - _radius / 2;
+	_posY = y;
 }
 

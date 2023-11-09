@@ -41,7 +41,7 @@ public:
 	std::string checkCollidingSide(const GameObject& object);
 	void bounce(std::string side);
 	Math::Vector2 getPos();
-	void setPos(Math::Vector2 o_vector);
+	void setPos(float x, float y);
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
 
