@@ -14,3 +14,8 @@ void Cannon::cannonMove(Math::Vector2 mouseVector)
 
     this->rotateShape(_oldAngle);
 }
+
+void Cannon::cannonFire(Math::Vector2 mouseVector, Ball o_ball)
+{
+   o_ball.Vector()
+}

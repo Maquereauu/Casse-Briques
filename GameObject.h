@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include "Math.h"
+
+
 class GameObject
 {
 public:
@@ -24,8 +26,8 @@ private :
 	std::vector<GameObject*> _collidingWith;
 
 public:
-	GameObject(float sizeX, float sizeY, float posX, float posY, float speed);
-	GameObject(float radius, float posX, float posY, float speed);
+	GameObject(float sizeX, float sizeY, float posX, float posY, float speed); // rectangle
+	GameObject(float radius, float posX, float posY, float speed); // ball
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, const Math::Vector2& direction);
 	void rotateShape(float rotateDegree);

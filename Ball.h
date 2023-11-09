@@ -3,8 +3,8 @@
 class Ball : public GameObject
 {
 private:
-	Math::Vector2 _ballVector;
+	Math::Vector2* _ballVector;
 public:
-	Ball(float x,float y,Math::Vector2 vector,float speed,float radius);
+	Ball(float x,float y,Math::Vector2* vector,float speed,float radius);
 };
 
