@@ -35,11 +35,13 @@ public:
 	void rotateShape(float rotateDegree);
 	void setOriginPoint();
 	void setOriginPointOnBase();
+	void setOriginPointCircle();
 	bool isColliding(const GameObject& object);
 	void collide(const std::vector<GameObject*>& list);
 	std::string checkCollidingSide(const GameObject& object);
 	void bounce(std::string side);
 	Math::Vector2 getPos();
+	void setPos(Math::Vector2 o_vector);
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
 

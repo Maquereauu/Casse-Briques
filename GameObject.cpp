@@ -133,6 +133,11 @@ void GameObject::setOriginPoint()
 	_graphic->setOrigin(_sizeX / 2.f, _sizeY / 2.f);
 }
 
+void GameObject::setOriginPointCircle()
+{
+	_graphic->setOrigin(_radius / 2, _radius / 2);
+}
+
 void GameObject::setOriginPointOnBase()
 {
 	_graphic->setOrigin(_sizeX / 2.f, (3 * _sizeY) / 4);
@@ -168,5 +173,10 @@ void GameObject::onCollisionStay()
 void GameObject::onCollisionExit(GameObject* object)
 {
 	_collidingWith.erase(std::remove(_collidingWith.begin(), _collidingWith.end(), object), _collidingWith.end());
+}
+
+void GameObject::setPos(Math::Vector2 o_vector) {
+	_posX = o_vector.x;
+	_posY = o_vector.y;
 }
 

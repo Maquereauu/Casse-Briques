@@ -18,5 +18,6 @@ void Cannon::cannonMove(Math::Vector2 mouseVector)
 void Cannon::cannonFire(Math::Vector2 mouseVector, Ball* o_ball)
 {
     std::cout << "salut" << std::endl;
+    o_ball->setPos(getPos());
     o_ball->setVector(mouseVector.x, mouseVector.y);
 }

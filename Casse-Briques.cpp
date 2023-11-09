@@ -24,8 +24,7 @@ void integrationGame()
     float deltaTime = 0.f;
 
     Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
-    Ball* o_ball = new Ball(10.f, 500.f, 500.f, 180.f);
-
+    Ball* o_ball = new Ball(10.f, 500.f - 5.f, 500.f, 180.f);
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
@@ -34,7 +33,7 @@ void integrationGame()
     //GameObject* o_gameObject3 = new GameObject(50.f, 1400.f, 300.f, 90.f);
     GameObject* o_gameObject4 = new GameObject(100.f, 100.f, 1000.f, 50.f, 90.f);
 
-    std::vector<GameObject*> list = { o_cannon,o_gameObject4 };
+    std::vector<GameObject*> list = {o_gameObject4 };
 
 
     Math::Vector2 vector1 = Math::Vector2(2.f, 1.f);
