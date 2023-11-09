@@ -63,16 +63,14 @@ bool GameObject::isColliding(const GameObject& object)
 
 
 
-GameObject* GameObject::collide(const std::vector<GameObject*>& list)
+void GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) {
 			std::cout << checkCollidingSide(*list[i]) << std::endl;
 			bounce(checkCollidingSide(*list[i]));
-			return list[i];
 		}
 	}
-	return nullptr;
 }
 
 std::string GameObject::checkCollidingSide(const GameObject& object)

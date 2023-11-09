@@ -21,6 +21,7 @@ private :
 	sf::Shape* _graphic;
 	Math::Vector2 _vector;
 	float deltaTime;
+	std::vector<GameObject*> _collidingWith;
 
 public:
 	GameObject(float sizeX, float sizeY, float posX, float posY, float speed);
@@ -32,7 +33,7 @@ public:
 	void setOriginPoint();
 	void setOriginPointOnBase();
 	bool isColliding(const GameObject& object);
-	GameObject* collide(const std::vector<GameObject*>& list);
+	void collide(const std::vector<GameObject*>& list);
 	std::string checkCollidingSide(const GameObject& object);
 	void bounce(std::string side);
 	Math::Vector2 getPos();
