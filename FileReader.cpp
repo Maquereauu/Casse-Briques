@@ -62,3 +62,17 @@ bool FileReader::compareFileRead(std::vector<std::vector<int>> startFile)
     }
     return true;
 }
+
+std::vector<std::vector<int>> FileReader::getFile()
+{
+    return _tabFile;
+}
+
+int FileReader::getFileHeight()
+{
+    return _sizeHeight;
+}
+int FileReader::getFileWidth()
+{
+    return _sizeWidth;
+}
