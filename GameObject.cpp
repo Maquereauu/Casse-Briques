@@ -77,6 +77,7 @@ GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 
 std::string GameObject::checkCollidingSide(const GameObject& object)
 {
+	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
 	Math::Vector2 centerToCenter(object._posX - _posX, object._posY - _posY);
 	if (std::abs(centerToCenter._x) > std::abs(centerToCenter._y)) {
 		return (centerToCenter._x > 0) ? "left" : "right";
