@@ -24,6 +24,7 @@ namespace Math
 		void setAll(float x, float y);
 		Math::Vector2 getNormalizeVector();
 		void normalizeVector();
+		bool compareVector(Math::Vector2& vectorResult);
 		float scalarProduct(Math::Vector2& vector);
 		float getAngle(Math::Vector2 vector);
 		void reBound(Math::Vector2* ballVector);
