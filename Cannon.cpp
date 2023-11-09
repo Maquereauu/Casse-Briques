@@ -1,9 +1,16 @@
 #include "Cannon.h"
 
-Cannon::Cannon() {
-
+Cannon::Cannon(float sizeX, float sizeY, float posX, float posY, float speed) : GameObject(sizeX, sizeY, posX, posY, speed)
+{
+    this->setOriginPointOnBase(); // défini l'origine du canon
+    _oldAngle = 90.f;
+    _angle = 90.f;
 }
 
-void Cannon::cannonMove() {
-	std::cout << "salut";
+void Cannon::cannonMove(Math::Vector2 mouseVector) 
+{
+    _oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - _angle;
+    _angle = Math::Vector2::leftVector.getAngle(mouseVector);
+
+    this->rotateShape(_oldAngle);
 }

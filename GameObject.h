@@ -38,8 +38,9 @@ public:
 	Math::Vector2 getPos();
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
-	void onCollisionEnter(GameObject* object);
-	void onCollisionStay();
-	void onCollisionExit(GameObject* object);
+
+	virtual void onCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
+	virtual void onCollisionStay();
+	virtual void onCollisionExit(GameObject* object);
 };
 
