@@ -69,6 +69,7 @@ GameObject* GameObject::collide(const std::vector<GameObject*>& list)
 		if (isColliding(*list[i])) {
 			std::cout << checkCollidingSide(*list[i]) << std::endl;
 			bounce(checkCollidingSide(*list[i]));
+
 			return list[i];
 		}
 	}
@@ -144,3 +145,19 @@ const Math::Vector2& GameObject::getVect()
 {
 	return _vector;
 }
+
+void onCollisionEnter() 
+{
+
+}
+
+void onCollisionStay() 
+{
+
+}
+
+void onCollisionExit()
+{
+
+}
+
