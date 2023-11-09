@@ -42,15 +42,6 @@ sf::Shape& GameObject::getShape()
 
 bool GameObject::isColliding(const GameObject& object)
 {
-	//int i = 0;
-
-	//int* pi = &i;
-	//*pi = 5;
-
-	//int& ri = i;
-	//ri = 5;
-
-
 	bool collidesX = (_posX + _sizeX >= object._posX) && (object._posX + object._sizeX >= _posX);
 
 	bool collidesY = (_posY + _sizeY >= object._posY) && (object._posY + object._sizeY >= _posY);
@@ -112,4 +103,10 @@ void GameObject::setOriginPointOnBase()
 Math::Vector2 GameObject::getPos()
 {
 	return Math::Vector2::Vector2(_posX, _posY);
+}
+
+void GameObject::setVector(float x, float y)
+{
+	_vector->_x = x;
+	_vector->_y = y;
 }

@@ -34,5 +34,6 @@ public:
 	GameObject* collide(const std::vector<GameObject*>& list);
 	std::string checkCollidingSide(const GameObject& object);
 	Math::Vector2 getPos();
+	void setVector(float x, float y);
 };
 
