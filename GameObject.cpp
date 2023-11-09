@@ -202,7 +202,11 @@ void GameObject::onCollisionExit(GameObject* object)
 }
 
 void GameObject::setPos(float x, float y) {
-	_posX = x - _radius / 2;
+	_posX = x;
 	_posY = y;
+}
+
+float GameObject::getRadius() {
+	return _radius;
 }
 

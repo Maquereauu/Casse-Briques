@@ -17,9 +17,9 @@ void Cannon::cannonMove(Math::Vector2 mouseVector)
 
 void Cannon::cannonFire(Math::Vector2 mouseVector, Ball* o_ball)
 {
-    float x = getPos().x;
-    float y = getPos().y;
+    float x = getPos().x - (o_ball->getRadius() / 2);
+    float y = getPos().y - (o_ball->getRadius() / 2);
 
-    o_ball->setPos(x, y );
+    o_ball->setPos(x, y);
     o_ball->setVector(mouseVector.x, mouseVector.y);
 }

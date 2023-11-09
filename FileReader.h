@@ -17,5 +17,8 @@ public :
 	
 	void readFile(std::string path);
 	bool compareFileRead(std::vector<std::vector<int>> startFile);
+	std::vector<std::vector<int>> getFile();
+	int getFileHeight();
+	int getFileWidth();
 };
 
