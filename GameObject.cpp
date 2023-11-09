@@ -67,8 +67,34 @@ void GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) {
-			std::cout << checkCollidingSide(*list[i]) << std::endl;
-			bounce(checkCollidingSide(*list[i]));
+			if (_collidingWith.size() != 0)
+			{
+				for (int j = 0; j < _collidingWith.size(); j++)
+				{
+					if (_collidingWith[j] == list[i])
+					{
+						onCollisionStay();
+					}
+					else {
+						onCollisionEnter(list[i]);
+					}
+				}
+			}
+			else {
+			onCollisionEnter(list[i]);
+			}
+		}
+		else {
+			if (_collidingWith.size() != 0)
+			{
+				for (int j = 0; j < _collidingWith.size(); j++)
+				{
+					if (_collidingWith[j] == list[i])
+					{
+						onCollisionExit(list[i]);
+					}
+				}
+			}
 		}
 	}
 }
@@ -138,23 +164,25 @@ void GameObject::setVector(float x, float y)
 	_vector.y = y;
 }
 
-const Math::Vector2& GameObject::getVect()
+const Math::Vector2 GameObject::getVect()
 {
 	return _vector;
 }
 
-void onCollisionEnter() 
+void GameObject::onCollisionEnter(GameObject* object) 
 {
-
+	_collidingWith.push_back(object);
+	std::cout << checkCollidingSide(*object) << std::endl;
+	bounce(checkCollidingSide(*object));
 }
 
-void onCollisionStay() 
+void GameObject::onCollisionStay()
 {
-
+	//B)
 }
 
-void onCollisionExit()
+void GameObject::onCollisionExit(GameObject* object)
 {
-
+	_collidingWith.erase(std::remove(_collidingWith.begin(), _collidingWith.end(), object), _collidingWith.end());
 }
 

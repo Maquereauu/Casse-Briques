@@ -43,12 +43,11 @@ void integrationGame()
     sf::Vector2i mousePos;
     float oldAngle = 90.f;
     float angle = 90.f;
-
+    o_gameObject3->setVector(-1.f, -1.f);
 
     while (window.isOpen())
     {
         // EVENT 
-        o_gameObject3->setVector(-1.f, -1.f);
         sf::Event event;
         while (window.pollEvent(event))
         {

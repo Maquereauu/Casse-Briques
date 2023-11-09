@@ -38,9 +38,9 @@ public:
 	void bounce(std::string side);
 	Math::Vector2 getPos();
 	void setVector(float x, float y);
-	const Math::Vector2& getVect();
-	void onCollisionEnter();
+	const Math::Vector2 getVect();
+	void onCollisionEnter(GameObject* object);
 	void onCollisionStay();
-	void onCollisionExit();
+	void onCollisionExit(GameObject* object);
 };
 
