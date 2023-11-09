@@ -3,6 +3,6 @@
 class Ball : public GameObject
 {
 public:
-	Ball(float x,float y,Math::Vector2 vector,float speed,float radius);
+	Ball(float x,float y,float speed,float radius);
 };
 
