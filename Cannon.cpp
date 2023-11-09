@@ -17,5 +17,5 @@ void Cannon::cannonMove(Math::Vector2 mouseVector)
 
 void Cannon::cannonFire(Math::Vector2 mouseVector, Ball o_ball)
 {
-   o_ball.Vector()
+    o_ball.setVector(mouseVector.x, mouseVector.y);
 }
