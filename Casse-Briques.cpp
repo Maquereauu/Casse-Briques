@@ -42,8 +42,7 @@ void integrationGame()
     vector2.normalizeVector();
 
     sf::Vector2i mousePos;
-    float oldAngle = 90.f;
-    float angle = 90.f;
+
     o_gameObject3->setVector(-1.f, -1.f);
 
     while (window.isOpen())
@@ -61,7 +60,7 @@ void integrationGame()
 
             if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
-                o_cannon->cannonMove(mouseVector, &oldAngle, &angle);
+                o_cannon->cannonMove(mouseVector);
             }
 
         }
