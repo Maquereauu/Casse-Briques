@@ -37,13 +37,16 @@ public:
 	void setOriginPointOnBase();
 	void setOriginPointCircle();
 	bool isColliding(const GameObject& object);
+	bool ballIsColliding(const GameObject& object);
 	void collide(const std::vector<GameObject*>& list);
 	std::string checkCollidingSide(const GameObject& object);
+	std::string ballCheckCollidingSide(const GameObject& object);
 	void bounce(std::string side);
 	Math::Vector2 getPos();
 	void setPos(float x, float y);
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
+
 
 	virtual void onCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
 	virtual void onCollisionStay();

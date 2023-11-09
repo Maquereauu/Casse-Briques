@@ -24,16 +24,18 @@ void integrationGame()
     float deltaTime = 0.f;
 
     Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
-    Ball* o_ball = new Ball(10.f, 500.f - 5.f, 500.f, 180.f);
+    Ball* o_ball = new Ball(20.f, 500.f -10.f, 500.f - 10.f, 180.f);
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
-    GameObject* o_gameObject2 = new GameObject(50.f, 100.f, 100.f, 90.f);
+    GameObject* o_gameObject2 = new GameObject(100.f, 100.f, 100.f, 100.f, 90.f);
+    GameObject* o_gameObject7 = new GameObject(100.f, 100.f, 50.f, 150.f, 90.f);
     GameObject* o_gameObject3 = new GameObject(100.f, 100.f, 1400.f, 300.f, 90.f);
     //GameObject* o_gameObject3 = new GameObject(50.f, 1400.f, 300.f, 90.f);
     GameObject* o_gameObject4 = new GameObject(100.f, 100.f, 1000.f, 50.f, 90.f);
+    GameObject* o_gameObject6 = new GameObject(100.f, 100.f, 10.f, 50.f, 90.f);
 
-    std::vector<GameObject*> list = {o_gameObject4 };
+    std::vector<GameObject*> list = { o_gameObject2,o_gameObject4,o_gameObject6 ,o_gameObject7 };
 
 
     Math::Vector2 vector1 = Math::Vector2(2.f, 1.f);
@@ -45,7 +47,7 @@ void integrationGame()
     sf::Vector2i mousePos;
 
     o_gameObject3->setVector(-1.f, -1.f);
-
+    o_gameObject7->setVector(-1.f, -1.f);
     while (window.isOpen())
     {
         // EVENT 
@@ -71,9 +73,10 @@ void integrationGame()
 
         }
             // UPDATE
-            o_gameObject3->collide(list);
+            //o_gameObject3->collide(list);
             o_gameObject2->moveShape(deltaTime, vector1);
             o_gameObject3->moveShape(deltaTime, o_gameObject3->getVect());
+            o_gameObject7->moveShape(deltaTime, vector1);
 
             o_ball->collide(list);
             o_ball->moveShape(deltaTime, o_ball->getVect());
@@ -87,6 +90,8 @@ void integrationGame()
             //window.draw(o_gameObject5->getShape());
             window.draw(o_gameObject3->getShape());
             window.draw(o_gameObject4->getShape());
+            window.draw(o_gameObject6->getShape());
+            window.draw(o_gameObject7->getShape());
             window.display();
             deltaTime = o_clock.restart().asSeconds();
     }
