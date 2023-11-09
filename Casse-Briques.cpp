@@ -24,7 +24,7 @@ void integrationGame()
     float deltaTime = 0.f;
 
     Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
-    Ball* o_ball = new Ball(10.f, 500.f - 5.f, 500.f, 180.f);
+    Ball* o_ball = new Ball(10.f, 500.f - 5.f, 500.f - 5.f, 180.f);
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
