@@ -4,6 +4,7 @@ Brick::Brick(float sizeX, float sizeY, float posX, float posY, float speed, int 
 {
 	_colors = { {1, sf::Color::Red}, {2, sf::Color::Yellow}, {3, sf::Color::Blue}, {4, sf::Color::Green}, {5, sf::Color::White} };
 	_hp = hp;
+	setColor();
 }
 
 void Brick::setColor()
@@ -46,7 +47,7 @@ void Brick::displayBrick(sf::RenderWindow* o_window)
 {
 	if (isDisplayBrick())
 	{
-		setColor();
+		//setColor();
 		o_window->draw(getShape());
 	}
 }
@@ -54,6 +55,7 @@ void Brick::displayBrick(sf::RenderWindow* o_window)
 void Brick::minusHp()
 {
 	_hp -= 1;
+	setColor();
 }
 
 //void Brick::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks)
