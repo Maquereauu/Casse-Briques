@@ -6,6 +6,7 @@
 #include "Test.h"
 #include "Cannon.h"
 #include "Ball.h"
+#include "GameManager.h"
 
 void integrationTest()
 {
@@ -97,10 +98,42 @@ void integrationGame()
     }
  }
 
+void integrationFile()
+{
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML works!");
+
+    FileReader* o_file = new FileReader();
+
+    GameManager* o_manager = new GameManager(true);
+
+    o_file->readFile("Files/test.txt");
+
+    // EVENT 
+    sf::Event event;
+    while (window.isOpen())
+    {
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
+        }
+        window.clear();
+        o_manager->initBrickFromTxt(100.f, 50.f, 20.f, 20.f, 10.f, &window, o_file);
+
+        o_manager->displayBricks(&window, o_manager->_listBricks);
+        window.display();
+    }
+}
+
 int main()
 {
     //integrationTest();
-    integrationGame();
+    //integrationGame();
+    integrationFile();
+
+
 
     return 0;
 }

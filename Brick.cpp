@@ -1,9 +1,10 @@
 #include "Brick.h"
 
-Brick::Brick(float sizeX, float sizeY, float posX, float posY, float speed) : GameObject(sizeX, sizeY, posX, posY, speed)
+Brick::Brick(float sizeX, float sizeY, float posX, float posY, float speed, int hp) : GameObject(sizeX, sizeY, posX, posY, speed)
 {
 	_colors = { {1, sf::Color::Red}, {2, sf::Color::Yellow}, {3, sf::Color::Blue}, {4, sf::Color::Green}, {5, sf::Color::White} };
-	_hp = 5;
+	_hp = hp;
+	setColor();
 }
 
 void Brick::setColor()
@@ -42,28 +43,26 @@ bool Brick::isDisplayBrick()
 	return false;
 }
 
-//void Brick::displayBrick(float startX, float startY, sf::RenderWindow* o_window)
+void Brick::displayBrick(sf::RenderWindow* o_window)
+{
+	if (isDisplayBrick())
+	{
+		//setColor();
+		o_window->draw(getShape());
+	}
+}
+
+void Brick::minusHp()
+{
+	_hp -= 1;
+	setColor();
+}
+
+//void Brick::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks)
 //{
-//	if (isDisplayBrick)
+//	for (int i = 0; i < listBricks.size(); i++)
 //	{
-//		setColor();
-//		o_window->draw(getShape());
+//		listBricks[i]->displayBrick(o_window);
 //	}
-//}
-//
-//void Brick::displayBrickFromTxt(float startX, float startY, float gap, sf::RenderWindow* o_window, FileReader* o_fileReader)
-//{
-//	for (int i = 0; i < o_fileReader->getFileHeight(); i++)
-//	{
-//		for (int j = 0; j < o_fileReader->getFileWidth(); j++)
-//		{
-//			if (isDisplayBrick)
-//			{
-//				setColor();
-//				o_window->draw(getShape());
-//			}
-//		}
-//	}
-//	
 //}
 
