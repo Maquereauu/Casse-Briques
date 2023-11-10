@@ -24,7 +24,7 @@ void integrationGame()
     float deltaTime = 0.f;
 
     Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
-    Ball* o_ball = new Ball(20.f, 500.f -10.f, 500.f - 10.f, 180.f);
+    Ball* o_ball = new Ball(20.f, 500.f -10.f, 500.f - 10.f, 300.f);
     GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 
 
@@ -32,9 +32,9 @@ void integrationGame()
     GameObject* o_gameObject7 = new GameObject(100.f, 100.f, 50.f, 150.f, 90.f);
     GameObject* o_gameObject3 = new GameObject(100.f, 100.f, 1400.f, 300.f, 90.f);
     //GameObject* o_gameObject3 = new GameObject(50.f, 1400.f, 300.f, 90.f);
-    GameObject* o_gameObject4 = new GameObject(100.f, 100.f, 1000.f, 50.f, 90.f);
+    GameObject* o_gameObject4 = new GameObject(100.f, 50.f, 1000.f, 50.f, 90.f);
     GameObject* o_gameObject6 = new GameObject(100.f, 100.f, 10.f, 50.f, 90.f);
-
+    GameObject* test = new GameObject(100.f, 100.f, 10.f, 50.f, 90.f);
     std::vector<GameObject*> list = { o_gameObject2,o_gameObject4,o_gameObject6 ,o_gameObject7 };
 
 
@@ -45,9 +45,9 @@ void integrationGame()
     vector2.normalizeVector();
 
     sf::Vector2i mousePos;
-
     o_gameObject3->setVector(-1.f, -1.f);
     o_gameObject7->setVector(-1.f, -1.f);
+    o_ball->setOriginPointCircle();
     while (window.isOpen())
     {
         // EVENT 
@@ -59,8 +59,7 @@ void integrationGame()
             if (event.type == sf::Event::Closed)
             {
                 window.close();
-            }            
-
+            }
             if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 30 && Math::Vector2::leftVector.getAngle(mouseVector) <= 150)
             {
                 if (event.type == sf::Event::MouseButtonPressed)
@@ -80,10 +79,11 @@ void integrationGame()
 
             o_ball->collide(list);
             o_ball->moveShape(deltaTime, o_ball->getVect());
-
-            
+            //test->collide(list);
+            //test->moveShape(deltaTime, test->getVect());
             // DRAW
             window.clear();
+            //window.draw(test->getShape());
             window.draw(o_gameObject2->getShape());
             window.draw(o_cannon->getShape());
             window.draw(o_ball->getShape());
