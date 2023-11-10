@@ -51,6 +51,11 @@ void Brick::displayBrick(sf::RenderWindow* o_window)
 	}
 }
 
+void Brick::minusHp()
+{
+	_hp -= 1;
+}
+
 //void Brick::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks)
 //{
 //	for (int i = 0; i < listBricks.size(); i++)

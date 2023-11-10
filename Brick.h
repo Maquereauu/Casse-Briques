@@ -11,6 +11,7 @@ public:
 	Brick(float sizeX, float sizeY, float posX, float posY, float speed, int hp);
 	void setColor();
 	int getHp();
+	void minusHp();
 	bool isDisplayBrick();
 	void displayBrick(sf::RenderWindow* o_window);
 	//void displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks);

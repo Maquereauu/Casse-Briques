@@ -120,7 +120,7 @@ void integrationFile()
             }
         }
         window.clear();
-        o_manager->initBrickFromTxt(100.f, 100.f, 20.f, 20.f, 10.f, &window, o_file);
+        o_manager->initBrickFromTxt(100.f, 50.f, 20.f, 20.f, 10.f, &window, o_file);
 
         o_manager->displayBricks(&window, o_manager->_listBricks);
         window.display();
@@ -130,8 +130,8 @@ void integrationFile()
 int main()
 {
     //integrationTest();
-    integrationGame();
-    //integrationFile();
+    //integrationGame();
+    integrationFile();
 
 
 
