@@ -26,6 +26,7 @@ void FileReader::readFile(std::string path)
     }
     newfile.close(); //close the file object.
 
+    _sizeWidth -= 1;
     /* incrémentation du tableau à parti des valeurs présentes dans le fichier txt */
     while ( i < _sizeHeight)
     {
@@ -35,7 +36,6 @@ void FileReader::readFile(std::string path)
         }
         else if (result[j] == *"&")
         {
-            _tabFile[i].push_back(-1);
             i++;
         }
         else

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "FileReader.h"
+#include "Brick.h"
+
 class GameManager
 {
 private:
@@ -24,5 +27,16 @@ public:
 	void Update();
 
 	void MThrowBall();
+
+
+
+
+	std::vector<Brick*> _listBricks; //
+	float _speed = 90.f; //
+	void displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks);
+	GameManager(bool oui); //
+	void initBrickFromTxt(float sizeX, float sizeY, float startX, float startY, float gap, sf::RenderWindow* o_window, FileReader* o_fileReader); //
+	 
 };
+
 
