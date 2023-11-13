@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
-#include <string>
 #include <SFML/Graphics.hpp>
+
 #include "Cannon.h"
 
 typedef void (*event)();

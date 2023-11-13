@@ -1,10 +1,9 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
+
 #define _USE_MATH_DEFINES
 #include <math.h>
-
+#include <SFML/Graphics.hpp>
+#include <vector>
 
 namespace Math
 {

@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "GameObject.h"
+#include <vector>
+
+class GameObject;
+
 class Window
 {
 private:

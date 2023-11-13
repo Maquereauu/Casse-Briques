@@ -1,5 +1,7 @@
 #include "Window.h"
 
+#include "GameObject.h"
+
 Window::Window(int sizeX,int sizeY)
 {
 	_sizeX = sizeX;

@@ -1,10 +1,13 @@
 #pragma once
 
-#include "FileReader.h"
-#include "Brick.h"
-#include "Ball.h"
-#include "Cannon.h"
-#include "Window.h"
+#include <SFML/Graphics.hpp>
+
+class Ball; 
+class Cannon; 
+class Window; 
+class FileReader;
+class Brick; 
+
 class GameManager
 {
 private:

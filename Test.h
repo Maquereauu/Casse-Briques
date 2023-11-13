@@ -1,7 +1,6 @@
 #pragma once
 
 #include "FileReader.h"
-#include "Math.h"
 
 class Test
 {

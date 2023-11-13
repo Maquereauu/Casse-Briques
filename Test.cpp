@@ -1,5 +1,7 @@
 #include "Test.h"
 
+#include "Math.h
+
 Test::Test() {};
 
 void Test::fileReader()
