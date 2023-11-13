@@ -1,4 +1,7 @@
 #include "GameObject.h"
+
+#include<SFML/Graphics.hpp>
+
 GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float speed)
 {
 	_sizeX = sizeX;
@@ -93,15 +96,16 @@ void GameObject::collide(const std::vector<GameObject*>& list)
 				{
 					if (_collidingWith[j] == list[i])
 					{
-						onCollisionStay();
+						launchCollisionStay();
 					}
 					else {
-						onCollisionEnter(list[i]);
+
+						launchCollisionEnter(list[i]);
 					}
 				}
 			}
 			else {
-			onCollisionEnter(list[i]);
+				launchCollisionEnter(list[i]);
 			}
 		}
 		else {
@@ -111,7 +115,7 @@ void GameObject::collide(const std::vector<GameObject*>& list)
 				{
 					if (_collidingWith[j] == list[i])
 					{
-						onCollisionExit(list[i]);
+						launchCollisionExit(list[i]);
 					}
 				}
 			}
@@ -184,11 +188,43 @@ const Math::Vector2 GameObject::getVect()
 	return _vector;
 }
 
-void GameObject::onCollisionEnter(GameObject* object) 
+void GameObject::setPos(float x, float y) {
+	_posX = x;
+	_posY = y;
+}
+
+float GameObject::getRadius() {
+	return _radius;
+}
+
+
+
+void GameObject::launchCollisionEnter(GameObject* object) 
 {
 	_collidingWith.push_back(object);
 	std::cout << ballCheckCollidingSide(*object) << std::endl; //à modif
 	bounce(ballCheckCollidingSide(*object));
+
+	onCollisionExit(object);
+}
+
+void GameObject::launchCollisionStay()
+{
+	//B)
+	onCollisionStay();
+}
+
+void GameObject::launchCollisionExit(GameObject* object)
+{
+	_collidingWith.erase(std::remove(_collidingWith.begin(), _collidingWith.end(), object), _collidingWith.end());
+	onCollisionExit(object);
+}
+
+
+
+void GameObject::onCollisionEnter(GameObject* object)
+{
+
 }
 
 void GameObject::onCollisionStay()
@@ -198,15 +234,6 @@ void GameObject::onCollisionStay()
 
 void GameObject::onCollisionExit(GameObject* object)
 {
-	_collidingWith.erase(std::remove(_collidingWith.begin(), _collidingWith.end(), object), _collidingWith.end());
-}
 
-void GameObject::setPos(float x, float y) {
-	_posX = x;
-	_posY = y;
-}
-
-float GameObject::getRadius() {
-	return _radius;
 }
 

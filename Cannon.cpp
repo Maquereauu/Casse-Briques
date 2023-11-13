@@ -1,5 +1,7 @@
 #include "Cannon.h"
 
+#include "Ball.h"
+
 Cannon::Cannon(float sizeX, float sizeY, float posX, float posY, float speed) : GameObject(sizeX, sizeY, posX, posY, speed)
 {
     this->setOriginPointOnBase(); // défini l'origine du canon

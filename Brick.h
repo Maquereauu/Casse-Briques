@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+class RenderWindow;
+
 class Brick :public GameObject
 {
 private:

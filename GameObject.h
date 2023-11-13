@@ -1,11 +1,12 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
-#include <iostream>
+#include <map>
+
 #include "Math.h"
 
+class sf::Shape;
 
 class GameObject
 {
@@ -50,6 +51,10 @@ public:
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
 
+
+	virtual void launchCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
+	virtual void launchCollisionStay();
+	virtual void launchCollisionExit(GameObject* object);
 
 	virtual void onCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
 	virtual void onCollisionStay();
