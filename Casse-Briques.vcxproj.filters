@@ -16,72 +16,102 @@
     <Filter Include="Fichiers de ressources\Files">
       <UniqueIdentifier>{cc632a36-89b0-4c4f-a281-037ee59380ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Entities">
+      <UniqueIdentifier>{97a5940b-befd-4025-a223-ba42d07ac63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Entities\GameObjects">
+      <UniqueIdentifier>{3127a833-03c1-48d1-b2d0-5ca181e799e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Entities">
+      <UniqueIdentifier>{f7767f00-8557-43b6-9560-a2008940bb88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Entities\GameObjects">
+      <UniqueIdentifier>{b4391a8c-8028-4716-8de4-f0ee2249e4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Manager">
+      <UniqueIdentifier>{da870b6f-c46f-4562-a8c0-718c3f83246d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Manager">
+      <UniqueIdentifier>{84350fec-3cbb-4656-8a77-2749cd4365e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Math">
+      <UniqueIdentifier>{9bdf93cf-28a8-497f-be41-d09658f27dc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Math">
+      <UniqueIdentifier>{da89f68a-9540-4a75-8bb1-dced8f108be1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Miscellaneous">
+      <UniqueIdentifier>{a07017b3-5701-4dd9-b1c6-f4045dfefcf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Miscellaneous">
+      <UniqueIdentifier>{2f23663f-68d0-4c60-8ccf-93364144caa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Casse-Briques.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Math.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Entities</Filter>
     </ClCompile>
     <ClCompile Include="Ball.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Entities\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Fichiers sources\Entities\GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="Cannon.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Entities\GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="FileReader.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Fichiers sources\Manager</Filter>
     </ClCompile>
     <ClCompile Include="EventManager.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Fichiers sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>Fichiers sources\Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Miscellaneous</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Miscellaneous</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Math.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Ball.h">
+      <Filter>Fichiers d%27en-tête\Entities\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Entities\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Cannon.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Entities\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Fichiers d%27en-tête\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
     </ClInclude>
     <ClInclude Include="EventManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Fichiers d%27en-tête\Math</Filter>
     </ClInclude>
     <ClInclude Include="FileReader.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="Test.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Miscellaneous</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
