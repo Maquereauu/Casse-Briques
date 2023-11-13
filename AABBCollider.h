@@ -4,11 +4,12 @@
 
 #include <string>
 
-class AABBCollider;
+class CircleCollider;
 
-class CircleCollider : public Collider
+class AABBCollider : public Collider
 {
-	CircleCollider(float posX, float posY, float radius);
+public:
+	AABBCollider(float posX, float posY, float sizeX, float sizeY);
 
 	bool isColliding(const AABBCollider& o_AABBCollider) override;
 	bool isColliding(const CircleCollider& o_circleCollider) override;

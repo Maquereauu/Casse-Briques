@@ -1,12 +1,15 @@
 #include "CircleCollider.h"
 
-CircleCollider::CircleCollider(float posX, float posY, float radius, sf::CircleShape* o_graphic) : Collider(posX, posY, radius, o_graphic) {};
+#include "AABBCollider.h"
+#include "Math.h"
 
-bool CircleCollider::isColliding(const sf::RectangleShape& o_shape, float posX, float posY, float sizeX, float sizeY)
+CircleCollider::CircleCollider(float posX, float posY, float radius) : Collider(posX, posY, radius) {};
+
+bool CircleCollider::isColliding(const AABBCollider& o_AABBCollider)
 {
-	bool collidesX = (_posX + _radius >= posX) && (posX + sizeX >= _posX - _radius);
+	bool collidesX = (_posX + _radius >= o_AABBCollider._posX) && (o_AABBCollider._posX + o_AABBCollider._sizeX >= _posX - _radius);
 
-	bool collidesY = (_posY + _radius >= posY) && (posY + sizeY >= _posY - _radius);
+	bool collidesY = (_posY + _radius >= o_AABBCollider._posY) && (o_AABBCollider._posY + o_AABBCollider._sizeY >= _posY - _radius);
 
 	if (collidesX && collidesY)
 	{
@@ -15,11 +18,11 @@ bool CircleCollider::isColliding(const sf::RectangleShape& o_shape, float posX, 
 	return false;
 }
 
-bool CircleCollider::isColliding(const sf::CircleShape& o_shape, float posX, float posY, float radius)
+bool CircleCollider::isColliding(const CircleCollider& o_circleCollider)
 {
-	bool collidesX = (posX + radius >= _posX) && (_posX + _radius >= posX - radius);
+	bool collidesX = (o_circleCollider._posX + o_circleCollider._radius >= _posX) && (_posX + _radius >= o_circleCollider._posX - o_circleCollider._radius);
 
-	bool collidesY = (posY + radius >= _posY) && (_posY + _radius >= posY - radius);
+	bool collidesY = (o_circleCollider._posY + o_circleCollider._radius >= _posY) && (_posY + _radius >= o_circleCollider._posY - o_circleCollider._radius);
 
 	if (collidesX && collidesY)
 	{
@@ -28,13 +31,18 @@ bool CircleCollider::isColliding(const sf::CircleShape& o_shape, float posX, flo
 	return false;
 }
 
-std::string CircleCollider::checkCollidingSide(const sf::RectangleShape& o_shape, float posX, float posY, float sizeX, float sizeY)
+std::string CircleCollider::checkCollidingSide(const AABBCollider& o_AABBCollider)
 {
-	Math::Vector2 centerToCenter(((posX + (sizeX / 2)) - _posX), ((posY + (sizeY / 2)) - _posY));
-	std::cout << (posY + sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
+	Math::Vector2 centerToCenter(((o_AABBCollider._posX + (o_AABBCollider._sizeX / 2)) - _posX), ((o_AABBCollider._posY + (o_AABBCollider._sizeY / 2)) - _posY));
+	std::cout << (o_AABBCollider._posY + o_AABBCollider._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
 	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}
 	return (centerToCenter.y > 0) ? "top" : "bottom";
+}
+
+std::string CircleCollider::checkCollidingSide(const CircleCollider& o_circleCollider)
+{
+	return "pas fait";
 }
