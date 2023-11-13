@@ -65,9 +65,9 @@ void integrationGame()
             {
                 if (event.type == sf::Event::MouseButtonPressed)
                 {
-                    o_cannon->cannonFire(mouseVector, o_ball);
+                    o_cannon->fire(mouseVector, o_ball);
                 }
-                o_cannon->cannonMove(mouseVector);
+                o_cannon->move(mouseVector);
 
             }
 
@@ -127,11 +127,17 @@ void integrationFile()
     }
 }
 
+void Game()
+{
+    GameManager::Get()->launchGame();
+}
+
 int main()
 {
+    Game();
     //integrationTest();
     //integrationGame();
-    integrationFile();
+    //integrationFile();
 
 
 
