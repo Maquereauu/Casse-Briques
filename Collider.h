@@ -4,18 +4,23 @@
 #include <string>
 #include "GameObject.h"
 
-class Collider : public GameObject
+class Collider
 {
 public:
-	Collider(float sizeX, float sizeY, float posX, float posY, float speed);
+	float _posX;
+	float _posY;
+	float _sizeX;
+	float _sizeY;
+	float _radius;
+	sf::Shape* _graphic;
 
-	virtual bool isColliding(const GameObject& object);
-	virtual std::string checkCollidingSide(const GameObject& object);
+public:
+	Collider(float posX, float posY, float sizeX, float sizeY, sf::RectangleShape* o_rectangle);
+	Collider(float posX, float posY, float radius, sf::CircleShape* o_circle);
 
-	virtual bool ballIsColliding(const GameObject& object);
-	virtual std::string ballCheckCollidingSide(const GameObject& object);
+	virtual bool isColliding(const sf::RectangleShape& o_shape, float posX, float posY, float sizeX, float sizeY);
+	virtual bool isColliding(const sf::CircleShape& o_shape, float posX, float posY, float radius);
 
-	virtual void collide(const std::vector<GameObject*>& list);
-	virtual void ballCollide(const std::vector<GameObject*>& list);
+	virtual std::string checkCollidingSide(const sf::RectangleShape& o_shape, float posX, float posY, float sizeX, float sizeY);
+	virtual std::string checkCollidingSide(const sf::CircleShape& o_shape, float posX, float posY, float radius);
 };
-
