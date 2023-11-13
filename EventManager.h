@@ -18,7 +18,15 @@ private:
 	static EventManager* pInstance;
 	EventManager();
 public:
-	std::map<sf::Event::EventType, event> _dict;
+	typedef enum GameArea 
+	{
+		None,
+		Game,
+		Reset,
+		Quit
+	};
+
+	std::map<GameArea,std::map<sf::Event::EventType, event>> _dict;
 	//std::map<sf::Event::EventType, function> _dictmet;
 	static void Initialize()
 	{
@@ -33,11 +41,11 @@ public:
 		return pInstance;
 	}
 
-	void AddEvent(sf::Event::EventType eEventType, event oFunction)
+	void AddEvent(GameArea area,sf::Event::EventType eEventType, event oFunction)
 	{
-		_dict[eEventType] = oFunction;
+		_dict[area][eEventType] = oFunction;
 	}
 
-	void CheckEvent(sf::Event::EventType eventName);
+	void CheckEvent(GameArea area,sf::Event::EventType eventName);
 };
 

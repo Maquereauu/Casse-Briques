@@ -9,7 +9,7 @@ Cannon::Cannon(float sizeX, float sizeY, float posX, float posY, float speed) : 
     _angle = 90.f;
 }
 
-void Cannon::cannonMove(Math::Vector2 mouseVector) 
+void Cannon::move(Math::Vector2 mouseVector) 
 {
     _oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - _angle;
     _angle = Math::Vector2::leftVector.getAngle(mouseVector);
@@ -17,7 +17,7 @@ void Cannon::cannonMove(Math::Vector2 mouseVector)
     this->rotateShape(_oldAngle);
 }
 
-void Cannon::cannonFire(Math::Vector2 mouseVector, Ball* o_ball)
+void Cannon::fire(Math::Vector2 mouseVector, Ball* o_ball)
 {
     float x = getPos().x - (o_ball->getRadius() / 2);
     float y = getPos().y - (o_ball->getRadius() / 2);

@@ -14,3 +14,8 @@ void Window::winDraw(std::vector<GameObject*>* list)
 		_window->draw(list->at(i)->getShape());
 	}
 }
+
+sf::RenderWindow* Window::getWindow()
+{
+	return _window;
+}

@@ -1,41 +1,87 @@
 #include "GameManager.h"
 #include "EventManager.h"
+#include "Window.h"
 GameManager* GameManager::pInstance = nullptr;
 
-void ThrowBall()
+void throwBall()
 {
-	GameManager::Get()->MThrowBall();
+	GameManager::Get()->MthrowBall();
+}
+
+void quit()
+{
+	GameManager::Get()->Mquit();
+}
+
+void retry()
+{
+	GameManager::Get()->Mretry();
+}
+
+void moveCannon()
+{
+	GameManager::Get()->MmoveCannon();
 }
 
 GameManager::GameManager() 
 {
+	_width = 1920;
+	_height = 1080;
+	_o_window = new Window(_width, _height);
+	_window = _o_window->getWindow();
 	/*
 	* INIT objets 
 	*/
 
+	//Game Area
+	GameObject* o_leftSide = new GameObject(_width / 4, _height, 0.f, 0.f, 0.f);
+	GameObject* o_rigthSide = new GameObject(_width / 4, _height, (_width / 4) * 3, 0.f, 0.f);
+	GameObject* o_top = new GameObject((_width / 4) * 2, _height*0.2, (_width / 4), 0.f, 0.f);
+
+
+	Cannon* o_cannon = new Cannon(50.f, 100.f, _width/2, _height*0.8, 90.f);
+	_o_balls.resize(3);
+
 	/*
 	* INIT events
 	*/
-
-	EventManager::Get()->AddEvent(sf::Event::EventType::MouseButtonPressed, &ThrowBall);
-
+	EventManager::Get()->AddEvent("Game",sf::Event::EventType::MouseButtonPressed, &throwBall);
+	EventManager::Get()->AddEvent("Game", sf::Event::EventType::MouseMoved, &moveCannon);
+	EventManager::Get()->AddEvent("Restart", sf::Event::EventType::MouseButtonPressed, &retry);
+	EventManager::Get()->AddEvent("Outside", sf::Event::EventType::Closed, &quit);
 }
 
-void GameManager::Update() {
-	sf::Event::EventType eventName = sf::Event::MouseButtonPressed;
+void GameManager::Update(GameArea area ,sf::Event::EventType eventName) {
+	//sf::Event::EventType eventName = sf::Event::MouseButtonPressed;
+	//std::string area = "Game";
 	//get l'event dans variable
-	EventManager::Get()->CheckEvent(eventName);
+	EventManager::Get()->CheckEvent(area,eventName);
 }
 
 
-void GameManager::MThrowBall()
+void GameManager::MthrowBall()
+{
+	_o_cannon->fire(Math::Vector2::createVector(_o_cannon->getPos(), _mousePos->x, _mousePos->y).getNormalizeVector(),_o_balls[0]);
+}
+
+void GameManager::Mretry()
 {
 	/*
 
 	*/
 }
 
+void GameManager::Mquit()
+{
+	_window->close();
+}
 
+void GameManager::MmoveCannon()
+{
+	/*
+
+	*/
+}
 
 
 
@@ -50,6 +96,44 @@ void GameManager::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> 
 GameManager::GameManager(bool oui)
 {
 
+}
+
+void GameManager::launchGame() 
+{
+	sf::Clock o_clock;
+	float deltaTime = 0.f;
+	while (_window->isOpen())
+	{
+		sf::Event event;
+		while (_window->pollEvent(event))
+		{
+			*_mousePos = sf::Mouse::getPosition(*(_window));
+			if ((_mousePos->x >= _width / 4 && _mousePos->x <= (_width / 4) * 3) && (_mousePos->y >= _height * 0.2 && _mousePos->y <= _height * 0.8))
+			{
+				Update("Game",event.type);
+			}
+			else if((_mousePos->x >= 0 && _mousePos->x <= 100) && (_mousePos->y >= 0 && _mousePos->y <= 100)){
+				Update("Restart", event.type);
+			}
+			else {
+				Update("Outside", event.type);
+			}
+		}
+
+
+
+		for (int i = 0; i < _entities->size(); i++)
+		{
+			_entities->at(i)->moveShape(deltaTime, _entities->at(i)->getVect());
+		}
+
+
+		_window->clear();
+		_o_window->winDraw(_entities);
+		_window->display();
+
+		deltaTime = o_clock.restart().asSeconds();
+	}
 }
 
 void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float startY, float gap, sf::RenderWindow* o_window, FileReader* o_fileReader)
