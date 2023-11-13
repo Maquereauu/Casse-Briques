@@ -1,13 +1,12 @@
 #pragma once
-
+#include "EventManager.h"
 #include <SFML/Graphics.hpp>
-
+class GameObject;
 class Ball; 
 class Cannon; 
 class Window; 
 class FileReader;
-class Brick; 
-
+class Brick;
 class GameManager
 {
 private:
@@ -36,7 +35,7 @@ public:
 	{
 		return pInstance;
 	}
-	void Update(std::string area, sf::Event::EventType eventName);
+	void Update(EventManager::GameArea area, sf::Event::EventType eventName);
 
 	void MthrowBall();
 	void Mretry();
@@ -47,7 +46,7 @@ public:
 	std::vector<Brick*> _listBricks; //
 	float _speed = 90.f; //
 	void displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks);
-	GameManager(bool oui); //
+	//GameManager(bool oui); //
 	void launchGame();
 	void initBrickFromTxt(float sizeX, float sizeY, float startX, float startY, float gap, sf::RenderWindow* o_window, FileReader* o_fileReader); //
 	 

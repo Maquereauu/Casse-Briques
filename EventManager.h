@@ -2,8 +2,6 @@
 #include <map>
 #include <SFML/Graphics.hpp>
 
-#include "Cannon.h"
-
 typedef void (*event)();
 
 template<typename T>
@@ -22,7 +20,7 @@ public:
 	{
 		None,
 		Game,
-		Reset,
+		Restart,
 		Quit
 	};
 

@@ -21,5 +21,7 @@ void B()
 }
 
 void EventManager::CheckEvent(GameArea area,sf::Event::EventType eventName){
-	_dict[area][eventName];
+	if (_dict.find(area) != _dict.end() && _dict[area].find(eventName) != _dict[area].end()) {
+		_dict[area][eventName]();
+	}
 }
