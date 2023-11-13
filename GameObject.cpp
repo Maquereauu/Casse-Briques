@@ -60,6 +60,29 @@ bool GameObject::ballIsColliding(const GameObject& object)
 	return false;
 }
 
+std::string GameObject::checkCollidingSide(const GameObject& object)
+{
+	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
+	Math::Vector2 centerToCenter((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2)), (object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2)));
+	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+		return (centerToCenter.x > 0) ? "left" : "right";
+	}
+	return (centerToCenter.y > 0) ? "top" : "bottom";
+}
+
+
+std::string GameObject::ballCheckCollidingSide(const GameObject& object)
+{
+	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
+	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
+	std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
+	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
+	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+		return (centerToCenter.x > 0) ? "left" : "right";
+	}
+	return (centerToCenter.y > 0) ? "top" : "bottom";
+}
+
 void GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
@@ -94,29 +117,6 @@ void GameObject::collide(const std::vector<GameObject*>& list)
 			}
 		}
 	}
-}
-
-std::string GameObject::checkCollidingSide(const GameObject& object)
-{
-	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	Math::Vector2 centerToCenter((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2)), (object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2)));
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-		return (centerToCenter.x > 0) ? "left" : "right";
-	}
-		return (centerToCenter.y > 0) ? "top" : "bottom";
-}
-
-
-std::string GameObject::ballCheckCollidingSide(const GameObject& object)
-{
-	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX) , ((object._posY + (object._sizeY / 2)) - _posY));
-	std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
-	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-		return (centerToCenter.x > 0) ? "left" : "right";
-	}
-	return (centerToCenter.y > 0) ? "top" : "bottom";
 }
 
 void GameObject::bounce(std::string side) 
