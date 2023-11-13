@@ -36,11 +36,13 @@ public:
 	void setOriginPoint();
 	void setOriginPointOnBase();
 	void setOriginPointCircle();
+
 	bool isColliding(const GameObject& object);
 	bool ballIsColliding(const GameObject& object);
 	void collide(const std::vector<GameObject*>& list);
 	std::string checkCollidingSide(const GameObject& object);
 	std::string ballCheckCollidingSide(const GameObject& object);
+
 	void bounce(std::string side);
 	Math::Vector2 getPos();
 	float getRadius();
