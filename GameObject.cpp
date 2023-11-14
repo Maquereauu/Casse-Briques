@@ -2,6 +2,10 @@
 
 #include<SFML/Graphics.hpp>
 
+#include "Collider.h"
+#include "AABBCollider.h"
+#include "CircleCollider.h"
+
 GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float speed)
 {
 	_sizeX = sizeX;
@@ -9,6 +13,8 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_posX = posX;
 	_posY = posY;
 	_speed = speed;
+	_collider = new AABBCollider(_posX, _posY, _sizeX, _sizeY);
+
 	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(_sizeX, _sizeY));
 	rectangle->setFillColor(sf::Color::Blue);
 	rectangle->setPosition(_posX, _posY);
@@ -23,6 +29,7 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 	_posX = posX;
 	_posY = posY;
 	_speed = speed;
+	_collider = new CircleCollider(posX, posY, radius);
 
 	sf::CircleShape* circle = new sf::CircleShape(_radius);
 	circle->setFillColor(sf::Color::Red);
@@ -39,15 +46,17 @@ sf::Shape& GameObject::getShape()
 
 bool GameObject::isColliding(const GameObject& object)
 {
-	bool collidesX = (_posX + _sizeX >= object._posX) && (object._posX + object._sizeX >= _posX);
+	return _collider->colliding(object._collider);
 
-	bool collidesY = (_posY + _sizeY >= object._posY) && (object._posY + object._sizeY >= _posY);
+	//bool collidesX = (_posX + _sizeX >= object._posX) && (object._posX + object._sizeX >= _posX);
 
-	if (collidesX && collidesY)
-	{
-		return true;
-	}
-	return false;
+	//bool collidesY = (_posY + _sizeY >= object._posY) && (object._posY + object._sizeY >= _posY);
+
+	//if (collidesX && collidesY)
+	//{
+	//	return true;
+	//}
+	//return false;
 }
 
 bool GameObject::ballIsColliding(const GameObject& object)
@@ -65,12 +74,13 @@ bool GameObject::ballIsColliding(const GameObject& object)
 
 std::string GameObject::checkCollidingSide(const GameObject& object)
 {
-	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	Math::Vector2 centerToCenter((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2)), (object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2)));
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-		return (centerToCenter.x > 0) ? "left" : "right";
-	}
-	return (centerToCenter.y > 0) ? "top" : "bottom";
+	return _collider->collidingSide(object._collider);
+	///* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
+	//Math::Vector2 centerToCenter((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2)), (object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2)));
+	//if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+	//	return (centerToCenter.x > 0) ? "left" : "right";
+	//}
+	//return (centerToCenter.y > 0) ? "top" : "bottom";
 }
 
 
@@ -89,7 +99,7 @@ std::string GameObject::ballCheckCollidingSide(const GameObject& object)
 void GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
-		if (ballIsColliding(*list[i])) { //à modif
+		if (isColliding(*list[i])) { //à modif
 			if (_collidingWith.size() != 0)
 			{
 				for (int j = 0; j < _collidingWith.size(); j++)
@@ -199,11 +209,12 @@ float GameObject::getRadius() {
 
 
 
+
 void GameObject::launchCollisionEnter(GameObject* object) 
 {
 	_collidingWith.push_back(object);
-	std::cout << ballCheckCollidingSide(*object) << std::endl; //à modif
-	bounce(ballCheckCollidingSide(*object));
+	std::cout << checkCollidingSide(*object) << std::endl; //à modif
+	bounce(checkCollidingSide(*object));
 
 	onCollisionExit(object);
 }
@@ -229,7 +240,7 @@ void GameObject::onCollisionEnter(GameObject* object)
 
 void GameObject::onCollisionStay()
 {
-	//B)
+
 }
 
 void GameObject::onCollisionExit(GameObject* object)

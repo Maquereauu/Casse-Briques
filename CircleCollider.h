@@ -8,7 +8,10 @@ class AABBCollider;
 
 class CircleCollider : public Collider
 {
-	CircleCollider(float posX, float posY, float radius);
+public:
+	float& _radius;
+
+	CircleCollider(float& posX, float& posY, float& radius);
 
 	bool isColliding(const AABBCollider& o_AABBCollider) override;
 	bool isColliding(const CircleCollider& o_circleCollider) override;

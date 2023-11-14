@@ -3,13 +3,17 @@
 #include "Collider.h"
 
 #include <string>
+#include <iostream>
 
 class CircleCollider;
 
 class AABBCollider : public Collider
 {
 public:
-	AABBCollider(float posX, float posY, float sizeX, float sizeY);
+	float& _sizeX;
+	float& _sizeY;
+
+	AABBCollider(float& posX, float& posY, float& sizeX, float& sizeY);
 
 	bool isColliding(const AABBCollider& o_AABBCollider) override;
 	bool isColliding(const CircleCollider& o_circleCollider) override;

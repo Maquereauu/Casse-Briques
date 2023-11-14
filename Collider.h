@@ -10,15 +10,10 @@ class Shape;
 class Collider
 {
 public:
-	float _posX;
-	float _posY;
-	float _sizeX;
-	float _sizeY;
-	float _radius;
+	float& _posX;
+	float& _posY;
 
-public:
-	Collider(float posX, float posY, float sizeX, float sizeY);
-	Collider(float posX, float posY, float radius);
+	Collider(float& posX, float& posY);
 
 	bool colliding(Collider* o_OtherCollider);
 	std::string collidingSide(Collider* o_OtherCollider);
