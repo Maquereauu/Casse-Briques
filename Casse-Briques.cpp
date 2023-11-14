@@ -153,12 +153,12 @@ void Game()
 
 int main()
 {
-  /*  EventManager::Initialize();
+    EventManager::Initialize();
     GameManager::Initialize();
-    Game();*/
+    Game();
 
     //integrationTest();
-    integrationGame();
+    //integrationGame();
     //integrationFile();
 
 

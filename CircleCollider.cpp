@@ -18,7 +18,7 @@ bool CircleCollider::isColliding(const AABBCollider& o_AABBCollider)
 		return false;
 	}
 
-	std::cout << "collide Circle to AABB" << std::endl;
+	//std::cout << "collide Circle to AABB" << std::endl;
 	return true;
 }
 
@@ -36,13 +36,13 @@ bool CircleCollider::isColliding(const CircleCollider& o_circleCollider)
 		return false;
 	}
 
-	std::cout << "collide Circle to Circle" << std::endl;
+	//std::cout << "collide Circle to Circle" << std::endl;
 	return true;
 }
 
 std::string CircleCollider::checkCollidingSide(const AABBCollider& o_AABBCollider)
 {
-	Math::Vector2 centerToCenter(((o_AABBCollider._posX + (o_AABBCollider._sizeX / 2)) - _posX), ((o_AABBCollider._posY + (o_AABBCollider._sizeY / 2)) - _posY));
+	Math::Vector2 centerToCenter((((o_AABBCollider._posX + (o_AABBCollider._sizeX / 2)) - (_posX + (_sizeX / 2)))) * (_sizeX / o_AABBCollider._sizeX), (((o_AABBCollider._posY + (o_AABBCollider._sizeY / 2)) - (_posY + (_sizeY / 2)))) * (_sizeY / o_AABBCollider._sizeY));
 	//std::cout << (o_AABBCollider._posY + o_AABBCollider._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
 	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
