@@ -28,8 +28,8 @@ void integrationGame()
     //Cannon* o_cannon = new Cannon(50.f, 100.f, 500.f, 500.f, 90.f);
     //Ball* o_ball = new Ball(20.f, 500.f - 10.f, 500.f - 10.f, 300.f);
 
-    //GameObject* o_ball2 = new GameObject(30.f, 100.f, 100.f, 90.f);
-    GameObject* o_ball2 = new GameObject(100.f, 100.f, 100.f, 100.f, 90.f);
+    GameObject* o_ball2 = new GameObject(30.f, 100.f, 100.f, 90.f);
+    //GameObject* o_ball2 = new GameObject(100.f, 100.f, 100.f, 100.f, 90.f);
 
     //GameObject* o_gameObject5 = new GameObject(200.f, 100.f, 50.f, 70.f, 90.f);
 

@@ -27,14 +27,14 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 {
 	_sizeX = radius * 2;
 	_sizeY = radius * 2;
-	_posX = posX - radius;
-	_posY = posY - radius;
+	_posX = posX;
+	_posY = posY;
 	_speed = speed;
 	_collider = new CircleCollider(_posX, _posY, _sizeX, _sizeY);
 
 	sf::CircleShape* circle = new sf::CircleShape(radius);
 	circle->setFillColor(sf::Color::Red);
-	circle->setPosition(_posX + radius, _posY + radius);
+	circle->setPosition(_posX, _posY);
 
 	_graphic = circle;
 }
