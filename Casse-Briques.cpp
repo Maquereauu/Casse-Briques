@@ -7,7 +7,7 @@
 #include "Test.h"
 #include "Cannon.h"
 #include "Ball.h"
-#include "GameManager.h"
+#include "EventManager.h"
 
 void integrationTest()
 {

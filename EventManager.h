@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include <SFML/Graphics.hpp>
+#include "GameManager.h"
 
 typedef void (*event)();
 
@@ -10,21 +11,35 @@ void (T::*function)();
 void A();
 void B();
 
+
+
+struct Area 
+{
+	float _x;
+	float _y;
+	float _width;
+	float _height;
+	GameManager::GameArea _eGameArea;
+	Area(float x, float y, float width, float height, GameManager::GameArea eGameArea)
+	{
+		_x = x;
+		_y = y;
+		_width = width;
+		_height = height;
+		_eGameArea = eGameArea;
+	}
+};
+
 class EventManager
 {
 private:
 	static EventManager* pInstance;
 	EventManager();
 public:
-	typedef enum GameArea 
-	{
-		None,
-		Game,
-		Restart,
-		Quit
-	};
 
-	std::map<GameArea,std::map<sf::Event::EventType, event>> _dict;
+	std::vector<Area> m_oAreas;
+
+	std::map<int, std::map<sf::Event::EventType, event>> _dict;
 	//std::map<sf::Event::EventType, function> _dictmet;
 	static void Initialize()
 	{
@@ -39,11 +54,18 @@ public:
 		return pInstance;
 	}
 
-	void AddEvent(GameArea area,sf::Event::EventType eEventType, event oFunction)
+	void AddEvent(GameManager::GameArea area, sf::Event::EventType eEventType, event oFunction)
 	{
 		_dict[area][eEventType] = oFunction;
 	}
 
-	void CheckEvent(GameArea area,sf::Event::EventType eventName);
+	void AddArea(float fX, float fY, float fWidth, float fHeight, GameManager::GameArea eGameArea)
+	{
+		m_oAreas.push_back(Area(fX, fY, fWidth, fHeight, eGameArea));
+	}
+
+	void CheckEvent(GameManager::GameArea area, sf::Event::EventType eventName);
+
+	void Update(sf::RenderWindow* _window);
 };
 
