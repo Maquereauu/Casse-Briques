@@ -1,5 +1,4 @@
 #pragma once
-#include "EventManager.h"
 #include <SFML/Graphics.hpp>
 class GameObject;
 class Ball; 
@@ -10,19 +9,25 @@ class Brick;
 class GameManager
 {
 private:
-	int _width;
-	int _height;
-	std::vector<Ball*> _o_balls;
+	std::vector<Ball*>* _o_balls;
 	Window* _o_window;
 	Cannon* _o_cannon;
 	static GameManager* pInstance;
 	GameManager();
-	sf::Vector2i* _mousePos;
 	std::vector<GameObject*>* _entities;
+	int* _width;
+	int* _height;
 	sf::RenderWindow* _window;
-
+	int* ballCounter;
 public:
-	
+	sf::Vector2i* _mousePos;
+	typedef enum GameArea
+	{
+		None,
+		Game,
+		Restart,
+		Quit
+	};
 	static void Initialize() 
 	{
 		if (pInstance != nullptr)
@@ -35,7 +40,6 @@ public:
 	{
 		return pInstance;
 	}
-	void Update(EventManager::GameArea area, sf::Event::EventType eventName);
 
 	void MthrowBall();
 	void Mretry();

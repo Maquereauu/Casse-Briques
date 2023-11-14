@@ -6,7 +6,7 @@
 #include "Test.h"
 #include "Cannon.h"
 #include "Ball.h"
-#include "GameManager.h"
+#include "EventManager.h"
 
 void integrationTest()
 {
@@ -48,7 +48,7 @@ void integrationGame()
     sf::Vector2i mousePos;
     o_gameObject3->setVector(-1.f, -1.f);
     o_gameObject7->setVector(-1.f, -1.f);
-    o_ball->setOriginPointCircle();
+    o_ball->setOriginCenter();
     while (window.isOpen())
     {
         // EVENT 

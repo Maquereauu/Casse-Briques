@@ -19,14 +19,15 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 
 GameObject::GameObject(float radius, float posX, float posY, float speed)
 {
-	_radius = radius;
-	_posX = posX;
-	_posY = posY;
+	_sizeX = radius * 2;
+	_sizeY = radius * 2;
+	_posX = posX - radius;
+	_posY = posY - radius;
 	_speed = speed;
 
-	sf::CircleShape* circle = new sf::CircleShape(_radius);
+	sf::CircleShape* circle = new sf::CircleShape(radius);
 	circle->setFillColor(sf::Color::Red);
-	circle->setPosition(_posX, _posY);
+	circle->setPosition(_posX + radius, _posY + radius);
 
 	_graphic = circle;
 }
@@ -39,28 +40,13 @@ sf::Shape& GameObject::getShape()
 
 bool GameObject::isColliding(const GameObject& object)
 {
-	bool collidesX = (_posX + _sizeX >= object._posX) && (object._posX + object._sizeX >= _posX);
+	if((_posX + _sizeX < object._posX) || (object._posX + object._sizeX < _posX))
+		return false;
 
-	bool collidesY = (_posY + _sizeY >= object._posY) && (object._posY + object._sizeY >= _posY);
-
-	if (collidesX && collidesY)
-	{
-		return true;
-	}
-	return false;
-}
-
-bool GameObject::ballIsColliding(const GameObject& object)
-{
-	bool collidesX = (_posX + _radius >= object._posX) && (object._posX + object._sizeX >= _posX - _radius);
-
-	bool collidesY = (_posY + _radius >= object._posY) && (object._posY + object._sizeY >= _posY - _radius);
-
-	if (collidesX && collidesY)
-	{
-		return true;
-	}
-	return false;
+	if ((_posY + _sizeY < object._posY) || (object._posY + object._sizeY >= _posY))
+		return false;
+	
+	return true;
 }
 
 std::string GameObject::checkCollidingSide(const GameObject& object)
@@ -78,7 +64,7 @@ std::string GameObject::ballCheckCollidingSide(const GameObject& object)
 {
 	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
 	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
-	std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
+	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
 	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
@@ -89,7 +75,7 @@ std::string GameObject::ballCheckCollidingSide(const GameObject& object)
 void GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
-		if (ballIsColliding(*list[i])) { //à modif
+		if (isColliding(*list[i])) { //à modif
 			if (_collidingWith.size() != 0)
 			{
 				for (int j = 0; j < _collidingWith.size(); j++)
@@ -158,19 +144,21 @@ void GameObject::rotateShape(float rotateDegree)
 	_graphic->setRotation(_rotate);
 }
 
-void GameObject::setOriginPoint()
+
+void GameObject::setOrigin(float fRatioxX, float fRatioY) 
 {
-	_graphic->setOrigin(_sizeX / 2.f, _sizeY / 2.f);
+
+	_graphic->setOrigin(_sizeX * fRatioxX, _sizeY * fRatioY);
 }
 
-void GameObject::setOriginPointCircle()
+void GameObject::setOriginCenter()
 {
-	_graphic->setOrigin(_radius, _radius);
+	setOrigin(1 / 2.f, 1 / 2.f);
 }
 
 void GameObject::setOriginPointOnBase()
 {
-	_graphic->setOrigin(_sizeX / 2.f, (3 * _sizeY) / 4);
+	setOrigin(1 / 2.f, 3 / 4.f);
 }
 Math::Vector2 GameObject::getPos()
 {
@@ -191,10 +179,6 @@ const Math::Vector2 GameObject::getVect()
 void GameObject::setPos(float x, float y) {
 	_posX = x;
 	_posY = y;
-}
-
-float GameObject::getRadius() {
-	return _radius;
 }
 
 

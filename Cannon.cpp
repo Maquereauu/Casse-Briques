@@ -13,7 +13,6 @@ void Cannon::move(Math::Vector2 mouseVector)
 {
     _oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - _angle;
     _angle = Math::Vector2::leftVector.getAngle(mouseVector);
-
     this->rotateShape(_oldAngle);
 }
 
