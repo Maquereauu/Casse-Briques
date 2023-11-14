@@ -6,30 +6,36 @@ AABBCollider::AABBCollider(float& posX, float& posY, float& sizeX, float& sizeY)
 
 bool AABBCollider::isColliding(const AABBCollider& o_AABBCollider)
 {
-	bool collidesX = (_posX + _sizeX >= o_AABBCollider._posX) && (o_AABBCollider._posX + o_AABBCollider._sizeX >= _posX);
-
-	bool collidesY = (_posY + _sizeY >= o_AABBCollider._posY) && (o_AABBCollider._posY + o_AABBCollider._sizeY >= _posY);
-
-	if (collidesX && collidesY)
+	// rectangle collide rectangle
+	if ((_posX + _sizeX < o_AABBCollider._posX) || (o_AABBCollider._posX + o_AABBCollider._sizeX < _posX))
 	{
-		std::cout << "collide AABB to AABB" << std::endl;
-		return true;
+		return false;
 	}
-	return false;
+
+	else if ((_posY + _sizeY < o_AABBCollider._posY) || (o_AABBCollider._posY + o_AABBCollider._sizeY < _posY))
+	{
+		return false;
+	}
+	
+	std::cout << "collide AABB to AABB" << std::endl;
+	return true;
 }
 
 bool AABBCollider::isColliding(const CircleCollider& o_circleCollider)
 {
-	bool collidesX = (o_circleCollider._posX + o_circleCollider._radius >= _posX) && (_posX + _sizeX >= o_circleCollider._posX - o_circleCollider._radius);
-
-	bool collidesY = (o_circleCollider._posY + o_circleCollider._radius >= _posY) && (_posY + _sizeY >= o_circleCollider._posY - o_circleCollider._radius);
-	
-	if (collidesX && collidesY)
+	// rectangle collide ball
+	if ((_posX + _sizeX < o_circleCollider._posX) || (o_circleCollider._posX + o_circleCollider._sizeX < _posX))
 	{
-		std::cout << "collide AABB to Circle" << std::endl;
-		return true;
+		return false;
 	}
-	return false;
+
+	else if ((_posY + _sizeY < o_circleCollider._posY) || (o_circleCollider._posY + o_circleCollider._sizeY < _posY))
+	{
+		return false;
+	}
+
+	std::cout << "collide AABB to Circle" << std::endl;
+	return true;
 }
 
 std::string AABBCollider::checkCollidingSide(const AABBCollider& o_AABBCollider)
@@ -46,8 +52,8 @@ std::string AABBCollider::checkCollidingSide(const CircleCollider& o_circleColli
 {
 	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
 	Math::Vector2 centerToCenter(((_posX + (_sizeX / 2)) - o_circleCollider._posX), ((_posY + (_sizeY / 2)) - o_circleCollider._posY));
-	/*std::cout << (_posY + _sizeY / 2) << "/" << o_circleCollider._posY << "/" << o_circleCollider._radius << std::endl;
-	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;*/
+	//std::cout << (_posY + _sizeY / 2) << "/" << o_circleCollider._posY << "/" << o_circleCollider._sizeX << std::endl;
+	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}

@@ -30,7 +30,7 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 	_posX = posX - radius;
 	_posY = posY - radius;
 	_speed = speed;
-	_collider = new CircleCollider(posX, posY, radius);
+	_collider = new CircleCollider(_posX, _posY, _sizeX, _sizeY);
 
 	sf::CircleShape* circle = new sf::CircleShape(radius);
 	circle->setFillColor(sf::Color::Red);
@@ -47,13 +47,14 @@ sf::Shape& GameObject::getShape()
 
 bool GameObject::isColliding(const GameObject& object)
 {
-	if((_posX + _sizeX < object._posX) || (object._posX + object._sizeX < _posX))
-		return false;
+	//if((_posX + _sizeX < object._posX) || (object._posX + object._sizeX < _posX))
+	//	return false;
 
-	if ((_posY + _sizeY < object._posY) || (object._posY + object._sizeY >= _posY))
-		return false;
-	
-	return true;
+	//if ((_posY + _sizeY < object._posY) || (object._posY + object._sizeY >= _posY))
+	//	return false;
+	//
+	//return true;
+	return _collider->colliding(object._collider);
 }
 
 std::string GameObject::checkCollidingSide(const GameObject& object)

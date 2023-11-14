@@ -3,34 +3,41 @@
 #include "AABBCollider.h"
 #include "Math.h"
 
-CircleCollider::CircleCollider(float& posX, float& posY, float& radius) : _radius(radius), Collider(posX, posY) {};
+CircleCollider::CircleCollider(float& posX, float& posY, float& _sizeX, float& _sizeY) : _sizeX(_sizeX), _sizeY(_sizeY), Collider(posX, posY) {};
 
 bool CircleCollider::isColliding(const AABBCollider& o_AABBCollider)
 {
-	bool collidesX = (_posX + _radius >= o_AABBCollider._posX) && (o_AABBCollider._posX + o_AABBCollider._sizeX >= _posX - _radius);
-
-	bool collidesY = (_posY + _radius >= o_AABBCollider._posY) && (o_AABBCollider._posY + o_AABBCollider._sizeY >= _posY - _radius);
-
-	if (collidesX && collidesY)
+	// ball collide rectangle
+	if ((_posX + _sizeX < o_AABBCollider._posX) || (o_AABBCollider._posX + o_AABBCollider._sizeX < _posX))
 	{
-		std::cout << "collide circle to AABB" << std::endl;
-		return true;
+		return false;
 	}
-	return false;
+
+	else if ((_posY + _sizeY < o_AABBCollider._posY) || (o_AABBCollider._posY + o_AABBCollider._sizeY < _posY))
+	{
+		return false;
+	}
+
+	std::cout << "collide Circle to AABB" << std::endl;
+	return true;
 }
+
 
 bool CircleCollider::isColliding(const CircleCollider& o_circleCollider)
 {
-	bool collidesX = (o_circleCollider._posX + o_circleCollider._radius >= _posX) && (_posX + _radius >= o_circleCollider._posX - o_circleCollider._radius);
-
-	bool collidesY = (o_circleCollider._posY + o_circleCollider._radius >= _posY) && (_posY + _radius >= o_circleCollider._posY - o_circleCollider._radius);
-
-	if (collidesX && collidesY)
+	// ball collide ball
+	if ((_posX + _sizeX < o_circleCollider._posX) || (o_circleCollider._posX + o_circleCollider._sizeX < _posX))
 	{
-		std::cout << "collide circle to circle" << std::endl;
-		return true;
+		return false;
 	}
-	return false;
+
+	else if ((_posY + _sizeY < o_circleCollider._posY) || (o_circleCollider._posY + o_circleCollider._sizeY < _posY))
+	{
+		return false;
+	}
+
+	std::cout << "collide Circle to Circle" << std::endl;
+	return true;
 }
 
 std::string CircleCollider::checkCollidingSide(const AABBCollider& o_AABBCollider)
