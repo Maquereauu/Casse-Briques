@@ -6,7 +6,7 @@
 #include "AABBCollider.h"
 #include "CircleCollider.h"
 
-GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float speed)
+GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float speed, int iLabel)
 {
 	_sizeX = sizeX;
 	_sizeY = sizeY;
@@ -18,12 +18,15 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(_sizeX, _sizeY));
 	rectangle->setFillColor(sf::Color::Blue);
 	rectangle->setPosition(_posX, _posY);
-
 	_graphic = rectangle;
+	if (this != nullptr)
+	{
 
+	}
+	GameManager::Get()->addToEntity(iLabel, this);
 }
 
-GameObject::GameObject(float radius, float posX, float posY, float speed)
+GameObject::GameObject(float radius, float posX, float posY, float speed, int iLabel)
 {
 	_sizeX = radius * 2;
 	_sizeY = radius * 2;
@@ -37,6 +40,7 @@ GameObject::GameObject(float radius, float posX, float posY, float speed)
 	circle->setPosition(_posX, _posY);
 
 	_graphic = circle;
+	GameManager::Get()->addToEntity(iLabel, this);
 }
 
 sf::Shape& GameObject::getShape()

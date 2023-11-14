@@ -1,8 +1,8 @@
 #include "Cannon.h"
 
+#include "GameObjectEnum.h"
 #include "Ball.h"
-
-Cannon::Cannon(float sizeX, float sizeY, float posX, float posY, float speed) : GameObject(sizeX, sizeY, posX, posY, speed)
+Cannon::Cannon(float sizeX, float sizeY, float posX, float posY, float speed) : GameObject(sizeX, sizeY, posX, posY, speed,GoLabel::cannon)
 {
     this->setOriginPointOnBase(); // défini l'origine du canon
     _oldAngle = 90.f;

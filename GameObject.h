@@ -4,8 +4,8 @@
 #include <vector>
 #include <map>
 
+#include "GameManager.h"
 #include "Math.h"
-
 class sf::Shape;
 class Collider;
 
@@ -30,8 +30,8 @@ protected:
 	Math::Vector2 _vector;
 
 public:
-	GameObject(float sizeX, float sizeY, float posX, float posY, float speed); // rectangle
-	GameObject(float radius, float posX, float posY, float speed); // ball
+	GameObject(float sizeX, float sizeY, float posX, float posY, float speed ,int iLabel); // rectangle
+	GameObject(float radius, float posX, float posY, float speed, int iLabel); // ball
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, const Math::Vector2& direction);
 	void rotateShape(float rotateDegree);
@@ -49,7 +49,6 @@ public:
 	void setPos(float x, float y);
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
-
 
 	virtual void launchCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
 	virtual void launchCollisionStay();

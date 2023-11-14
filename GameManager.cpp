@@ -1,4 +1,5 @@
 #include "GameManager.h"
+
 #include "EventManager.h"
 #include "FileReader.h"
 #include "Brick.h"
@@ -6,6 +7,7 @@
 #include "Cannon.h"
 #include "Window.h"
 #include "EventManager.h"
+#include "GameObjectEnum.h"
 GameManager* GameManager::pInstance = nullptr;
 
 void throwBall()
@@ -36,17 +38,18 @@ GameManager::GameManager()
 	_o_window = new Window(*_width, *_height);
 	_window = _o_window->getWindow();
 	_mousePos = new sf::Vector2i();
-	_entities = new std::vector<GameObject*>();
+	_entities = new std::vector<std::vector<GameObject*>*>();
 	_o_balls = new std::vector<Ball*>();
 	/*
 	* INIT objets 
 	*/
 
 	//Game Area
-	GameObject* o_leftSide = new GameObject(*_width / 4, *_height, 0.f, 0.f, 0.f);
-	GameObject* o_rigthSide = new GameObject(*_width / 4, *_height, (*_width / 4) * 3, 0.f, 0.f);
-	GameObject* o_top = new GameObject((*_width / 4) * 2, *_height*0.2, (*_width / 4), 0.f, 0.f);
+	_entities->resize(GoLabel::total);
 
+	GameObject* o_leftSide = new GameObject(*_width / 4, *_height, 0.f, 0.f, 0.f, GoLabel::border);
+	GameObject* o_rigthSide = new GameObject(*_width / 4, *_height, (*_width / 4) * 3, 0.f, 0.f, GoLabel::border);
+	GameObject* o_top = new GameObject((*_width / 4) * 2, *_height*0.2, (*_width / 4), 0.f, 0.f, GoLabel::border);
 
 	_o_cannon = new Cannon(50.f, 100.f, *_width/2, *_height*0.8, 90.f);
 	Ball* o_ball1 = new Ball();
@@ -56,14 +59,6 @@ GameManager::GameManager()
 	_o_balls->push_back(o_ball2);
 	_o_balls->push_back(o_ball3);
 	ballCounter = new int(0);
-	_entities->push_back(o_leftSide);
-	_entities->push_back(o_rigthSide);
-	_entities->push_back(o_top);
-	_entities->push_back(o_ball1);
-	_entities->push_back(o_ball2);
-	_entities->push_back(o_ball3);
-	_entities->push_back(_o_cannon);
-	std::cout << *ballCounter << std::endl;
 
 	/*
 	* INIT events
@@ -132,15 +127,35 @@ void GameManager::launchGame()
 	while (_window && _window->isOpen())
 	{
 		EventManager::Get()->Update(_window);
+		for (int i = 0; i < _entities->at(GoLabel::ball)->size(); i++)
+		{
+			for (int j = i + 1; j < _entities->at(GoLabel::ball)->size(); j++)
+			{
+
+				_entities->at(GoLabel::ball)->at(i)->collide(*_entities->at(j));
+			}
+			for (int j = 0; j < _entities->at(GoLabel::brick)->size(); j++)
+			{
+
+				_entities->at(GoLabel::ball)->at(i)->collide(*_entities->at(j));
+			}
+		}
+
 
 		for (int i = 0; i < _entities->size(); i++)
 		{
-			_entities->at(i)->moveShape(deltaTime, _entities->at(i)->getVect());
+			for (int j = 0; j < _entities->at(i)->size(); j++)
+			{
+				_entities->at(i)->at(j)->moveShape(deltaTime, _entities->at(i)->at(j)->getVect());
+			}
 		}
 
 
 		_window->clear();
-		_o_window->winDraw(_entities);
+		for (int i = 0; i < GoLabel::total; i++)
+		{
+			_o_window->winDraw(_entities->at(i));
+		}
 		_window->display();
 
 		deltaTime = o_clock.restart().asSeconds();
@@ -165,4 +180,9 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		y += sizeY + gap;
 	}
 
+}
+
+void GameManager::addToEntity(int iLabel, GameObject* o_gameObject)
+{
+	_entities->at(iLabel)->push_back(o_gameObject);
 }

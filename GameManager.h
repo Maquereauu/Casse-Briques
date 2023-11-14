@@ -15,12 +15,12 @@ private:
 	Cannon* _o_cannon;
 	static GameManager* pInstance;
 	GameManager();
-	std::vector<GameObject*>* _entities;
 	int* _width;
 	int* _height;
 	sf::RenderWindow* _window;
 	int* ballCounter;
 public:
+	std::vector<std::vector<GameObject*>*>* _entities;
 	sf::Vector2i* _mousePos;
 	typedef enum GameArea
 	{
@@ -53,6 +53,7 @@ public:
 	void displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks);
 	//GameManager(bool oui); //
 	void launchGame();
+	void addToEntity(int iLabel,GameObject* o_gameObject);
 	void initBrickFromTxt(float sizeX, float sizeY, float startX, float startY, float gap, sf::RenderWindow* o_window, FileReader* o_fileReader); //
 	 
 };
