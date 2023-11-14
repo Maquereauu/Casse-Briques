@@ -41,9 +41,11 @@ sf::Shape& GameObject::getShape()
 bool GameObject::isColliding(const GameObject& object)
 {
 	if((_posX + _sizeX < object._posX) || (object._posX + object._sizeX < _posX))
+	{
 		return false;
+	}
 
-	if ((_posY + _sizeY < object._posY) || (object._posY + object._sizeY >= _posY))
+	if ((_posY + _sizeY < object._posY) || (object._posY + object._sizeY < _posY))
 		return false;
 	
 	return true;
@@ -52,7 +54,7 @@ bool GameObject::isColliding(const GameObject& object)
 std::string GameObject::checkCollidingSide(const GameObject& object)
 {
 	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	Math::Vector2 centerToCenter((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2)), (object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2)));
+	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2))) / (_sizeX / object._sizeX), ((object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2))) / (_sizeY / object._sizeY));
 	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}
