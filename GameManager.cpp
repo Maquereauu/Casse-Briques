@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "EventManager.h"
 #include "FileReader.h"
 #include "Brick.h"
 #include "Ball.h"

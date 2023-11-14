@@ -6,6 +6,7 @@ class Cannon;
 class Window; 
 class FileReader;
 class Brick;
+
 class GameManager
 {
 private:

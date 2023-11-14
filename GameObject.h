@@ -7,6 +7,7 @@
 #include "Math.h"
 
 class sf::Shape;
+class Collider;
 
 class GameObject
 {
@@ -21,6 +22,7 @@ protected :
 	float _rotate;
 	std::string _geometry;
 	sf::Shape* _graphic;
+	Collider* _collider;
 	float deltaTime;
 	std::vector<GameObject*> _collidingWith;
 
