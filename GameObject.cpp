@@ -83,7 +83,7 @@ std::string GameObject::ballCheckCollidingSide(const GameObject& object)
 	return (centerToCenter.y > 0) ? "top" : "bottom";
 }
 
-void GameObject::collide(const std::vector<GameObject*>& list)
+void GameObject::collideList(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) { //à modif
@@ -115,6 +115,41 @@ void GameObject::collide(const std::vector<GameObject*>& list)
 					{
 						launchCollisionExit(list[i]);
 					}
+				}
+			}
+		}
+	}
+}
+void GameObject::collide(GameObject* object)
+{
+	if (isColliding(*object)) { //à modif
+		std::cout << _collidingWith.size() << std::endl;
+		if (_collidingWith.size() != 0)
+		{
+			for (int j = 0; j < _collidingWith.size(); j++)
+			{
+				if (_collidingWith[j] == object)
+				{
+					launchCollisionStay();
+				}
+				else {
+
+					launchCollisionEnter(object);
+				}
+			}
+		}
+		else {
+			launchCollisionEnter(object);
+		}
+	}
+	else {
+		if (_collidingWith.size() != 0)
+		{
+			for (int j = 0; j < _collidingWith.size(); j++)
+			{
+				if (_collidingWith[j] == object)
+				{
+					launchCollisionExit(object);
 				}
 			}
 		}

@@ -94,12 +94,15 @@ void GameManager::Initialize()
 void GameManager::MthrowBall()
 {
 	Math::Vector2 mouseVector = Math::Vector2::createVector(_o_cannon->getPos(), _mousePos->x, _mousePos->y).getNormalizeVector();
-	if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
+	if(*ballCounter < _o_balls->size())
 	{
-		_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
-		_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
-		*ballCounter += 1;
-		*ballCounter %= _o_balls->size();
+		if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
+		{
+			_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
+			_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
+			*ballCounter += 1;
+			//*ballCounter %= _o_balls->size();
+		}
 	}
 }
 
@@ -142,7 +145,17 @@ void GameManager::launchGame()
 			{
 				if(j != GoLabel::cannon && j != GoLabel::ball)
 				{
-					_entities[GoLabel::ball][i]->collide(_entities[j]);
+					_entities[GoLabel::ball][i]->collideList(_entities[j]);
+				}
+				else if (j == GoLabel::ball)
+				{
+					for(int k = 0;k < _entities[GoLabel::ball].size();k++)
+					{
+						if(k != i)
+						{
+							_entities[GoLabel::ball][i]->collide(_entities[GoLabel::ball][k]);
+						}
+					}
 				}
 			}
 		}
@@ -167,7 +180,7 @@ void GameManager::launchGame()
 
 		for (int i = 0; i < _entities[GoLabel::ball].size(); i++)
 		{
-			if (_entities[GoLabel::ball][i]->getPos().x > *_height)
+			if (_entities[GoLabel::ball][i]->getPos().y > *_height)
 			{
 				_entities[GoLabel::ball].erase(std::remove(_entities[GoLabel::ball].begin(), _entities[GoLabel::ball].end(), _entities[GoLabel::ball][i]), _entities[GoLabel::ball].end());
 			}
