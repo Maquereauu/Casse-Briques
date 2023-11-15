@@ -45,26 +45,15 @@ bool Brick::isDisplayBrick()
 	return false;
 }
 
-void Brick::displayBrick(sf::RenderWindow* o_window)
-{
-	if (isDisplayBrick())
-	{
-		//setColor();
-		o_window->draw(getShape());
-	}
-}
-
 void Brick::minusHp()
 {
 	_hp -= 1;
 	setColor();
 }
 
-//void Brick::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks)
-//{
-//	for (int i = 0; i < listBricks.size(); i++)
-//	{
-//		listBricks[i]->displayBrick(o_window);
-//	}
-//}
+void Brick::onCollisionEnter(GameObject* object)
+{
+	this->minusHp();
+}
+
 

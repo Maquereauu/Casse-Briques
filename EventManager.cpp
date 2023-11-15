@@ -37,9 +37,6 @@ void EventManager::Update(sf::RenderWindow* _window) {
 			{
 				CheckEvent(m_oAreas[i]._eGameArea, event.type);
 			}
-			else if ((GameManager::Get()->_mousePos->x >= m_oAreas[i]._x && GameManager::Get()->_mousePos->x <= m_oAreas[i]._width) && (GameManager::Get()->_mousePos->y >= m_oAreas[i]._y && GameManager::Get()->_mousePos->y <= m_oAreas[i]._height)) {
-				CheckEvent(m_oAreas[i]._eGameArea, event.type);
-			}
 			else {
 				CheckEvent(GameManager::GameArea::Quit, event.type);
 			}
