@@ -153,8 +153,8 @@ void Game()
 
 int main()
 {
-    EventManager::Initialize();
-    GameManager::Initialize();
+    EventManager::Create();
+    GameManager::Create();
     Game();
 
     //integrationTest();

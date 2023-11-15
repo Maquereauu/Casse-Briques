@@ -19,10 +19,6 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	rectangle->setFillColor(sf::Color::Blue);
 	rectangle->setPosition(_posX, _posY);
 	_graphic = rectangle;
-	if (this != nullptr)
-	{
-
-	}
 	GameManager::Get()->addToEntity(iLabel, this);
 }
 
@@ -38,7 +34,6 @@ GameObject::GameObject(float radius, float posX, float posY, float speed, int iL
 	sf::CircleShape* circle = new sf::CircleShape(radius);
 	circle->setFillColor(sf::Color::Red);
 	circle->setPosition(_posX, _posY);
-
 	_graphic = circle;
 	GameManager::Get()->addToEntity(iLabel, this);
 }
@@ -89,6 +84,7 @@ void GameObject::collide(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) { //à modif
+			std::cout << _collidingWith.size() << std::endl;
 			if (_collidingWith.size() != 0)
 			{
 				for (int j = 0; j < _collidingWith.size(); j++)

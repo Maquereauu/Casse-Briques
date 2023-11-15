@@ -50,9 +50,9 @@ public:
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
 
-	virtual void launchCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
-	virtual void launchCollisionStay();
-	virtual void launchCollisionExit(GameObject* object);
+	void launchCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
+	void launchCollisionStay();
+	void launchCollisionExit(GameObject* object);
 
 	virtual void onCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
 	virtual void onCollisionStay();

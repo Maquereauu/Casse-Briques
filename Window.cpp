@@ -10,10 +10,10 @@ Window::Window(int sizeX,int sizeY)
 
 }
 
-void Window::winDraw(std::vector<GameObject*>* list)
+void Window::winDraw(std::vector<GameObject*> list)
 {
-	for (int i = 0; i < list->size(); i++) {
-		_window->draw(list->at(i)->getShape());
+	for (int i = 0; i < list.size(); i++) {
+		_window->draw(list.at(i)->getShape());
 	}
 }
 

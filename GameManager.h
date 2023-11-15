@@ -14,13 +14,16 @@ private:
 	Window* _o_window;
 	Cannon* _o_cannon;
 	static GameManager* pInstance;
-	GameManager();
+	
+	GameManager() {};
+	void Initialize();
+
 	int* _width;
 	int* _height;
 	sf::RenderWindow* _window;
 	int* ballCounter;
 public:
-	std::vector<std::vector<GameObject*>*>* _entities;
+	std::vector<std::vector<GameObject*>> _entities;
 	sf::Vector2i* _mousePos;
 	typedef enum GameArea
 	{
@@ -29,13 +32,8 @@ public:
 		Restart,
 		Quit
 	};
-	static void Initialize() 
-	{
-		if (pInstance != nullptr)
-			return;
 
-		pInstance = new GameManager();
-	}
+	static void Create();
 
 	static GameManager* Get() 
 	{

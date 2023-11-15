@@ -12,7 +12,7 @@ private:
 	sf::RenderWindow* _window;
 public:
 	Window(int sizeX,int sizeY);
-	void winDraw(std::vector<GameObject*>* list);
+	void winDraw(std::vector<GameObject*> list);
 	sf::RenderWindow* getWindow();
 };
 

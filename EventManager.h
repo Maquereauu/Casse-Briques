@@ -41,7 +41,7 @@ public:
 
 	std::map<int, std::map<sf::Event::EventType, event>> _dict;
 	//std::map<sf::Event::EventType, function> _dictmet;
-	static void Initialize()
+	static void Create()
 	{
 		if (pInstance != nullptr)
 			return;
