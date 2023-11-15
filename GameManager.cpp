@@ -97,6 +97,7 @@ void GameManager::MthrowBall()
 	if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
 	{
 		_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
+		_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
 		*ballCounter += 1;
 		*ballCounter %= _o_balls->size();
 	}
@@ -151,10 +152,16 @@ void GameManager::launchGame()
 		{
 			for (int j = 0; j < _entities[i].size(); j++)
 			{
-				_entities[i][j]->moveShape(deltaTime, _entities[i][j]->getVect());
 				if (_entities[i][j]->destroyObject()) {
 					_entities[i].erase(std::remove(_entities[i].begin(), _entities[i].end(), _entities[i][j]), _entities[i].end());
 				}
+			}
+		}
+		for (int i = 0; i < _entities.size(); i++)
+		{
+			for (int j = 0; j < _entities[i].size(); j++)
+			{
+				_entities[i][j]->moveShape(deltaTime, _entities[i][j]->getVect());
 			}
 		}
 
