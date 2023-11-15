@@ -14,7 +14,8 @@ private:
 	Window* _o_window;
 	Cannon* _o_cannon;
 	static GameManager* pInstance;
-	
+	sf::Clock o_timer;
+	float timer;
 	GameManager() {};
 	void Initialize();
 

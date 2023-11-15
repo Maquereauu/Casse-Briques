@@ -76,7 +76,7 @@ std::string GameObject::ballCheckCollidingSide(const GameObject& object)
 	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
 	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
 	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
-	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
+	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}
@@ -86,75 +86,43 @@ std::string GameObject::ballCheckCollidingSide(const GameObject& object)
 void GameObject::collideList(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
-		if (isColliding(*list[i])) { //à modif
-			std::cout << _collidingWith.size() << std::endl;
-			if (_collidingWith.size() != 0)
-			{
-				for (int j = 0; j < _collidingWith.size(); j++)
-				{
-					if (_collidingWith[j] == list[i])
-					{
-						launchCollisionStay();
-					}
-					else {
+		if (isColliding(*list[i])) {
+			//std::cout << _collidingWith.size() << std::endl;
 
-						launchCollisionEnter(list[i]);
-					}
-				}
+			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
+				launchCollisionStay();
 			}
 			else {
 				launchCollisionEnter(list[i]);
+				break;
 			}
 		}
 		else {
-			if (_collidingWith.size() != 0)
-			{
-				for (int j = 0; j < _collidingWith.size(); j++)
-				{
-					if (_collidingWith[j] == list[i])
-					{
-						launchCollisionExit(list[i]);
-					}
-				}
+			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
+				launchCollisionExit(list[i]);
 			}
 		}
 	}
 }
+
 void GameObject::collide(GameObject* object)
 {
-	if (isColliding(*object)) { //à modif
-		std::cout << _collidingWith.size() << std::endl;
-		if (_collidingWith.size() != 0)
-		{
-			for (int j = 0; j < _collidingWith.size(); j++)
-			{
-				if (_collidingWith[j] == object)
-				{
-					launchCollisionStay();
-				}
-				else {
-
-					launchCollisionEnter(object);
-				}
-			}
+	if (isColliding(*object)) {
+		//std::cout << _collidingWith.size() << std::endl;
+		if (std::find(_collidingWith.begin(), _collidingWith.end(), object) != _collidingWith.end()) {
+			launchCollisionStay();
 		}
 		else {
 			launchCollisionEnter(object);
 		}
 	}
 	else {
-		if (_collidingWith.size() != 0)
-		{
-			for (int j = 0; j < _collidingWith.size(); j++)
-			{
-				if (_collidingWith[j] == object)
-				{
-					launchCollisionExit(object);
-				}
-			}
+		if (std::find(_collidingWith.begin(), _collidingWith.end(), object) != _collidingWith.end()) {
+			launchCollisionExit(object);
 		}
 	}
 }
+
 
 void GameObject::bounce(std::string side) 
 {
@@ -238,10 +206,8 @@ bool GameObject::destroyObject()
 void GameObject::launchCollisionEnter(GameObject* object) 
 {
 	_collidingWith.push_back(object);
-	std::cout << checkCollidingSide(*object) << std::endl; //à modif
+	//std::cout << checkCollidingSide(*object) << std::endl; //à modif
 	bounce(checkCollidingSide(*object));
-
-	onCollisionExit(object);
 }
 
 void GameObject::launchCollisionStay()

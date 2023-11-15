@@ -92,16 +92,20 @@ void GameManager::Initialize()
 }
 
 void GameManager::MthrowBall()
-{
+{	
 	Math::Vector2 mouseVector = Math::Vector2::createVector(_o_cannon->getPos(), _mousePos->x, _mousePos->y).getNormalizeVector();
 	if(*ballCounter < _o_balls->size())
 	{
 		if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
 		{
-			_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
-			_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
-			*ballCounter += 1;
-			//*ballCounter %= _o_balls->size();
+			if(timer > 0.5)
+			{
+				_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
+				_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
+				*ballCounter += 1;
+				timer = o_timer.restart().asSeconds();;
+				//*ballCounter %= _o_balls->size();
+			}
 		}
 	}
 }
@@ -136,6 +140,7 @@ void GameManager::launchGame()
 {
 	sf::Clock o_clock;
 	float deltaTime = 0.f;
+	timer = 0.f;
 	while (_window && _window->isOpen())
 	{
 		EventManager::Get()->Update(_window);
@@ -194,6 +199,7 @@ void GameManager::launchGame()
 		_window->display();
 
 		deltaTime = o_clock.restart().asSeconds();
+		timer = o_timer.getElapsedTime().asSeconds();
 	}
 }
 
