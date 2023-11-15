@@ -45,15 +45,6 @@ bool Brick::isDisplayBrick()
 	return false;
 }
 
-void Brick::displayBrick(sf::RenderWindow* o_window)
-{
-	if (isDisplayBrick())
-	{
-		//setColor();
-		o_window->draw(getShape());
-	}
-}
-
 void Brick::minusHp()
 {
 	_hp -= 1;

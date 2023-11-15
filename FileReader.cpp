@@ -32,6 +32,10 @@ void FileReader::readFile(std::string path)
     {
         if (result[j] == *" ")
         {
+            _tabFile[i].push_back(-1);
+        }
+        else if (result[j] == 0)
+        {
             _tabFile[i].push_back(0);
         }
         else if (result[j] == *"&")

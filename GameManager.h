@@ -25,6 +25,8 @@ private:
 public:
 	std::vector<std::vector<GameObject*>> _entities;
 	sf::Vector2i* _mousePos;
+	FileReader* o_file;
+
 	typedef enum GameArea
 	{
 		None,
@@ -46,9 +48,8 @@ public:
 	void MmoveCannon();
 
 
-	std::vector<Brick*> _listBricks; //
+	std::vector<Brick*> _listBricks;
 	float _speed = 90.f; //
-	void displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks);
 	//GameManager(bool oui); //
 	void launchGame();
 	void addToEntity(int iLabel,GameObject* o_gameObject);

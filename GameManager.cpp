@@ -42,15 +42,20 @@ void GameManager::Create()
 
 void GameManager::Initialize()
 {
+	/*
+	* INIT objets
+	*/
 	_width = new int(1920);
 	_height = new int(1080);
 	_o_window = new Window(*_width, *_height);
 	_window = _o_window->getWindow();
 	_mousePos = new sf::Vector2i();
 	_o_balls = new std::vector<Ball*>();
-	/*
-	* INIT objets
-	*/
+	o_file = new FileReader();
+
+	// File Reader
+
+	o_file->readFile("Files/test.txt");
 
 	//Game Area
 	_entities.resize(GoLabel::total);
@@ -67,6 +72,8 @@ void GameManager::Initialize()
 	//_o_balls->push_back(o_ball2);
 	//_o_balls->push_back(o_ball3);
 	ballCounter = new int(0);
+
+	initBrickFromTxt(50.f, 25.f, 20.f, 20.f, 10.f, _window, o_file);
 
 	/*
 	* INIT events
@@ -109,16 +116,6 @@ void GameManager::MmoveCannon()
 	if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 15 && Math::Vector2::leftVector.getAngle(mouseVector) <= 165)
 	{
 		_o_cannon->move(mouseVector);
-	}
-}
-
-
-
-void GameManager::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks)
-{
-	for (int i = 0; i < listBricks.size(); i++)
-	{
-		listBricks[i]->displayBrick(o_window);
 	}
 }
 
@@ -177,8 +174,15 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 	{
 		for (int j = 0; j < o_fileReader->getFileWidth(); j++)
 		{
-			_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
-			x += sizeX + gap;
+			if (tabFile[i][j] != -1)
+			{
+				_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+				x += sizeX + gap;
+			}
+			else
+			{
+				x += gap;
+			}
 		}
 		x = startX;
 		y += sizeY + gap;
