@@ -36,13 +36,12 @@ int Brick::getHp()
 	return _hp;
 }
 
-bool Brick::isDisplayBrick() 
+void Brick::isDisplayBrick() 
 {
 	if (_hp != 0)
 	{
-		return true;
+		_isDestroyed = true;
 	}
-	return false;
 }
 
 void Brick::minusHp()
@@ -54,6 +53,7 @@ void Brick::minusHp()
 void Brick::onCollisionEnter(GameObject* object)
 {
 	this->minusHp();
+	isDisplayBrick();
 }
 
 

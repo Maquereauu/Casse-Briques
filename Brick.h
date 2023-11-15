@@ -14,6 +14,6 @@ public:
 	void setColor();
 	int getHp();
 	void minusHp();
-	bool isDisplayBrick();
+	void isDisplayBrick();
 	void onCollisionEnter(GameObject* object) override;
 };
