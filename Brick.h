@@ -15,6 +15,5 @@ public:
 	int getHp();
 	void minusHp();
 	bool isDisplayBrick();
-	//void displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks);
-
+	void onCollisionEnter(GameObject* object) override;
 };

@@ -51,11 +51,9 @@ void Brick::minusHp()
 	setColor();
 }
 
-//void Brick::displayBricks(sf::RenderWindow* o_window, std::vector<Brick*> listBricks)
-//{
-//	for (int i = 0; i < listBricks.size(); i++)
-//	{
-//		listBricks[i]->displayBrick(o_window);
-//	}
-//}
+void Brick::onCollisionEnter(GameObject* object)
+{
+	this->minusHp();
+}
+
 
