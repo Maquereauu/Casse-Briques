@@ -56,22 +56,26 @@ void GameManager::Initialize()
 	_entities.resize(GoLabel::total);
 
 	GameObject* o_leftSide = new GameObject(*_width / 4, *_height, 0.f, 0.f, 0.f, GoLabel::border);
-	GameObject* o_rigthSide = new GameObject(*_width / 4, *_height, (*_width / 4) * 3, 0.f, 0.f, GoLabel::border);
-	GameObject* o_top = new GameObject((*_width / 4) * 2, *_height * 0.2, (*_width / 4), 0.f, 0.f, GoLabel::border);
+	GameObject* o_rigthSide = new GameObject(*_width / 4 ,*_height, (*_width / 4) * 3, 0.f, 0.f, GoLabel::border);
+	GameObject* o_top = new GameObject((*_width / 4) * 2, *_height * 0.1, (*_width / 4), 0.f, 0.f, GoLabel::border);
 
-	_o_cannon = new Cannon(50.f, 100.f, *_width / 2, *_height * 0.8, 90.f);
+	_o_cannon = new Cannon();
 	Ball* o_ball1 = new Ball();
-	//Ball* o_ball2 = new Ball();
-	//Ball* o_ball3 = new Ball();
+	Ball* o_ball2 = new Ball();
+	Ball* o_ball3 = new Ball();
+	Ball* o_ball4 = new Ball();
+	Ball* o_ball5 = new Ball();
 	_o_balls->push_back(o_ball1);
-	//_o_balls->push_back(o_ball2);
-	//_o_balls->push_back(o_ball3);
+	_o_balls->push_back(o_ball2);
+	_o_balls->push_back(o_ball3);
+	_o_balls->push_back(o_ball4);
+	_o_balls->push_back(o_ball5);
 	ballCounter = new int(0);
 
 	/*
 	* INIT events
 	*/
-	EventManager::Get()->AddArea(*_width / 4.f, *_height * 0.2, (*_width / 4.f) * 3, *_height * 0.8, GameArea::Game);
+	EventManager::Get()->AddArea(*_width / 4.f, *_height * 0.1, (*_width / 4.f) * 3, *_height * 0.9, GameArea::Game);
 	EventManager::Get()->AddArea(0, 0, 100, 100, GameArea::Restart);
 
 	EventManager::Get()->AddEvent(GameArea::Game, sf::Event::EventType::MouseButtonPressed, &throwBall);
@@ -151,9 +155,19 @@ void GameManager::launchGame()
 			for (int j = 0; j < _entities[i].size(); j++)
 			{
 				_entities[i][j]->moveShape(deltaTime, _entities[i][j]->getVect());
+				if (_entities[i][j]->destroyObject()) {
+					_entities[i].erase(std::remove(_entities[i].begin(), _entities[i].end(), _entities[i][j]), _entities[i].end());
+				}
 			}
 		}
 
+		for (int i = 0; i < _entities[GoLabel::ball].size(); i++)
+		{
+			if (_entities[GoLabel::ball][i]->getPos().x > *_height)
+			{
+				_entities[GoLabel::ball].erase(std::remove(_entities[GoLabel::ball].begin(), _entities[GoLabel::ball].end(), _entities[GoLabel::ball][i]), _entities[GoLabel::ball].end());
+			}
+		}
 
 		_window->clear();
 		for (int i = 0; i < GoLabel::total; i++)
@@ -188,5 +202,8 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 
 void GameManager::addToEntity(int iLabel, GameObject* o_gameObject)
 {
+	if (iLabel == -1)
+		return;
+
 	_entities[iLabel].push_back(o_gameObject);
 }

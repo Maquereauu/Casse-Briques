@@ -18,11 +18,11 @@ private:
 	GameManager() {};
 	void Initialize();
 
-	int* _width;
-	int* _height;
 	sf::RenderWindow* _window;
 	int* ballCounter;
 public:
+	int* _width;
+	int* _height;
 	std::vector<std::vector<GameObject*>> _entities;
 	sf::Vector2i* _mousePos;
 	typedef enum GameArea

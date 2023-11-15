@@ -13,6 +13,7 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_posX = posX;
 	_posY = posY;
 	_speed = speed;
+	_isDestroyed = false;
 	_collider = new AABBCollider(_posX, _posY, _sizeX, _sizeY);
 
 	sf::RectangleShape* rectangle = new sf::RectangleShape(sf::Vector2f(_sizeX, _sizeY));
@@ -29,12 +30,14 @@ GameObject::GameObject(float radius, float posX, float posY, float speed, int iL
 	_posX = posX;
 	_posY = posY;
 	_speed = speed;
+	_isDestroyed = false;
 	_collider = new CircleCollider(_posX, _posY, _sizeX, _sizeY);
 
 	sf::CircleShape* circle = new sf::CircleShape(radius);
 	circle->setFillColor(sf::Color::Red);
 	circle->setPosition(_posX, _posY);
 	_graphic = circle;
+
 	GameManager::Get()->addToEntity(iLabel, this);
 }
 
@@ -190,6 +193,10 @@ void GameObject::setPos(float x, float y) {
 	_posY = y;
 }
 
+bool GameObject::destroyObject()
+{
+	return _isDestroyed;
+}
 
 
 

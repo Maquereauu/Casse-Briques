@@ -25,6 +25,7 @@ protected :
 	Collider* _collider;
 	float deltaTime;
 	std::vector<GameObject*> _collidingWith;
+	bool _isDestroyed;
 
 protected:
 	Math::Vector2 _vector;
@@ -49,6 +50,7 @@ public:
 	void setPos(float x, float y);
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
+	bool destroyObject();
 
 	void launchCollisionEnter(GameObject* object);  // virtual permet l'override pour les enfants de la classe
 	void launchCollisionStay();
