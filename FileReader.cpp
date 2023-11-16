@@ -13,7 +13,7 @@ void FileReader::readFile(std::string path)
 
     std::fstream newfile;
     std::string result = "";
-    _tabFile.resize(5);
+    
 
     newfile.open(path, std::ios::in); //open a file to perform read operation using file object
     if (newfile.is_open()) { //checking whether the file is open
@@ -26,7 +26,9 @@ void FileReader::readFile(std::string path)
     }
     newfile.close(); //close the file object.
 
+    _tabFile.resize(_sizeHeight);
     _sizeWidth -= 1;
+
     /* incrémentation du tableau à parti des valeurs présentes dans le fichier txt */
     while ( i < _sizeHeight)
     {

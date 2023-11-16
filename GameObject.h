@@ -36,7 +36,7 @@ public:
 	sf::Shape& getShape();
 	void moveShape(float deltaTime, const Math::Vector2& direction);
 	void rotateShape(float rotateDegree);
-	void setOrigin(float fRatioxX, float fRatioY);
+	void setOrigin(float fRatioX, float fRatioY);
 	void setOriginCenter();
 	void setOriginPointOnBase();
 
@@ -47,7 +47,7 @@ public:
 	//std::string ballCheckCollidingSide(const GameObject& object);
 
 	void bounce(std::string side);
-	Math::Vector2 getPos();
+	Math::Vector2 getPos(float fRatioX = 0, float fRatioY = 0);
 	void setPos(float x, float y);
 	void setVector(float x, float y);
 	const Math::Vector2 getVect();
