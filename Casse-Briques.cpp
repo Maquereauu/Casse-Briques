@@ -147,10 +147,10 @@ int main()
 {
     EventManager::Create();
     GameManager::Create();
-    //Game();
+    Game();
 
     //integrationTest();
-    integrationGame();
+    //integrationGame();
     //integrationFile();
 
 

@@ -56,10 +56,6 @@ void GameManager::Initialize()
 	_o_balls = new std::vector<Ball*>();
 	o_file = new FileReader();
 
-	// Font
-		
-	_font.loadFromFile("Platinum Sign Over.ttf");
-
 	// File Reader
 
 	o_file->readFile("Files/test.txt");
