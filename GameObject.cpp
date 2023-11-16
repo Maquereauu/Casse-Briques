@@ -160,10 +160,10 @@ void GameObject::rotateShape(float rotateDegree)
 }
 
 
-void GameObject::setOrigin(float fRatioxX, float fRatioY) 
+void GameObject::setOrigin(float fRatioX, float fRatioY) 
 {
 
-	_graphic->setOrigin(_sizeX * fRatioxX, _sizeY * fRatioY);
+	_graphic->setOrigin(_sizeX * fRatioX, _sizeY * fRatioY);
 }
 
 void GameObject::setOriginCenter()
@@ -175,9 +175,9 @@ void GameObject::setOriginPointOnBase()
 {
 	setOrigin(1 / 2.f, 3 / 4.f);
 }
-Math::Vector2 GameObject::getPos()
+Math::Vector2 GameObject::getPos(float fRatioX, float fRatioY)
 {
-	return Math::Vector2::Vector2(_posX, _posY);
+	return Math::Vector2::Vector2(_posX + (_sizeX * fRatioX), _posY + (_sizeY * fRatioY));
 }
 
 void GameObject::setVector(float x, float y)
