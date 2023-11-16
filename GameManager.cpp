@@ -123,7 +123,22 @@ void GameManager::MthrowBall()
 
 void GameManager::Mretry()
 {
-	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
+	// retire les balles en vie
+	for (int i = 0; _entities[GoLabel::ball].size(); i++)
+	{
+		_entities[GoLabel::ball].pop_back();
+	}
+	// retire les bricks en vie
+	for (int i = 0; _entities[GoLabel::brick].size(); i++)
+	{
+		_entities[GoLabel::brick].pop_back();
+	}
+	// ajoute les nouvelles bricks pour être en vie
+	for (int i = 0; _listBricks.size(); i++)
+	{
+		addToEntity(GoLabel::brick, _listBricks[i]);
+	}
+
 	launchGame();
 }
 
