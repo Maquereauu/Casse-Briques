@@ -77,7 +77,9 @@ void GameManager::Initialize()
 	_o_balls->push_back(o_ball5);
 	ballCounter = new int(0);
 
-	initBrickFromTxt(50.f, 25.f, *_width / 4 + 20.f, *_height * 0.1 + 20.f, 10.f, _window, o_file);
+	//(*_width / 4) * 3
+
+	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 20.f, 10.f, _window, o_file);
 
 	/*
 	* INIT events
