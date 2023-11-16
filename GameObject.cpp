@@ -12,7 +12,6 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_sizeY = sizeY;
 	_posX = posX;
 	_posY = posY;
-	_speed = speed;
 	_isDestroyed = false;
 	_collider = new AABBCollider(_posX, _posY, _sizeX, _sizeY);
 
@@ -71,55 +70,63 @@ std::string GameObject::checkCollidingSide(const GameObject& object)
 }
 
 
-std::string GameObject::ballCheckCollidingSide(const GameObject& object)
-{
-	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
-	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
-	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-		return (centerToCenter.x > 0) ? "left" : "right";
-	}
-	return (centerToCenter.y > 0) ? "top" : "bottom";
-}
+//std::string GameObject::ballCheckCollidingSide(const GameObject& object)
+//{
+//	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
+//	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
+//	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
+//	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
+//	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+//		return (centerToCenter.x > 0) ? "left" : "right";
+//	}
+//	return (centerToCenter.y > 0) ? "top" : "bottom";
+//}
 
-void GameObject::collide(const std::vector<GameObject*>& list)
+void GameObject::collideList(const std::vector<GameObject*>& list)
 {
 	for (int i = 0; i < list.size(); i++) {
-		if (isColliding(*list[i])) { //à modif
-			std::cout << _collidingWith.size() << std::endl;
-			if (_collidingWith.size() != 0)
-			{
-				for (int j = 0; j < _collidingWith.size(); j++)
-				{
-					if (_collidingWith[j] == list[i])
-					{
-						launchCollisionStay();
-					}
-					else {
-
-						launchCollisionEnter(list[i]);
-					}
-				}
+		if (isColliding(*list[i])) {
+			//std::cout << _collidingWith.size() << std::endl;
+			std::cout << checkCollidingSide(*list[i]) << std::endl;
+			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
+				launchCollisionStay();
+				list[i]->launchCollisionStay();
 			}
 			else {
 				launchCollisionEnter(list[i]);
+				list[i]->launchCollisionEnter(this);
 			}
 		}
 		else {
-			if (_collidingWith.size() != 0)
-			{
-				for (int j = 0; j < _collidingWith.size(); j++)
-				{
-					if (_collidingWith[j] == list[i])
-					{
-						launchCollisionExit(list[i]);
-					}
-				}
+			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
+				launchCollisionExit(list[i]);
+				list[i]->launchCollisionExit(this);
 			}
 		}
 	}
 }
+
+void GameObject::collide(GameObject* object)
+{
+	if (isColliding(*object)) {
+		//std::cout << _collidingWith.size() << std::endl;
+		if (std::find(_collidingWith.begin(), _collidingWith.end(), object) != _collidingWith.end()) {
+			launchCollisionStay();
+			object->launchCollisionStay();
+		}
+		else {
+			launchCollisionEnter(object);
+			object->launchCollisionEnter(this);
+		}
+	}
+	else {
+		if (std::find(_collidingWith.begin(), _collidingWith.end(), object) != _collidingWith.end()) {
+			launchCollisionExit(object);
+			object->launchCollisionExit(this);
+		}
+	}
+}
+
 
 void GameObject::bounce(std::string side) 
 {
@@ -157,10 +164,10 @@ void GameObject::rotateShape(float rotateDegree)
 }
 
 
-void GameObject::setOrigin(float fRatioxX, float fRatioY) 
+void GameObject::setOrigin(float fRatioX, float fRatioY) 
 {
 
-	_graphic->setOrigin(_sizeX * fRatioxX, _sizeY * fRatioY);
+	_graphic->setOrigin(_sizeX * fRatioX, _sizeY * fRatioY);
 }
 
 void GameObject::setOriginCenter()
@@ -172,9 +179,9 @@ void GameObject::setOriginPointOnBase()
 {
 	setOrigin(1 / 2.f, 3 / 4.f);
 }
-Math::Vector2 GameObject::getPos()
+Math::Vector2 GameObject::getPos(float fRatioX, float fRatioY)
 {
-	return Math::Vector2::Vector2(_posX, _posY);
+	return Math::Vector2::Vector2(_posX + (_sizeX * fRatioX), _posY + (_sizeY * fRatioY));
 }
 
 void GameObject::setVector(float x, float y)
@@ -203,10 +210,8 @@ bool GameObject::destroyObject()
 void GameObject::launchCollisionEnter(GameObject* object) 
 {
 	_collidingWith.push_back(object);
-	std::cout << checkCollidingSide(*object) << std::endl; //à modif
-	bounce(checkCollidingSide(*object));
-
-	onCollisionExit(object);
+	//std::cout << checkCollidingSide(*object) << std::endl; //à modif
+	onCollisionEnter(object);
 }
 
 void GameObject::launchCollisionStay()

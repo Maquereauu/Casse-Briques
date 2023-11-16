@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+#include <string>
+
 #include "EventManager.h"
 #include "FileReader.h"
 #include "Brick.h"
@@ -8,6 +10,7 @@
 #include "Window.h"
 #include "EventManager.h"
 #include "GameObjectEnum.h"
+
 GameManager* GameManager::pInstance = nullptr;
 
 void throwBall()
@@ -77,9 +80,7 @@ void GameManager::Initialize()
 	_o_balls->push_back(o_ball5);
 	ballCounter = new int(0);
 
-	//(*_width / 4) * 3
-
-	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 20.f, 10.f, _window, o_file);
+	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
 
 	/*
 	* INIT events
@@ -96,20 +97,37 @@ void GameManager::Initialize()
 void GameManager::MthrowBall()
 {
 	Math::Vector2 mouseVector = Math::Vector2::createVector(_o_cannon->getPos(), _mousePos->x, _mousePos->y).getNormalizeVector();
+
 	if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
 	{
-		_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
-		_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
-		*ballCounter += 1;
-		*ballCounter %= _o_balls->size();
+		if (timer > 0.3)
+		{
+			//_entities[GoLabel::ball].find()
+			for (int i = 0; i < _o_balls->size(); i++)
+			{
+				if (std::find(_entities[GoLabel::ball].begin(), _entities[GoLabel::ball].end(), _o_balls->at(i)) == _entities[GoLabel::ball].end())
+				{
+					_o_balls->at(i)->_isDestroyed = false;
+					_o_balls->at(i)->_side = "";
+					_entities[GoLabel::ball].push_back(_o_balls->at(i));
+					_o_cannon->fire(mouseVector, _o_balls->at(i));
+					timer = o_timer.restart().asSeconds();;
+					break;
+				}
+			}
+		}
 	}
 }
 
 void GameManager::Mretry()
 {
-	/*
+	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
+	launchGame();
+}
 
-	*/
+bool GameManager::Mwin()
+{
+	return _entities[GoLabel::brick].size() == 0 ? true : false;
 }
 
 void GameManager::Mquit()
@@ -126,25 +144,43 @@ void GameManager::MmoveCannon()
 	}
 }
 
-//GameManager::GameManager(bool oui)
-//{
-//
-//}
-
 void GameManager::launchGame() 
 {
 	sf::Clock o_clock;
 	float deltaTime = 0.f;
+	timer = 0.f;
+
 	while (_window && _window->isOpen())
 	{
+		if (Mwin())
+		{
+			// Create a text
+			sf::Text text("You Win", _font);
+			text.setCharacterSize(30);
+
+
+			EventManager::Get()->CheckEvent(GameArea::Restart, sf::Event::EventType::MouseButtonPressed);
+		}
+
 		EventManager::Get()->Update(_window);
+
 		for (int i = 0; i < _entities[GoLabel::ball].size(); i++)
 		{
 			for (int j = 0; j < _entities.size(); j++)
 			{
 				if(j != GoLabel::cannon && j != GoLabel::ball)
 				{
-					_entities[GoLabel::ball][i]->collide(_entities[j]);
+					_entities[GoLabel::ball][i]->collideList(_entities[j]);
+				}
+				else if (j == GoLabel::ball)
+				{
+					for(int k = 0;k < _entities[GoLabel::ball].size();k++)
+					{
+						if(k != i)
+						{
+							_entities[GoLabel::ball][i]->collide(_entities[GoLabel::ball][k]);
+						}
+					}
 				}
 			}
 		}
@@ -169,7 +205,7 @@ void GameManager::launchGame()
 
 		for (int i = 0; i < _entities[GoLabel::ball].size(); i++)
 		{
-			if (_entities[GoLabel::ball][i]->getPos().x > *_height)
+			if (_entities[GoLabel::ball][i]->getPos().y > *_height)
 			{
 				_entities[GoLabel::ball].erase(std::remove(_entities[GoLabel::ball].begin(), _entities[GoLabel::ball].end(), _entities[GoLabel::ball][i]), _entities[GoLabel::ball].end());
 			}
@@ -183,6 +219,7 @@ void GameManager::launchGame()
 		_window->display();
 
 		deltaTime = o_clock.restart().asSeconds();
+		timer = o_timer.getElapsedTime().asSeconds();
 	}
 }
 
@@ -190,8 +227,30 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 {
 	std::vector<std::vector<int>> tabFile = o_fileReader->getFile();
 
-	float x = startX;
+	float width = 0.f;
+
+	for (int j = 0; j < o_fileReader->getFileWidth(); j++)
+	{
+		if (tabFile[0][j] != -1)
+		{
+			width += sizeX + gap;
+		}
+		else
+		{
+			width += gap;
+		}
+	}
+
+	/*if ((int)width > *_width / 2)
+	{
+		std::cout << "ERROR, your file for this level is too big" << std::endl;
+		return; 
+	}
+
+	float posX = 1920 / 2 - width / 2;
+	float x = posX;
 	float y = startY;
+
 
 	for (int i = 0; i < o_fileReader->getFileHeight(); i++)
 	{
@@ -199,7 +258,10 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		{
 			if (tabFile[i][j] != -1)
 			{
-				_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+				if (tabFile[i][j] != 0)
+				{
+					_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+				}
 				x += sizeX + gap;
 			}
 			else
@@ -207,9 +269,11 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 				x += gap;
 			}
 		}
-		x = startX;
+		x = posX;
 		y += sizeY + gap;
-	}
+	}*/
+
+	_listBricks.push_back(new Brick(sizeX, sizeY, 500, 500, _speed, tabFile[1][1]));
 
 }
 

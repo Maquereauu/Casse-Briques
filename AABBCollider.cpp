@@ -17,7 +17,7 @@ bool AABBCollider::isColliding(const AABBCollider& o_AABBCollider)
 		return false;
 	}
 	
-	std::cout << "collide AABB to AABB" << std::endl;
+	//std::cout << "collide AABB to AABB" << std::endl;
 	return true;
 }
 
@@ -34,7 +34,7 @@ bool AABBCollider::isColliding(const CircleCollider& o_circleCollider)
 		return false;
 	}
 
-	std::cout << "collide AABB to Circle" << std::endl;
+	//std::cout << "collide AABB to Circle" << std::endl;
 	return true;
 }
 
@@ -42,7 +42,7 @@ std::string AABBCollider::checkCollidingSide(const AABBCollider& o_AABBCollider)
 {
 	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
 	Math::Vector2 centerToCenter(((o_AABBCollider._posX + (o_AABBCollider._sizeX / 2)) - (_posX + (_sizeX / 2))) * (_sizeX / o_AABBCollider._sizeX), ((o_AABBCollider._posY + (o_AABBCollider._sizeY / 2)) - (_posY + (_sizeY / 2))) * (_sizeY / o_AABBCollider._sizeY));
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+	if (std::abs(centerToCenter.x) >= std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}
 	return (centerToCenter.y > 0) ? "top" : "bottom";
@@ -54,7 +54,7 @@ std::string AABBCollider::checkCollidingSide(const CircleCollider& o_circleColli
 	Math::Vector2 centerToCenter((((_posX + (_sizeX / 2)) - o_circleCollider._posX)) * (_sizeX / o_circleCollider._sizeX), (((_posY + (_sizeY / 2)) - o_circleCollider._posY)) * (_sizeY / o_circleCollider._sizeY));
 	//std::cout << (_posY + _sizeY / 2) << "/" << o_circleCollider._posY << "/" << o_circleCollider._sizeX << std::endl;
 	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+	if (std::abs(centerToCenter.x) >= std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}
 	return (centerToCenter.y > 0) ? "top" : "bottom";
