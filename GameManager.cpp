@@ -77,7 +77,7 @@ void GameManager::Initialize()
 	_o_balls->push_back(o_ball5);
 	ballCounter = new int(0);
 
-	initBrickFromTxt(50.f, 25.f, *_width / 4 + 20.f, *_height * 0.1 + 20.f, 10.f, _window, o_file);
+	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
 
 	/*
 	* INIT events
@@ -181,8 +181,30 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 {
 	std::vector<std::vector<int>> tabFile = o_fileReader->getFile();
 
-	float x = startX;
+	float width = 0.f;
+
+	for (int j = 0; j < o_fileReader->getFileWidth(); j++)
+	{
+		if (tabFile[0][j] != -1)
+		{
+			width += sizeX + gap;
+		}
+		else
+		{
+			width += gap;
+		}
+	}
+
+	if ((int) width > *_width / 2)
+	{
+		std::cout << "ERROR, your file for this level is too big" << std::endl;
+		return; 
+	}
+
+	float posX = 1920 / 2 - width / 2;
+	float x = posX;
 	float y = startY;
+
 
 	for (int i = 0; i < o_fileReader->getFileHeight(); i++)
 	{
@@ -198,7 +220,7 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 				x += gap;
 			}
 		}
-		x = startX;
+		x = posX;
 		y += sizeY + gap;
 	}
 
