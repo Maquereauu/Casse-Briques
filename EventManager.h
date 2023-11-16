@@ -35,12 +35,13 @@ class EventManager
 private:
 	static EventManager* pInstance;
 	EventManager();
+
 public:
 
 	std::vector<Area> m_oAreas;
-
 	std::map<int, std::map<sf::Event::EventType, event>> _dict;
 	//std::map<sf::Event::EventType, function> _dictmet;
+
 	static void Create()
 	{
 		if (pInstance != nullptr)

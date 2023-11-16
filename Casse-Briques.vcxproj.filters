@@ -146,4 +146,9 @@
       <Filter>Fichiers de ressources\Files</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="win.txt">
+      <Filter>Fichiers de ressources\Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

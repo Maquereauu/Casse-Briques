@@ -55,9 +55,12 @@ void GameManager::Initialize()
 	_mousePos = new sf::Vector2i();
 	_o_balls = new std::vector<Ball*>();
 	o_file = new FileReader();
+	o_winFile = new FileReader();
+
 	// File Reader
 
 	o_file->readFile("Files/test.txt");
+	o_winFile->readFile("Files/win.txt");
 
 	//Game Area
 	_entities.resize(GoLabel::total);
@@ -121,7 +124,22 @@ void GameManager::MthrowBall()
 
 void GameManager::Mretry()
 {
-	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
+	// retire les balles en vie
+	for (int i = 0; _entities[GoLabel::ball].size(); i++)
+	{
+		_entities[GoLabel::ball].pop_back();
+	}
+	// retire les bricks en vie
+	for (int i = 0; _entities[GoLabel::brick].size(); i++)
+	{
+		_entities[GoLabel::brick].pop_back();
+	}
+	// ajoute les nouvelles bricks pour être en vie
+	for (int i = 0; _listBricks.size(); i++)
+	{
+		addToEntity(GoLabel::brick, _listBricks[i]);
+	}
+
 	launchGame();
 }
 
@@ -154,10 +172,8 @@ void GameManager::launchGame()
 	{
 		if (Mwin())
 		{
-			// Create a text
-			sf::Text text("You Win", _font);
-			text.setCharacterSize(30);
-
+			// Create a text for victory
+			initBrickFromTxt(25.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_winFile);
 
 			EventManager::Get()->CheckEvent(GameArea::Restart, sf::Event::EventType::MouseButtonPressed);
 		}
@@ -273,7 +289,6 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		y += sizeY + gap;
 	}
 
-	_listBricks.push_back(new Brick(sizeX, sizeY, 500, 500, _speed, tabFile[1][1]));
 
 }
 

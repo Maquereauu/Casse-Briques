@@ -5,12 +5,14 @@
 #include "AABBCollider.h"
 #include "CircleCollider.h"
 
-Collider::Collider(float& posX, float& posY) : _posX(posX), _posY(posY) {};
+Collider::Collider(float& posX, float& posY) : _posX(posX), _posY(posY) {}; // constructor
 
 
 bool Collider::colliding(Collider* o_OtherCollider) 
 {
+	// Check witch method of children if there is collide
 
+	/* verification wich child is used */
 	const AABBCollider* AABB = dynamic_cast<AABBCollider*>(o_OtherCollider);
 	const CircleCollider* circle = dynamic_cast<CircleCollider*>(o_OtherCollider);
 
@@ -31,8 +33,10 @@ bool Collider::colliding(Collider* o_OtherCollider)
 
 std::string Collider::collidingSide(Collider* o_OtherCollider)
 {
+	// Check witch method of children the collide side
 
-	const AABBCollider* AABB = dynamic_cast<AABBCollider*>(o_OtherCollider);
+	/* verification wich child is used */
+	const AABBCollider* AABB = dynamic_cast<AABBCollider*>(o_OtherCollider); 
 	const CircleCollider* circle = dynamic_cast<CircleCollider*>(o_OtherCollider);
 
 	if (AABB != nullptr)

@@ -30,6 +30,7 @@ public:
 	std::vector<std::vector<GameObject*>> _entities;
 	sf::Vector2i* _mousePos;
 	FileReader* o_file;
+	FileReader* o_winFile;
 
 	typedef enum GameArea
 	{

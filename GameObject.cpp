@@ -48,39 +48,13 @@ sf::Shape& GameObject::getShape()
 
 bool GameObject::isColliding(const GameObject& object)
 {
-	//if((_posX + _sizeX < object._posX) || (object._posX + object._sizeX < _posX))
-	//	return false;
-
-	//if ((_posY + _sizeY < object._posY) || (object._posY + object._sizeY >= _posY))
-	//	return false;
-	//
-	//return true;
 	return _collider->colliding(object._collider);
 }
 
 std::string GameObject::checkCollidingSide(const GameObject& object)
 {
 	return _collider->collidingSide(object._collider);
-	///* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	//Math::Vector2 centerToCenter((object._posX + (object._sizeX / 2)) - (_posX + (_sizeX / 2)), (object._posY + (object._sizeY / 2)) - (_posY + (_sizeY / 2)));
-	//if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-	//	return (centerToCenter.x > 0) ? "left" : "right";
-	//}
-	//return (centerToCenter.y > 0) ? "top" : "bottom";
 }
-
-
-//std::string GameObject::ballCheckCollidingSide(const GameObject& object)
-//{
-//	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-//	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
-//	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
-//	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
-//	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-//		return (centerToCenter.x > 0) ? "left" : "right";
-//	}
-//	return (centerToCenter.y > 0) ? "top" : "bottom";
-//}
 
 void GameObject::collideList(const std::vector<GameObject*>& list)
 {
@@ -126,7 +100,6 @@ void GameObject::collide(GameObject* object)
 		}
 	}
 }
-
 
 void GameObject::bounce(std::string side) 
 {
@@ -206,7 +179,6 @@ bool GameObject::destroyObject()
 }
 
 
-
 void GameObject::launchCollisionEnter(GameObject* object) 
 {
 	_collidingWith.push_back(object);
@@ -226,20 +198,9 @@ void GameObject::launchCollisionExit(GameObject* object)
 	onCollisionExit(object);
 }
 
+void GameObject::onCollisionEnter(GameObject* object) {}
 
+void GameObject::onCollisionStay() {}
 
-void GameObject::onCollisionEnter(GameObject* object)
-{
-
-}
-
-void GameObject::onCollisionStay()
-{
-
-}
-
-void GameObject::onCollisionExit(GameObject* object)
-{
-
-}
+void GameObject::onCollisionExit(GameObject* object) {}
 

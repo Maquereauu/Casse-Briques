@@ -27,6 +27,7 @@ void EventManager::CheckEvent(GameManager::GameArea area,sf::Event::EventType ev
 }
 
 void EventManager::Update(sf::RenderWindow* _window) {
+	// update all
 	sf::Event event;
 	*GameManager::Get()->_mousePos = sf::Mouse::getPosition(*_window);
 	while(_window->pollEvent(event))
@@ -42,12 +43,4 @@ void EventManager::Update(sf::RenderWindow* _window) {
 			}
 		}
 	}
-	//GameManager::GameArea eCurrentArea = m_oAreas[0]._eGameArea;
-
-	//while (_window->pollEvent(event))
-	//{
-	//	
-
-	//	CheckEvent(eCurrentArea, event.type);
-	//}
 }

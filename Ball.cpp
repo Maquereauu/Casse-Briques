@@ -1,7 +1,7 @@
 #include "Ball.h"
 
 #include "GameObjectEnum.h"
-Ball::Ball(float radius, float x,float y,float speed) : GameObject(radius, x, y, speed, -1)
+Ball::Ball(float radius, float x,float y,float speed) : GameObject(radius, x, y, speed, -1) // create a ball with is parent
 {
 	//setOriginCenter();
 	setVector(0.f, 0.f);
