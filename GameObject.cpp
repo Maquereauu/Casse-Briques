@@ -12,7 +12,6 @@ GameObject::GameObject(float sizeX, float sizeY, float posX, float posY, float s
 	_sizeY = sizeY;
 	_posX = posX;
 	_posY = posY;
-	_speed = speed;
 	_isDestroyed = false;
 	_collider = new AABBCollider(_posX, _posY, _sizeX, _sizeY);
 
@@ -71,17 +70,17 @@ std::string GameObject::checkCollidingSide(const GameObject& object)
 }
 
 
-std::string GameObject::ballCheckCollidingSide(const GameObject& object)
-{
-	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
-	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
-	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
-	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
-	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
-		return (centerToCenter.x > 0) ? "left" : "right";
-	}
-	return (centerToCenter.y > 0) ? "top" : "bottom";
-}
+//std::string GameObject::ballCheckCollidingSide(const GameObject& object)
+//{
+//	/* Renvoie le coté sur lequel on collide à partir des dimensions du vecteur entre les deux centres des GameObjects */
+//	Math::Vector2 centerToCenter(((object._posX + (object._sizeX / 2)) - _posX), ((object._posY + (object._sizeY / 2)) - _posY));
+//	//std::cout << (object._posY + object._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
+//	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
+//	if (std::abs(centerToCenter.x) > std::abs(centerToCenter.y)) {
+//		return (centerToCenter.x > 0) ? "left" : "right";
+//	}
+//	return (centerToCenter.y > 0) ? "top" : "bottom";
+//}
 
 void GameObject::collideList(const std::vector<GameObject*>& list)
 {
@@ -91,15 +90,18 @@ void GameObject::collideList(const std::vector<GameObject*>& list)
 
 			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
 				launchCollisionStay();
+				list[i]->launchCollisionStay();
 			}
 			else {
 				launchCollisionEnter(list[i]);
+				list[i]->launchCollisionEnter(this);
 				break;
 			}
 		}
 		else {
 			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
 				launchCollisionExit(list[i]);
+				list[i]->launchCollisionExit(this);
 			}
 		}
 	}
@@ -111,14 +113,17 @@ void GameObject::collide(GameObject* object)
 		//std::cout << _collidingWith.size() << std::endl;
 		if (std::find(_collidingWith.begin(), _collidingWith.end(), object) != _collidingWith.end()) {
 			launchCollisionStay();
+			object->launchCollisionStay();
 		}
 		else {
 			launchCollisionEnter(object);
+			object->launchCollisionEnter(this);
 		}
 	}
 	else {
 		if (std::find(_collidingWith.begin(), _collidingWith.end(), object) != _collidingWith.end()) {
 			launchCollisionExit(object);
+			object->launchCollisionExit(this);
 		}
 	}
 }
@@ -207,7 +212,7 @@ void GameObject::launchCollisionEnter(GameObject* object)
 {
 	_collidingWith.push_back(object);
 	//std::cout << checkCollidingSide(*object) << std::endl; //à modif
-	bounce(checkCollidingSide(*object));
+	onCollisionEnter(object);
 }
 
 void GameObject::launchCollisionStay()

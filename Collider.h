@@ -9,6 +9,14 @@ class Shape;
 
 class Collider
 {
+private:
+	typedef enum sides
+	{
+		left,
+		top,
+		right,
+		bottom
+	};
 public:
 	float& _posX;
 	float& _posY;

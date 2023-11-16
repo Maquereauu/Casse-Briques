@@ -38,7 +38,7 @@ int Brick::getHp()
 
 void Brick::isDisplayBrick() 
 {
-	if (_hp != 0)
+	if (_hp == 0)
 	{
 		_isDestroyed = true;
 	}
