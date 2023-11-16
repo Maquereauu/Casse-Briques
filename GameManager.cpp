@@ -92,13 +92,21 @@ void GameManager::Initialize()
 }
 
 void GameManager::MthrowBall()
-{
+{	
 	Math::Vector2 mouseVector = Math::Vector2::createVector(_o_cannon->getPos(), _mousePos->x, _mousePos->y).getNormalizeVector();
-	if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
+	if(*ballCounter < _o_balls->size())
 	{
-		_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
-		*ballCounter += 1;
-		*ballCounter %= _o_balls->size();
+		if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
+		{
+			if(timer > 0.5)
+			{
+				_o_cannon->fire(mouseVector, _o_balls->at(*ballCounter));
+				_entities[GoLabel::ball].push_back(_o_balls->at(*ballCounter));
+				*ballCounter += 1;
+				timer = o_timer.restart().asSeconds();;
+				//*ballCounter %= _o_balls->size();
+			}
+		}
 	}
 }
 
@@ -132,6 +140,7 @@ void GameManager::launchGame()
 {
 	sf::Clock o_clock;
 	float deltaTime = 0.f;
+	timer = 0.f;
 	while (_window && _window->isOpen())
 	{
 		EventManager::Get()->Update(_window);
@@ -141,7 +150,17 @@ void GameManager::launchGame()
 			{
 				if(j != GoLabel::cannon && j != GoLabel::ball)
 				{
-					_entities[GoLabel::ball][i]->collide(_entities[j]);
+					_entities[GoLabel::ball][i]->collideList(_entities[j]);
+				}
+				else if (j == GoLabel::ball)
+				{
+					for(int k = 0;k < _entities[GoLabel::ball].size();k++)
+					{
+						if(k != i)
+						{
+							_entities[GoLabel::ball][i]->collide(_entities[GoLabel::ball][k]);
+						}
+					}
 				}
 			}
 		}
@@ -151,16 +170,22 @@ void GameManager::launchGame()
 		{
 			for (int j = 0; j < _entities[i].size(); j++)
 			{
-				_entities[i][j]->moveShape(deltaTime, _entities[i][j]->getVect());
 				if (_entities[i][j]->destroyObject()) {
 					_entities[i].erase(std::remove(_entities[i].begin(), _entities[i].end(), _entities[i][j]), _entities[i].end());
 				}
 			}
 		}
+		for (int i = 0; i < _entities.size(); i++)
+		{
+			for (int j = 0; j < _entities[i].size(); j++)
+			{
+				_entities[i][j]->moveShape(deltaTime, _entities[i][j]->getVect());
+			}
+		}
 
 		for (int i = 0; i < _entities[GoLabel::ball].size(); i++)
 		{
-			if (_entities[GoLabel::ball][i]->getPos().x > *_height)
+			if (_entities[GoLabel::ball][i]->getPos().y > *_height)
 			{
 				_entities[GoLabel::ball].erase(std::remove(_entities[GoLabel::ball].begin(), _entities[GoLabel::ball].end(), _entities[GoLabel::ball][i]), _entities[GoLabel::ball].end());
 			}
@@ -174,6 +199,7 @@ void GameManager::launchGame()
 		_window->display();
 
 		deltaTime = o_clock.restart().asSeconds();
+		timer = o_timer.getElapsedTime().asSeconds();
 	}
 }
 

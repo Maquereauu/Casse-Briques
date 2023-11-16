@@ -41,7 +41,8 @@ public:
 	void setOriginPointOnBase();
 
 	bool isColliding(const GameObject& object);
-	void collide(const std::vector<GameObject*>& list);
+	void collideList(const std::vector<GameObject*>& list);
+	void collide(GameObject* object);
 	std::string checkCollidingSide(const GameObject& object);
 	std::string ballCheckCollidingSide(const GameObject& object);
 

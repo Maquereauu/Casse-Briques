@@ -17,7 +17,7 @@ bool AABBCollider::isColliding(const AABBCollider& o_AABBCollider)
 		return false;
 	}
 	
-	std::cout << "collide AABB to AABB" << std::endl;
+	//std::cout << "collide AABB to AABB" << std::endl;
 	return true;
 }
 
@@ -34,7 +34,7 @@ bool AABBCollider::isColliding(const CircleCollider& o_circleCollider)
 		return false;
 	}
 
-	std::cout << "collide AABB to Circle" << std::endl;
+	//std::cout << "collide AABB to Circle" << std::endl;
 	return true;
 }
 
