@@ -11,9 +11,10 @@ private:
 
 public:
 	Brick(float sizeX, float sizeY, float posX, float posY, float speed, int hp);
-	void setColor();
+
 	int getHp();
+	void setColor();
 	void minusHp();
-	void isDisplayBrick();
+	void isDisplayBrick(); // verification if the brick have more than 0 hp
 	void onCollisionEnter(GameObject* object) override;
 };

@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameObjectEnum.h"
-Brick::Brick(float sizeX, float sizeY, float posX, float posY, float speed, int hp) : GameObject(sizeX, sizeY, posX, posY, speed,GoLabel::brick)
+Brick::Brick(float sizeX, float sizeY, float posX, float posY, float speed, int hp) : GameObject(sizeX, sizeY, posX, posY, speed,GoLabel::brick) // create a brick with is parent
 {
 	_colors = { {1, sf::Color::Red}, {2, sf::Color::Yellow}, {3, sf::Color::Blue}, {4, sf::Color::Green}, {5, sf::Color::White} };
 	_hp = hp;
@@ -38,6 +38,7 @@ int Brick::getHp()
 
 void Brick::isDisplayBrick() 
 {
+	// verification if the brick have more than 0 hp
 	if (_hp == 0)
 	{
 		_isDestroyed = true;

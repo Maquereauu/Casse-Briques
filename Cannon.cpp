@@ -13,6 +13,7 @@ Cannon::Cannon() : Cannon(50.f, 100.f, 1920 / 2, 1080 * 0.9, 90.f) {};
 
 void Cannon::move(Math::Vector2 mouseVector) 
 {
+    // Rotate the cannon thanks to 2 vectors, mouseVector and Horizontal vector
     _oldAngle = Math::Vector2::leftVector.getAngle(mouseVector) - _angle;
     _angle = Math::Vector2::leftVector.getAngle(mouseVector);
     this->rotateShape(_oldAngle);

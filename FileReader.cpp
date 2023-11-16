@@ -5,9 +5,6 @@ FileReader::FileReader(){};
 
 void FileReader::readFile(std::string path)
 {
-    // 5 colonnes dans les txt
-    // 16 character par colonne dans les txt
-
     int i = 0;
     int j = 0;
 
