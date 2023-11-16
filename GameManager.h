@@ -11,6 +11,7 @@ class Brick;
 class GameManager
 {
 private:
+	bool _win;
 	std::vector<Ball*>* _o_balls;
 	Window* _o_window;
 	Cannon* _o_cannon;
@@ -55,6 +56,7 @@ public:
 
 
 	std::vector<Brick*> _listBricks;
+	std::vector<Brick*> _listBricksWin;
 	float _speed = 90.f; //
 	void launchGame();
 	void addToEntity(int iLabel,GameObject* o_gameObject);

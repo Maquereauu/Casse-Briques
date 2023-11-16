@@ -61,27 +61,30 @@ void GameManager::Initialize()
 
 	o_file->readFile("Files/test.txt");
 	o_winFile->readFile("Files/win.txt");
-
 	//Game Area
 	_entities.resize(GoLabel::total);
-
 	GameObject* o_leftSide = new GameObject(*_width / 4, *_height, 0.f, 0.f, 0.f, GoLabel::border);
 	GameObject* o_rigthSide = new GameObject(*_width / 4 ,*_height, (*_width / 4) * 3, 0.f, 0.f, GoLabel::border);
 	GameObject* o_top = new GameObject((*_width / 4) * 2, *_height * 0.1, (*_width / 4), 0.f, 0.f, GoLabel::border);
+	GameObject* o_restart = new GameObject(100, 100, 0, 0.f, 0.f, GoLabel::border);
 	o_leftSide->getShape().setFillColor(sf::Color::Color(128, 128, 128, 255));
 	o_rigthSide->getShape().setFillColor(sf::Color::Color(128, 128, 128, 255));
 	o_top->getShape().setFillColor(sf::Color::Color(128, 128, 128, 255));
+	o_restart->getShape().setFillColor(sf::Color::Green);
 	_o_cannon = new Cannon();
-	Ball* o_ball1 = new Ball();
-	Ball* o_ball2 = new Ball();
-	Ball* o_ball3 = new Ball();
-	Ball* o_ball4 = new Ball();
-	Ball* o_ball5 = new Ball();
-	_o_balls->push_back(o_ball1);
-	_o_balls->push_back(o_ball2);
-	_o_balls->push_back(o_ball3);
-	_o_balls->push_back(o_ball4);
-	_o_balls->push_back(o_ball5);
+	//Ball* o_ball1 = new Ball();
+	//Ball* o_ball2 = new Ball();
+	//Ball* o_ball3 = new Ball();
+	//Ball* o_ball4 = new Ball();
+	//Ball* o_ball5 = new Ball();
+	//_o_balls->push_back(o_ball1);
+	//_o_balls->push_back(o_ball2);
+	//_o_balls->push_back(o_ball3);
+	//_o_balls->push_back(o_ball4);
+	//_o_balls->push_back(o_ball5);
+	for (int i = 0; i < 5; ++i) {
+		_o_balls->push_back(new Ball());
+	}
 	ballCounter = new int(0);
 
 	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
@@ -125,22 +128,18 @@ void GameManager::MthrowBall()
 void GameManager::Mretry()
 {
 	// retire les balles en vie
-	for (int i = 0; _entities[GoLabel::ball].size(); i++)
-	{
-		_entities[GoLabel::ball].pop_back();
-	}
+	std::vector<GameObject*>().swap(_entities[GoLabel::ball]);
+	//_entities[GoLabel::ball].clear();
 	// retire les bricks en vie
-	for (int i = 0; _entities[GoLabel::brick].size(); i++)
-	{
-		_entities[GoLabel::brick].pop_back();
-	}
+	std::vector<GameObject*>().swap(_entities[GoLabel::brick]);
+	//_entities[GoLabel::brick].clear();
 	// ajoute les nouvelles bricks pour être en vie
-	for (int i = 0; _listBricks.size(); i++)
+	for (int i = 0; i<_listBricks.size(); i++)
 	{
+		_listBricks[i]->_isDestroyed = false;
+		_listBricks[i]->heal();
 		addToEntity(GoLabel::brick, _listBricks[i]);
 	}
-
-	launchGame();
 }
 
 bool GameManager::Mwin()
@@ -164,6 +163,7 @@ void GameManager::MmoveCannon()
 
 void GameManager::launchGame() 
 {
+	_win = false;
 	sf::Clock o_clock;
 	float deltaTime = 0.f;
 	timer = 0.f;
@@ -172,10 +172,9 @@ void GameManager::launchGame()
 	{
 		if (Mwin())
 		{
+			_win = true;
 			// Create a text for victory
 			initBrickFromTxt(25.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_winFile);
-
-			EventManager::Get()->CheckEvent(GameArea::Restart, sf::Event::EventType::MouseButtonPressed);
 		}
 
 		EventManager::Get()->Update(_window);
@@ -276,7 +275,13 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 			{
 				if (tabFile[i][j] != 0)
 				{
-					_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+					if (_win)
+					{
+						_listBricksWin.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+					}else
+					{
+						_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+					}
 				}
 				x += sizeX + gap;
 			}

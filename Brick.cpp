@@ -6,6 +6,7 @@ Brick::Brick(float sizeX, float sizeY, float posX, float posY, float speed, int 
 {
 	_colors = { {1, sf::Color::Red}, {2, sf::Color::Yellow}, {3, sf::Color::Blue}, {4, sf::Color::Green}, {5, sf::Color::White} };
 	_hp = hp;
+	_maxHp = hp;
 	setColor();
 }
 
@@ -57,4 +58,8 @@ void Brick::onCollisionEnter(GameObject* object)
 	isDisplayBrick();
 }
 
-
+void Brick::heal()
+{
+	_hp = _maxHp;
+	setColor();
+}
