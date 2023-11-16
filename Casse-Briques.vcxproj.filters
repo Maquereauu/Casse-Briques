@@ -46,6 +46,9 @@
     <Filter Include="Fichiers d%27en-tête\Miscellaneous">
       <UniqueIdentifier>{2f23663f-68d0-4c60-8ccf-93364144caa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\Font">
+      <UniqueIdentifier>{1ca297f4-c3b8-43db-868a-a4286419b57d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Casse-Briques.cpp">
@@ -139,5 +142,10 @@
     <Text Include="Files\test.txt">
       <Filter>Fichiers de ressources\Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Pixelmania.ttf">
+      <Filter>Fichiers de ressources\Font</Filter>
+    </Font>
   </ItemGroup>
 </Project>

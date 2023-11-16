@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+#include <string>
+
 #include "EventManager.h"
 #include "FileReader.h"
 #include "Brick.h"
@@ -8,6 +10,7 @@
 #include "Window.h"
 #include "EventManager.h"
 #include "GameObjectEnum.h"
+
 GameManager* GameManager::pInstance = nullptr;
 
 void throwBall()
@@ -52,6 +55,10 @@ void GameManager::Initialize()
 	_mousePos = new sf::Vector2i();
 	_o_balls = new std::vector<Ball*>();
 	o_file = new FileReader();
+
+	// Font
+		
+	_font.loadFromFile("Platinum Sign Over.ttf");
 
 	// File Reader
 
@@ -118,9 +125,13 @@ void GameManager::MthrowBall()
 
 void GameManager::Mretry()
 {
-	/*
+	initBrickFromTxt(50.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_file);
+	launchGame();
+}
 
-	*/
+bool GameManager::Mwin()
+{
+	return _entities[GoLabel::brick].size() == 0 ? true : false;
 }
 
 void GameManager::Mquit()
@@ -137,19 +148,26 @@ void GameManager::MmoveCannon()
 	}
 }
 
-//GameManager::GameManager(bool oui)
-//{
-//
-//}
-
 void GameManager::launchGame() 
 {
 	sf::Clock o_clock;
 	float deltaTime = 0.f;
 	timer = 0.f;
+
 	while (_window && _window->isOpen())
 	{
+		if (Mwin())
+		{
+			// Create a text
+			sf::Text text("You Win", _font);
+			text.setCharacterSize(30);
+
+
+			EventManager::Get()->CheckEvent(GameArea::Restart, sf::Event::EventType::MouseButtonPressed);
+		}
+
 		EventManager::Get()->Update(_window);
+
 		for (int i = 0; i < _entities[GoLabel::ball].size(); i++)
 		{
 			for (int j = 0; j < _entities.size(); j++)
@@ -227,7 +245,7 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		}
 	}
 
-	if ((int) width > *_width / 2)
+	/*if ((int)width > *_width / 2)
 	{
 		std::cout << "ERROR, your file for this level is too big" << std::endl;
 		return; 
@@ -257,7 +275,9 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		}
 		x = posX;
 		y += sizeY + gap;
-	}
+	}*/
+
+	_listBricks.push_back(new Brick(sizeX, sizeY, 500, 500, _speed, tabFile[1][1]));
 
 }
 

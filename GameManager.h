@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 class GameObject;
 class Ball; 
 class Cannon; 
@@ -21,6 +22,8 @@ private:
 
 	sf::RenderWindow* _window;
 	int* ballCounter;
+
+	sf::Font _font;
 public:
 	int* _width;
 	int* _height;
@@ -46,12 +49,12 @@ public:
 	void MthrowBall();
 	void Mretry();
 	void Mquit();
+	bool Mwin();
 	void MmoveCannon();
 
 
 	std::vector<Brick*> _listBricks;
 	float _speed = 90.f; //
-	//GameManager(bool oui); //
 	void launchGame();
 	void addToEntity(int iLabel,GameObject* o_gameObject);
 	void initBrickFromTxt(float sizeX, float sizeY, float startX, float startY, float gap, sf::RenderWindow* o_window, FileReader* o_fileReader); //
