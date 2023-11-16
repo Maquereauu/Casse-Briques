@@ -104,7 +104,7 @@ void GameManager::MthrowBall()
 
 	if (mouseVector.y < 0 && Math::Vector2::leftVector.getAngle(mouseVector) >= 10 && Math::Vector2::leftVector.getAngle(mouseVector) <= 170)
 	{
-		if (timer > 0.2)
+		if (timer > 0.3)
 		{
 			//_entities[GoLabel::ball].find()
 			for (int i = 0; i < _o_balls->size(); i++)
