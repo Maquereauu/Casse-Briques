@@ -55,7 +55,6 @@ void GameManager::Initialize()
 	_mousePos = new sf::Vector2i();
 	_o_balls = new std::vector<Ball*>();
 	o_file = new FileReader();
-
 	// File Reader
 
 	o_file->readFile("Files/test.txt");
@@ -66,7 +65,9 @@ void GameManager::Initialize()
 	GameObject* o_leftSide = new GameObject(*_width / 4, *_height, 0.f, 0.f, 0.f, GoLabel::border);
 	GameObject* o_rigthSide = new GameObject(*_width / 4 ,*_height, (*_width / 4) * 3, 0.f, 0.f, GoLabel::border);
 	GameObject* o_top = new GameObject((*_width / 4) * 2, *_height * 0.1, (*_width / 4), 0.f, 0.f, GoLabel::border);
-
+	o_leftSide->getShape().setFillColor(sf::Color::Color(128, 128, 128, 255));
+	o_rigthSide->getShape().setFillColor(sf::Color::Color(128, 128, 128, 255));
+	o_top->getShape().setFillColor(sf::Color::Color(128, 128, 128, 255));
 	_o_cannon = new Cannon();
 	Ball* o_ball1 = new Ball();
 	Ball* o_ball2 = new Ball();
@@ -102,7 +103,6 @@ void GameManager::MthrowBall()
 	{
 		if (timer > 0.3)
 		{
-			//_entities[GoLabel::ball].find()
 			for (int i = 0; i < _o_balls->size(); i++)
 			{
 				if (std::find(_entities[GoLabel::ball].begin(), _entities[GoLabel::ball].end(), _o_balls->at(i)) == _entities[GoLabel::ball].end())
@@ -241,7 +241,7 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		}
 	}
 
-	/*if ((int)width > *_width / 2)
+	if ((int)width > *_width / 2)
 	{
 		std::cout << "ERROR, your file for this level is too big" << std::endl;
 		return; 
@@ -271,7 +271,7 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		}
 		x = posX;
 		y += sizeY + gap;
-	}*/
+	}
 
 	_listBricks.push_back(new Brick(sizeX, sizeY, 500, 500, _speed, tabFile[1][1]));
 

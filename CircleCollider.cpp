@@ -42,9 +42,9 @@ bool CircleCollider::isColliding(const CircleCollider& o_circleCollider)
 
 std::string CircleCollider::checkCollidingSide(const AABBCollider& o_AABBCollider)
 {
-	Math::Vector2 centerToCenter((((o_AABBCollider._posX + (o_AABBCollider._sizeX / 2)) - (_posX + (_sizeX / 2)))) * (_sizeX / o_AABBCollider._sizeX), (((o_AABBCollider._posY + (o_AABBCollider._sizeY / 2)) - (_posY + (_sizeY / 2)))) * (_sizeY / o_AABBCollider._sizeY));
+	Math::Vector2 centerToCenter((((o_AABBCollider._posX + (o_AABBCollider._sizeX / 2)) - (_posX + (_sizeX / 2)))) / ((_sizeX + o_AABBCollider._sizeX) / 2), (((o_AABBCollider._posY + (o_AABBCollider._sizeY / 2)) - (_posY + (_sizeY / 2)))) / ((_sizeY + o_AABBCollider._sizeY) / 2));
 	//std::cout << (o_AABBCollider._posY + o_AABBCollider._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
-	std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
+	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) >= std::abs(centerToCenter.y)) {
 		return (centerToCenter.x > 0) ? "left" : "right";
 	}
@@ -53,7 +53,7 @@ std::string CircleCollider::checkCollidingSide(const AABBCollider& o_AABBCollide
 
 std::string CircleCollider::checkCollidingSide(const CircleCollider& o_circleCollider)
 {
-	Math::Vector2 centerToCenter((((o_circleCollider._posX + (o_circleCollider._sizeX / 2)) - (_posX + (_sizeX / 2)))) * (_sizeX / o_circleCollider._sizeX), (((o_circleCollider._posY + (o_circleCollider._sizeY / 2)) - (_posY + (_sizeY / 2)))) * (_sizeY / o_circleCollider._sizeY));
+	Math::Vector2 centerToCenter((((o_circleCollider._posX + (o_circleCollider._sizeX / 2)) - (_posX + (_sizeX / 2)))) / ((_sizeX + o_circleCollider._sizeX) / 2), (((o_circleCollider._posY + (o_circleCollider._sizeY / 2)) - (_posY + (_sizeY / 2)))) / ((_sizeY + o_circleCollider._sizeY) / 2));
 	//std::cout << (o_AABBCollider._posY + o_AABBCollider._sizeY / 2) << "/" << _posY << "/" << _radius << std::endl;
 	//std::cout << std::abs(centerToCenter.x) << "/" << std::abs(centerToCenter.y) << std::endl;
 	if (std::abs(centerToCenter.x) >= std::abs(centerToCenter.y)) {

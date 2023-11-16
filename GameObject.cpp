@@ -87,7 +87,7 @@ void GameObject::collideList(const std::vector<GameObject*>& list)
 	for (int i = 0; i < list.size(); i++) {
 		if (isColliding(*list[i])) {
 			//std::cout << _collidingWith.size() << std::endl;
-			std::cout << checkCollidingSide(*list[i]) << std::endl;
+			//std::cout << checkCollidingSide(*list[i]) << std::endl;
 			if (std::find(_collidingWith.begin(), _collidingWith.end(), list[i]) != _collidingWith.end()) {
 				launchCollisionStay();
 				list[i]->launchCollisionStay();
