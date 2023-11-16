@@ -137,11 +137,6 @@ void GameManager::MmoveCannon()
 	}
 }
 
-//GameManager::GameManager(bool oui)
-//{
-//
-//}
-
 void GameManager::launchGame() 
 {
 	sf::Clock o_clock;
