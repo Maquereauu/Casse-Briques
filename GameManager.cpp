@@ -244,7 +244,10 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		{
 			if (tabFile[i][j] != -1)
 			{
-				_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+				if (tabFile[i][j] != 0)
+				{
+					_listBricks.push_back(new Brick(sizeX, sizeY, x, y, _speed, tabFile[i][j]));
+				}
 				x += sizeX + gap;
 			}
 			else
