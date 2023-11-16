@@ -55,10 +55,12 @@ void GameManager::Initialize()
 	_mousePos = new sf::Vector2i();
 	_o_balls = new std::vector<Ball*>();
 	o_file = new FileReader();
+	o_winFile = new FileReader();
 
 	// File Reader
 
 	o_file->readFile("Files/test.txt");
+	o_winFile->readFile("Files/win.txt");
 
 	//Game Area
 	_entities.resize(GoLabel::total);
@@ -154,10 +156,8 @@ void GameManager::launchGame()
 	{
 		if (Mwin())
 		{
-			// Create a text
-			sf::Text text("You Win", _font);
-			text.setCharacterSize(30);
-
+			// Create a text for victory
+			initBrickFromTxt(25.f, 25.f, *_width / 4, *_height * 0.1 + 100.f, 10.f, _window, o_winFile);
 
 			EventManager::Get()->CheckEvent(GameArea::Restart, sf::Event::EventType::MouseButtonPressed);
 		}
@@ -241,7 +241,7 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		}
 	}
 
-	/*if ((int)width > *_width / 2)
+	if ((int)width > *_width / 2)
 	{
 		std::cout << "ERROR, your file for this level is too big" << std::endl;
 		return; 
@@ -271,9 +271,8 @@ void GameManager::initBrickFromTxt(float sizeX, float sizeY, float startX, float
 		}
 		x = posX;
 		y += sizeY + gap;
-	}*/
+	}
 
-	_listBricks.push_back(new Brick(sizeX, sizeY, 500, 500, _speed, tabFile[1][1]));
 
 }
 
